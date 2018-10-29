@@ -26,7 +26,8 @@
     "@vue/eslint-config-prettier": "^3.0.0-rc.10",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.5.16",
+    "xeicon": "^2.3.3"
   },
   "description": "Home Meal Sharing Platform",
   "main": ".eslintrc.js",
