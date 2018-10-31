@@ -10,20 +10,27 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "starter",
+      name: "login",
       components: {
         header: Header,
-        default: () => import("./views/Login"),
-        footer: Footer
+        default: () => import("./views/Login")
       }
     },
     {
       path: "/event",
-      name: "event",
+      name: "event-list",
       components: {
         header: Header,
-        default: () => import("./views/events/Info"),
+        default: () => import("./views/events/List"),
         footer: Footer
+      }
+    },
+    {
+      path: "/event/:id",
+      name: "event-info",
+      components: {
+        header: Header,
+        default: () => import("./views/events/Info")
       }
     }
   ]
