@@ -1,8 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Header from "./layout/starter/StarterHeader";
-import Footer from "./layout/starter/StarterFooter";
-import Starter from "./views/Starter.vue";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 
 Vue.use(Router);
 
@@ -14,7 +13,16 @@ export default new Router({
       name: "starter",
       components: {
         header: Header,
-        default: Starter,
+        default: () => import("./views/Login"),
+        footer: Footer
+      }
+    },
+    {
+      path: "/event",
+      name: "event",
+      components: {
+        header: Header,
+        default: () => import("./views/events/Info"),
         footer: Footer
       }
     }
