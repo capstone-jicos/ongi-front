@@ -1,15 +1,7 @@
 <template>
     <div class="profile-page">
-        <section class="section-profile-cover section-shaped my-0">
-            <div class="shape shape-style-1 shape-primary alpha-4">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <section class="section-profile-cover section-shaped my-0"
+                 v-bind:style="{ 'background-image': 'url(' + event.image + ')' }">
         </section>
         <section class="section section-skew">
             <div class="container">
@@ -41,20 +33,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='row'>
-                            <GmapMap class='col mb-5'
-                                     :center="event.location.coordinates"
-                                     :zoom='17'
-                                     style='height:300px;'
-                            >
-                                <GmapMarker
-                                    :position='event.location.coordinates'
-                                    :clickable='true'
-                                    :draggable='true'
-                                    >
-                                </GmapMarker>
-                            </GmapMap>
-                        </div>
+                      <div class="my-3">
+                        <div class="h6">주소 : {{ event.location.name }}</div>
+                        <div>{{ event.location.address }}</div>
+                      </div>
+
+                      <GmapMap class='col mb-5'
+                               :center="event.location.coordinates"
+                               :zoom='17'
+                               style='height:300px;'
+                      >
+                          <GmapMarker
+                              :position='event.location.coordinates'
+                              :clickable='true'
+                              :draggable='true'
+                              >
+                          </GmapMarker>
+                      </GmapMap>
                     </div>
                 </card>
             </div>
@@ -85,11 +80,16 @@ export default {
           "<p>에헤라디야 바람 분다.</p>" +
           "<p>에헤라디야 바람 분다.</p>",
         location: {
+          name: "아주대학교",
+          address: "경기도 수원시 영통구 월드컵로 306",
           coordinates: {
             lat: 37.2828093,
             lng: 127.0441714
           }
         },
+        time: "2018년 10월 19일 오후 6시 30분",
+        fee: 50000,
+        image: "img/theme/img-2-1200x1000.jpg",
         host: {
           id: "1a",
           name: "계성혁",
