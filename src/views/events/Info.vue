@@ -101,6 +101,7 @@ export default {
             lng: 127.0441714
           }
         },
+        // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
         time: "2018년 10월 19일 오후 6시 30분",
         fee: 50000,
         image: "/img/theme/img-2-1200x1000.jpg",
