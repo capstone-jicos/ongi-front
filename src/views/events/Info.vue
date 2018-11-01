@@ -48,7 +48,7 @@
                           <GmapMarker
                               :position='event.location.coordinates'
                               :clickable='true'
-                              :draggable='true'
+                              :draggable='false'
                               >
                           </GmapMarker>
                       </GmapMap>
