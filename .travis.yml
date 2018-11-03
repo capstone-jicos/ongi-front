@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - "lts/*"
 before_deploy:
-  - npm build
+  - npm run build
 deploy:
   provider: s3
   access_key_id: AKIAINIPYUFDQ4TFJUDA
