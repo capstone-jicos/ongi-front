@@ -15,4 +15,4 @@ deploy:
   region: ap-northeast-2
   on:
     repo: capstone-jicos/ongi-front
-    branch: config/travis-ci
+    branch: master
