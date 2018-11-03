@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- lts/10.11.0
+- "lts/*"
 before_deploy:
   - npm build
 deploy:
@@ -13,4 +13,4 @@ deploy:
   acl: ''
   on:
     repo: capstone-jicos/ongi-front
-    branch: master
+    branch: config/travis-ci
