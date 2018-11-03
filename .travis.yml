@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- lts/10.11.0
+before_deploy:
+  - npm build
+deploy:
+  provider: s3
+  access_key_id: AKIAINIPYUFDQ4TFJUDA
+  secret_access_key:
+    secure: rlKnAuZr3iyT4mKUa72abLY5wQsRRezt4XilY8kzOCxRSxcOUg+tko83BvQ6vJ6c0zIg6pmMFNgDtMQyQs5LNFSVWjbTAwIpQ3LncyFxLinjqqntAf09JUGqHawtYxJgMfIB4cqp0r84Gi8bLEhdUPHDap/l028OhAdJaCzhzroJzzP3WWnEAg9c6Z9k1eARrwHMc9uEnhf0w4s2PGwAiYnU9xsAx3K/o0ruvwVxeWv36FAaGEgLb58USSOx7teC9TGDagjSNPsr+hhTbxETiMQ6w+ilnZcEpQm0WAkqAjeT875O6QZKXOe5Gor9TSKCrGoOd5pkQOHvnC6l1DDtOo6S/1zKC+/QIVZJ+tmlwxf8HJBkLtXxvJNT+rVC3sYM9uLnJqOr1ilOnPikivXDD0MCRKwz8R7qfK6fUpZVChoj0wy1j+5+2O16cfiLIucnWnJw/QvIxOG0xJlrj2/tToaMvZbvXat/MJ1R4vDzCUfHN7M/0PiMe2WfIka6tiwRf/bqTnjQhyqIUg9qtODjZCD/Qd7iK+Og6LB7lmRDksr3dtN0GVz6p4EovlN0oi7RT0p6T0Xna+LpCLRqYHYZcrx+zeL/LfodMjLnmaDLMFFUewxjTY48RO7cf9RxaXk4+DCeSCUel3Bk1flROj2esL2qQHB0+n/xcR2X9utimmQ=
+  bucket: www.ongi.tk
+  local-dir: dist
+  acl: ''
+  on:
+    repo: capstone-jicos/ongi-front
+    branch: master
