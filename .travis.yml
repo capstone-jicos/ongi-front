@@ -12,6 +12,7 @@ deploy:
   skip_cleanup: true
   local-dir: dist
   acl: 'public_read'
+  region: ap-northeast-2
   on:
     repo: capstone-jicos/ongi-front
     branch: config/travis-ci
