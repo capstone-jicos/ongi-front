@@ -3,16 +3,18 @@
         <section class="section-profile-cover section-shaped my-0"
                  v-bind:style="{ 'background-image': 'url(' + event.image + ')' }">
         </section>
-        <section class="section section-skew">
+        <section class="section section-skew event-info">
             <div class="container">
                 <card shadow class="card-profile mt--300" no-body>
                     <div class="px-4">
                         <div class="text-center mt-5">
                             <h3>{{ event.title }}</h3>
                             <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>경기도 수원시</div>
-                            <div class="h6 mt-4"><i class="mr-1 xi-time-o"></i>2018년 10월 19일 오후 6시 30분</div>
-                            <div><i class="mr-1 xi-money"></i>50,000원</div>
                         </div>
+                      <div class="mt-4">
+                        <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ event.time }}</div>
+                        <div class="h6 ml-1 row"><i class="mr-1 xi-money"></i> {{ event.feeWithComma }}원</div>
+                      </div>
                         <div class='mt-3 row'>
                             <div class='col-7 float-left'>
                                 <span><i class="xi-flag-o"></i> 호스트: {{ event.host.name }}</span><br/>
@@ -46,17 +48,26 @@
                           <GmapMarker
                               :position='event.location.coordinates'
                               :clickable='true'
-                              :draggable='true'
+                              :draggable='false'
                               >
                           </GmapMarker>
                       </GmapMap>
                     </div>
                 </card>
             </div>
+            <div id="attend" class="row mx-0">
+                <div class="col text-center my-auto">
+                    {{ event.fee }}
+                </div>
+                <div class="col text-center my-auto">
+                    <base-button type="neutral" variant="primary">참가신청</base-button>
+                </div>
+            </div>
         </section>
     </div>
 </template>
 <script>
+// import axios from "axios";
 export default {
   name: "Events",
   computed: {
@@ -67,6 +78,9 @@ export default {
     },
     showStatus() {
       return this.isShort ? "더 보기" : "간략히 보기";
+    },
+    feeWithComma() {
+      return this.event.fee.toLocaleString();
     }
   },
   data() {
@@ -87,18 +101,19 @@ export default {
             lng: 127.0441714
           }
         },
+        // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
         time: "2018년 10월 19일 오후 6시 30분",
         fee: 50000,
-        image: "img/theme/img-2-1200x1000.jpg",
+        image: "/img/theme/img-2-1200x1000.jpg",
         host: {
           id: "1a",
           name: "계성혁",
-          profileImage: "img/theme/team-4-800x800.jpg"
+          profileImage: "/img/theme/team-4-800x800.jpg"
         },
         provider: {
           id: "2a",
           name: "꿉꿉이",
-          profileImage: "img/theme/team-4-800x800.jpg"
+          profileImage: "/img/theme/team-4-800x800.jpg"
         }
       },
       isShort: true
@@ -108,11 +123,41 @@ export default {
     toggleMore() {
       this.isShort = !this.isShort;
     }
+  },
+  created() {
+    // TODO API로 모임 정보 가져와서 붙여주기
+    let eventId = this.$route.params.id;
+    let url = "/api/event/".concat(eventId);
+    // axios.get(url).then((res) => {
+    // this.event = res.data;
+    // });
+    console.log(url);
+    this.$emit("onNavColorChange", "white");
   }
 };
 </script>
-<style>
+<style scoped lang="scss">
 .host-image {
   max-width: 45px;
+}
+
+.event-info {
+  padding-bottom: 6rem;
+}
+
+#attend {
+  width: 100vw;
+  height: 65px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 -15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07) !important;
+  z-index: 100;
+}
+
+button[variant="primary"] {
+  padding-right: 3rem;
+  padding-left: 3rem;
 }
 </style>

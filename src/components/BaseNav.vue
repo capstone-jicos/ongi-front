@@ -16,6 +16,7 @@
             </slot>
             <navbar-toggle-button :toggled="toggled"
                                   :target="contentId"
+                                  :navColor="navColor"
                                   @click.native.stop="toggled = !toggled">
             </navbar-toggle-button>
 
@@ -76,6 +77,11 @@ export default {
       type: Boolean,
       default: false,
       description: "Whether navbar should contain `navbar-expand-lg` class"
+    },
+    navColor: {
+      type: String,
+      default: "white",
+      description: "Color of Main Menu"
     }
   },
   data() {
@@ -93,5 +99,11 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped lang="scss">
+@media (max-device-width: 768px) {
+  .container {
+    padding-right: 0;
+    padding-left: 0.1rem;
+  }
+}
 </style>
