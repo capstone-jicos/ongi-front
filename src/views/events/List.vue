@@ -1,35 +1,48 @@
 <template>
   <section class="section">
     <div class="container">
-      <h3>{{ location }}의 밥모임</h3>
+      <div id="event-list-header">
+        <span class="h5">{{ location }}의 밥모임</span>
+        <div class="float-right">
+          <router-link to="">
+            <i class="xi-maker xi-2x"></i>
+          </router-link>
+          <router-link to="">
+            <i class="xi-tune xi-2x"></i>
+          </router-link>
+        </div>
+      </div>
     </div>
     <div class="container">
-      <card shadow v-for="event in events" :key="event.eventId" class="card-profile" no-body>
-        <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.photo +')' }">
-        </div>
-        <div class="px-2 mb-2">
-          <div class="row event-title-photo">
-            <div class="event-title col-9 mt-2">
-              <strong>{{ event.title }}</strong>
-            </div>
-            <div class="col-3">
-              <img v-lazy="event.host.image" class="rounded-circle"/>
-            </div>
+      <router-link v-for="event in events" :key="event.eventId"
+                   :to="'event/'+event.eventId">
+        <card shadow class="card-profile" no-body>
+          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.photo +')' }">
           </div>
-          <div class="event-time">
-            <i class="xi-time-o"></i> {{ event.date }}
-          </div>
-          <div class="row">
-            <div class="col food-type">
-              <i class="xi-restaurant"></i>
-              <span v-for="type in event.foodType" :key="type" >
+          <div class="px-2 mb-2">
+            <div class="row event-title-photo">
+              <div class="event-title col-9 mt-2">
+                <strong>{{ event.title }}</strong>
+              </div>
+              <div class="col-3">
+                <img v-lazy="event.host.image" class="rounded-circle"/>
+              </div>
+            </div>
+            <div class="event-time">
+              <i class="xi-time-o"></i> {{ event.date }}
+            </div>
+            <div class="row">
+              <div class="col food-type">
+                <i class="xi-restaurant"></i>
+                <span v-for="type in event.foodType" :key="type" >
                       <span>{{ type }} </span>
                     </span>
+              </div>
+              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.attendee }}명</div>
             </div>
-            <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.attendee }}명</div>
           </div>
-        </div>
-      </card>
+        </card>
+      </router-link>
     </div>
   </section>
 </template>
@@ -102,6 +115,7 @@ export default {
     ];
     this.setLocationForEventList("서울시 광진구");
     this.location = this.getLocationForEventList;
+    this.$emit("onNavColorChange", "gray");
   },
   methods: {
     ...mapActions(["setLocationForEventList"])
@@ -117,14 +131,21 @@ img {
   max-height: 50px;
 }
 
-h3 {
-  margin-left: 15px;
-  margin-right: 15px;
-  color: black;
+div.container {
+  a {
+    text-decoration: none;
+    color: #525f7f;
+  }
+}
+
+div#event-list-header {
+  i {
+    color: #68778c;
+  }
 }
 
 div.card.card-profile {
-  margin: 15px;
+  margin: 15px 0;
   font-size: 16px;
 
   div.event-title {

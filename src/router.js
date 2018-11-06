@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Header from "./layout/Header";
-import Footer from "./layout/Footer";
 
 Vue.use(Router);
 
@@ -21,8 +20,7 @@ export default new Router({
       name: "event-list",
       components: {
         header: Header,
-        default: () => import("./views/events/List"),
-        footer: Footer
+        default: () => import("./views/events/List")
       }
     },
     {

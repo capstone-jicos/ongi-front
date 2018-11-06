@@ -132,10 +132,11 @@ export default {
     // this.event = res.data;
     // });
     console.log(url);
+    this.$emit("onNavColorChange", "white");
   }
 };
 </script>
-<style>
+<style scoped lang="scss">
 .host-image {
   max-width: 45px;
 }
