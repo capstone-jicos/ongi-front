@@ -9,6 +9,14 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "main",
+      components: {
+        header: Header,
+        default: () => import("./views/Main")
+      }
+    },
+    {
+      path: "/login",
       name: "login",
       components: {
         header: Header,
