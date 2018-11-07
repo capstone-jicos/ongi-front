@@ -2,7 +2,7 @@
     <section class="section section-shaped section-lg my-0">
         <div class="shape shape-style-1 bg-gradient-default">
             <span></span>
-            <span></span>`
+            <span></span>
             <span></span>
             <span></span>
             <span></span>
@@ -49,6 +49,7 @@
                                 </base-checkbox>
                                 <div class="text-center">
                                     <base-button type="neutral">로그인</base-button>
+                                    <base-button type="neutral">회원가입</base-button>
                                 </div>
                             </form>
                         </template>
