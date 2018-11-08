@@ -18,7 +18,7 @@
                     </router-link>
                 </div>
                 <div class="col text-center my-auto">
-                    <router-link to="/event/create/confirm">
+                    <router-link to="/event/create/SetVenue">
                     <base-button type="neutral" variant="primary">다음</base-button>
                     </router-link>
                 </div>
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: "confirm",
+    name: "middlecheck",
     data(){
         return {
        }
