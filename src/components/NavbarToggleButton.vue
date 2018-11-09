@@ -20,8 +20,8 @@ export default {
       description: "Button target element"
     },
     toggled: {
-      type: String,
-      default: "false",
+      type: Boolean,
+      default: false,
       description: "Whether button is toggled"
     },
     navColor: {
