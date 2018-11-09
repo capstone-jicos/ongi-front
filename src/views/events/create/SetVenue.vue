@@ -2,7 +2,7 @@
     <section class = "section">
         <div class="container pt-lg-md">
             <h2>Host의 장소에서 모임을 여시겠습니까?</h2>
-            <div id="attend" class="row mx-0">
+            <div id="attend" class="row mx-0 my-5">
             <div class="col text-center my-auto">
                 <base-button type="neutral" variant="primary" v-on:click="condition=true">Y</base-button>
             </div>
@@ -10,26 +10,27 @@
                 <base-button type="neutral" variant="primary" v-on:click="condition=false">N</base-button>
             </div>
         </div>
-        <div v-if="condition===true" >
+        <div v-if="condition===true" class="my-5" >
             <h3 mb-2>내 장소</h3>
             <li v-for="venue in myVenues" v-bind:key="venue.id">{{venue.address}}</li>
-            <div id="attend" class="row mx-0">
+            <div id="attend" class="row mx-0 my-5">
             <div class="col text-center my-auto">
                 <router-link to="/event/create/MiddleCheck">
                 <base-button type="neutral" variant="primary">이전</base-button>
                 </router-link>
             </div>
-            <div class="col text-center my-auto">
+            <div class="col text-center my-5">
                 <router-link to="/Confirm">
                 <base-button type="neutral" variant="primary">finish</base-button>
                 </router-link>
             </div>
         </div>
         </div>
-        <div v-else-if="condition===false" >
+        <div v-else-if="condition===false" class="my-5">
             <h3>장소 대여를 도와드릴까요?</h3>
-            <base-button type="neutral" variant="primary" >YES!</base-button>
-            <!-- 버튼 중앙으로 가게 하고시퍼여... -->
+            <div class="text-center mt-5">
+                <base-button type="neutral" variant="primary">YES!</base-button>
+            </div>
         </div>
         </div>
         

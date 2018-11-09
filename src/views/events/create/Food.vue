@@ -1,13 +1,10 @@
 <template>
      <section class = "section">
         <div class="container pt-lg-md">
-            <base-checkbox class="mb-3" v-model="checkboxes.unchecked">
-            <!-- 여기다 foods.name넣었는데 왜 안뜨지,,?뀨 -->
-                한식
+            <base-checkbox class="mb-3" v-model="checkboxes.unchecked" v-for="food in foods" v-bind:key="food.id">
+                {{food.name}}
             </base-checkbox>
-            <base-checkbox class="mb-3" v-model="checkboxes.checked">
-                중식
-            </base-checkbox>      
+            <!-- 한 번에 왜 다 체크가 같이 되는거지,,,? 따로 되어야 하는뎅 -->
         </div>
          <div id="attend" class="row mx-0">
                 <div class="col text-center my-auto">
@@ -16,7 +13,7 @@
                     </router-link>
                 </div>
                 <div class="col text-center my-auto">
-                    <router-link to="/event/create/confirm">
+                    <router-link to="/event/create/MiddleCheck">
                     <base-button type="neutral" variant="primary">다음</base-button>
                     </router-link>
                 </div>
