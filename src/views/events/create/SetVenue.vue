@@ -45,20 +45,13 @@ export default {
     },
     data(){
         return {
-            condition :'',
-             myVenues: [
-            {
-                id:0,
-                address : "경기도 수원시 팔달구 우만동"
-            },
-            {
-                id:1,
-                address : "경기도 성남시 분당구 서현동"
-            }
-        ]
-       }
-    }
-}
+        condition :'',
+        myVenues:[
+        {id:0,
+            address : "경기도 수원시 팔달구 우만동"},
+        {id:1,
+        address : "경기도 성남시 분당구 서현동"}]};}
+};
 </script>
 
 <style>

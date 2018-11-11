@@ -1,7 +1,7 @@
 <template>
      <section class = "section">
         <div class="container pt-lg-md">
-            <base-checkbox class="mb-3" v-model="checkboxes.unchecked" v-for="food in foods" v-bind:key="food.id">
+            <base-checkbox class="mb-3"  v-for="food in foods" v-bind:key="food.id" v-model="food.check">
                 {{food.name}}
             </base-checkbox>
             <!-- 한 번에 왜 다 체크가 같이 되는거지,,,? 따로 되어야 하는뎅 -->
@@ -40,15 +40,18 @@ export default {
         this.foods= [
             {
                 foodId:1,
-                name:"한식"
+                name:"한식",
+                check : false
             },
             {
                 foodId:2,
-                name:"중식"
+                name:"중식",
+                check : false
             },
             {
                 foodId:3,
-                name:"일식"
+                name:"일식",
+                check : false
             }
         ]
     }
