@@ -24,6 +24,14 @@ export default new Router({
       }
     },
     {
+      path: "/event/request",
+      name: "request",
+      components: {
+        header: Header,
+        default: () => import("./views/events/Request")
+      }
+    },
+    {
     path: "/event/create/SetVenue",
     name: "SetVenue",
     components: {
