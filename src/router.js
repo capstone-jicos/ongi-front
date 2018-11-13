@@ -24,14 +24,6 @@ export default new Router({
       }
     },
     {
-      path: "/mypage",
-      name: "mypage",
-      components: {
-        header: Header,
-        default: () => import("./views/myPage/mypage")
-      }
-    },
-    {
       path: "/event/request",
       name: "request",
       components: {
