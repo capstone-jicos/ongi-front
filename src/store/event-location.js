@@ -1,9 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
     eventList: {
       location: undefined
@@ -26,4 +22,4 @@ export default new Vuex.Store({
       commit("setLocationForEventList", payload);
     }
   }
-});
+};

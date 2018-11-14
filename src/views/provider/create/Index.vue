@@ -1,7 +1,7 @@
 <template>
   <div>
     <fade-transition origin="center" mode="out-in" :duration="250">
-      <router-view></router-view>
+      <router-view @onValueChange="onValueChange"></router-view>
     </fade-transition>
     <Footer @onBackButton="onBackButton"
             @onNextButton="onNextButton"
@@ -30,6 +30,13 @@ export default {
     },
     onNextButton() {
       this.$router.push(`./${this.route[++this.index]}`);
+    },
+    onValueChange(payload) {
+      let keys = Object.keys(payload);
+      for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        this.response[key] = payload[key];
+      }
     }
   },
   data() {
@@ -46,12 +53,17 @@ export default {
         "restrictions",
         "experience",
         "fee",
-        "regulations"
+        "regulations",
+        "response-confirm"
       ],
       index: 0
     };
   },
   created() {
+    let pattern = /.*\/(.*)/;
+    let pathResult = pattern.exec(this.$route.path);
+    this.index = this.route.indexOf(pathResult[1]);
+
     this.$emit("onNavColorChange", "black");
   },
   computed: {

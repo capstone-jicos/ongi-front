@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Header from "../layout/Header";
 
-import CreateVenue from "./venue-create";
+import CreateVenue from "./create-venue";
 
 Vue.use(Router);
 

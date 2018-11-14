@@ -10,6 +10,7 @@ import Restrictions from "../views/provider/create/Restriction";
 import Experience from "../views/provider/create/Experience";
 import Fee from "../views/provider/create/Fee";
 import Regulations from "../views/provider/create/Regulations";
+import ConfirmResponse from "../views/provider/create/ResponseConfirm";
 
 export default [
   {
@@ -59,5 +60,9 @@ export default [
   {
     path: "regulations",
     component: Regulations
+  },
+  {
+    path: "response-confirm",
+    component: ConfirmResponse
   }
 ];
