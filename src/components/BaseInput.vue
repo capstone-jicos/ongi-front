@@ -31,7 +31,7 @@
                     v-bind="$attrs"
                     class="form-control"
                     :class="[{'is-valid': valid === true}, {'is-invalid': valid === false}, inputClasses]"
-                    :type="type"
+                    :style="{'text-align': align}"
                     aria-describedby="addon-right addon-left">
         </slot>
         <div v-if="addonRightIcon || $slots.addonRight" class="input-group-append">
@@ -95,10 +95,10 @@ export default {
       type: String,
       description: "Addont left icon"
     },
-    type: {
+    align: {
       type: String,
-      default: "text",
-      description: "Input Type"
+      default: "left",
+      description: "Text align direction inside text input"
     }
   },
   data() {

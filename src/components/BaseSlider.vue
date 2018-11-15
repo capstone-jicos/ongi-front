@@ -17,6 +17,11 @@ export default {
       type: [String, Array, Number],
       description: "Slider value"
     },
+    integer: {
+      type: Boolean,
+      default: false,
+      description: "Whether value should be integer"
+    },
     disabled: {
       type: Boolean,
       description: "Whether slider is disabled"
@@ -64,7 +69,7 @@ export default {
       });
       const slider = this.$refs.slider.noUiSlider;
       slider.on("slide", () => {
-        let value = slider.get();
+        let value = this.integer ? parseInt(slider.get()) : slider.get();
         if (value !== this.value) {
           this.$emit("input", value);
         }

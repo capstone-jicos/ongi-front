@@ -1,0 +1,10 @@
+@import "bootstrap/functions";
+@import "custom/variables";
+
+/* 카드 안에 있는 링크들은 모두 Decoration 죽이는 것으로 */
+div.container {
+  a {
+    text-decoration: none;
+    color: #525f7f;
+  }
+}

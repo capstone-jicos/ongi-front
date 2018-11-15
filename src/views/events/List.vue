@@ -131,13 +131,6 @@ img {
   max-height: 50px;
 }
 
-div.container {
-  a {
-    text-decoration: none;
-    color: #525f7f;
-  }
-}
-
 div#event-list-header {
   i {
     color: #68778c;
