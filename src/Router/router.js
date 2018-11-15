@@ -52,7 +52,7 @@ export default new Router({
       }
     },
     {
-      path: "/event/:id",
+      path: "/event/",
       name: "event-info",
       components: {
         header: Header,
