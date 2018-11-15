@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Header from "./layout/Header";
 
+import CreateEvent from "./event-create";
+
 Vue.use(Router);
 
 export default new Router({
@@ -32,36 +34,14 @@ export default new Router({
       }
     },
     {
-    path: "/event/create/SetVenue",
-    name: "SetVenue",
-    components: {
-      header: Header,
-      default: () => import("./views/events/create/SetVenue")
-    }
-  },
-    {
-      path: "/event/create/middlecheck",
-      name: "middlecheck",
-      components: {
-        header: Header,
-        default: () => import("./views/events/create/MiddleCheck")
-      }
-    },
-    {
-      path: "/event/create/food",
-      name: "food",
-      components: {
-        header: Header,
-        default: () => import("./views/events/create/Food")
-      }
-    },
-    {
       path: "/event/create",
+      redirect : "/event/create/type",
       name: "BasicInfo",
       components: {
         header: Header,
-        default: () => import("./views/events/create/BasicInfo")
-      }
+        default: () => import("./views/events/create/Index")
+      },
+      children: CreateEvent
     },
     {
       path: "/event",
@@ -72,7 +52,7 @@ export default new Router({
       }
     },
     {
-      path: "/event/:id",
+      path: "/event/",
       name: "event-info",
       components: {
         header: Header,

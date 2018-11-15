@@ -31,6 +31,7 @@
                     v-bind="$attrs"
                     class="form-control"
                     :class="[{'is-valid': valid === true}, {'is-invalid': valid === false}, inputClasses]"
+                    :type="type"
                     aria-describedby="addon-right addon-left">
         </slot>
         <div v-if="addonRightIcon || $slots.addonRight" class="input-group-append">
@@ -93,6 +94,11 @@ export default {
     addonLeftIcon: {
       type: String,
       description: "Addont left icon"
+    },
+    type: {
+      type: String,
+      default: "text",
+      description: "Input Type"
     }
   },
   data() {
