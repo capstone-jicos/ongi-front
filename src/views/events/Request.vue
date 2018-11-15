@@ -32,13 +32,15 @@
 
 <script>
 export default {
-    name:"Request",
-    created() {
+  name: "Request",
+  created() {
     this.$emit("onNavColorChange", "black");
-    },
-    data(){
-        return {
-        condition :''};}
+  },
+  data() {
+    return {
+      condition: ""
+    };
+  }
 };
 </script>
 

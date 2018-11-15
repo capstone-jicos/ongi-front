@@ -28,12 +28,16 @@
                         <span class="nav-link-inner--text">검색</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                <base-dropdown tag="li" class="nav-item">
+                    <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="xi-user"></i>
                         <span class="nav-link-inner--text">마이 페이지</span>
                     </a>
-                </li>
+                    <router-link to="/landing" class="dropdown-item">회원정보수정</router-link>
+                    <router-link to="/profile" class="dropdown-item">참가한 모임</router-link>
+                    <router-link to="/login" class="dropdown-item">주최한 모임</router-link>
+                    <router-link to="/register" class="dropdown-item">등록한 장소</router-link>
+                </base-dropdown>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="xi-help-o"></i>
@@ -48,11 +52,13 @@
 <script>
 import BaseNav from "@/components/BaseNav";
 import CloseButton from "@/components/CloseButton";
+import BaseDropdown from "@/components/BaseDropdown";
 
 export default {
   components: {
     BaseNav,
-    CloseButton
+    CloseButton,
+    BaseDropdown
   },
   props: {
     navColor: {
