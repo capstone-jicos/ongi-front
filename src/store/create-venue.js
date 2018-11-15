@@ -3,22 +3,20 @@ export default {
   state: {
     response: {
       type: null,
-      accommodate: null,
       location: {
         country: null,
         state: null,
         city: null,
         detailAddress: null,
         coordinates: {
-          lat: null,
-          lng: null
+          lat: 0,
+          lng: 0
         }
       },
       amenities: [],
       requirements: [],
       photoUrl: null, // 업로드를 따로 해두는게 맞을까??
       name: null,
-      rules: null
     }
   },
   getters: {
@@ -33,11 +31,20 @@ export default {
         let key = keys[i];
         state.response[key] = payload[key];
       }
+    },
+    setLocation: (state, payload) => {
+      let keys = Object.keys(payload);
+      for (let i = 0; i < keys.length; i++) {
+        state.response.location[keys[i]] = payload[keys[i]];
+      }
     }
   },
   actions: {
     setPartialResponse: ({ commit }, payload) => {
       commit("setPartialResponse", payload);
+    },
+    setLocation: ({commit}, payload) => {
+      commit("setLocation", payload);
     }
   }
 };

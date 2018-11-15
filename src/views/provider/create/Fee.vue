@@ -22,7 +22,9 @@
 </template>
 
 <script>
-// TODO Vuex를 적용시켜줘야함
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+
 export default {
   name: "Fee",
   data() {
@@ -32,10 +34,25 @@ export default {
       }
     };
   },
+  methods: {
+    ...mapActions(["setPartialResponse"]),
+    ...mapGetters(["getResponse"])
+  },
   computed: {
-    feeDisplay() {
+    fee() {
       return this.response.fee;
     }
+  },
+  watch: {
+    fee() {
+      this.setPartialResponse(this.response);
+    }
+  },
+  created() {
+    let fee = this.getResponse().fee;
+
+    if (fee === undefined) fee = 0;
+    this.response.fee = fee;
   }
 };
 </script>

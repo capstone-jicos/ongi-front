@@ -18,6 +18,9 @@
 
 <script>
 // TODO Vuex 적용해놔야함
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+
 export default {
   name: "Requirements",
   data() {
@@ -31,6 +34,10 @@ export default {
       }
     };
   },
+  methods: {
+    ...mapActions(["setPartialResponse"]),
+    ...mapGetters(["getResponse"])
+  },
   watch: {
     checkboxes: {
       handler: function(newValue) {
@@ -39,12 +46,24 @@ export default {
 
         for (let i = 0; i < keys.length; i++) {
           if (newValue[keys[i]] === true) {
-            requirements.push(newValue[keys[i]]);
+            requirements.push(keys[i]);
           }
         }
         this.response.requirements = requirements;
+        this.setPartialResponse(this.response);
+
       },
       deep: true
+    }
+  },
+  created() {
+    let requirements = this.getResponse().requirements;
+    if (requirements !== undefined && requirements.length !== 0) {
+      this.amenities = requirements;
+    }
+
+    for (let i = 0; i < requirements.length; i++) {
+      this.checkboxes[requirements[i]] = true;
     }
   }
 };

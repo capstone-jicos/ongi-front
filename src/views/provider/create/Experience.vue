@@ -16,6 +16,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+
 export default {
   name: "Experience",
   data() {
@@ -24,6 +27,23 @@ export default {
         experience: null
       }
     };
+  },
+  methods: {
+    ...mapActions(["setPartialResponse"]),
+    ...mapGetters(["getResponse"])
+  },
+  computed: {
+    experience() {
+      return this.response.experience;
+    }
+  },
+  watch: {
+    experience() {
+      this.setPartialResponse(this.response);
+    }
+  },
+  created() {
+    this.response.experience = this.getResponse().experience;
   }
 };
 </script>

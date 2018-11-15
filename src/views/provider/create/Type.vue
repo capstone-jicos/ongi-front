@@ -4,45 +4,53 @@
       <h4>회원님의 부엌은 어떤 형태인가요?</h4>
       <base-radio name="store"
                   class="mb-2"
-                  v-model="radioGroup.type"
-                  @input="onValueChange"
+                  v-model="response.type"
       >가게</base-radio>
       <base-radio name="apartment"
                   class="mb-2"
-                  v-model="radioGroup.type"
-                  @input="onValueChange"
+                  v-model="response.type"
       >아파트</base-radio>
       <base-radio name="independent"
                   class="mb-2"
-                  v-model="radioGroup.type"
-                  @input="onValueChange"
+                  v-model="response.type"
       >단독주택</base-radio>
       <base-radio name="studio"
                   class="mb-2"
-                  v-model="radioGroup.type"
-                  @input="onValueChange"
+                  v-model="response.type"
       >쿠킹 스튜디오</base-radio>
     </div>
   </section>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+
 export default {
-  // TODO Vuex를 적용해서 만들어야함
   name: "Type",
   data() {
     return {
-      radioGroup: {
+      response: {
         type: null
       }
     };
   },
   methods: {
-    onValueChange() {
-      let type = this.radioGroup;
-      this.$emit("onValueChange", type);
-      return type;
+    ...mapGetters(["getResponse"]),
+    ...mapActions(["setPartialResponse"])
+  },
+  watch: {
+    type() {
+      this.setPartialResponse(this.response);
     }
+  },
+  computed: {
+    type() {
+      return this.response.type;
+    }
+  },
+  created() {
+    this.response.type = this.getResponse().type;
   }
 };
 </script>

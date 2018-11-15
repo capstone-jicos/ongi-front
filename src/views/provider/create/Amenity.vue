@@ -58,12 +58,14 @@ export default {
       handler: function(newValue) {
         let amenities = [];
         let keys = Object.keys(newValue);
+
         for (let i = 0; i < keys.length; i++) {
-          if (this.checkboxes[keys[i]] === true) {
-            amenities.push(this.checkboxes[keys[i]]);
+          if (newValue[keys[i]] === true) {
+            amenities.push(keys[i]);
           }
         }
         this.response.amenities = amenities;
+        this.setPartialResponse(this.response);
       },
       deep: true
     }

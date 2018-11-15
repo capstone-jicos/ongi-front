@@ -11,6 +11,7 @@ import Experience from "../views/provider/create/Experience";
 import Fee from "../views/provider/create/Fee";
 import Regulations from "../views/provider/create/Regulations";
 import ConfirmResponse from "../views/provider/create/ResponseConfirm";
+import Complete from "../views/provider/create/Complete";
 
 export default [
   {

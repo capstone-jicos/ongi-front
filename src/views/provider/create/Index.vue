@@ -54,7 +54,8 @@ export default {
         "experience",
         "fee",
         "regulations",
-        "response-confirm"
+        "response-confirm",
+        "complete"
       ],
       index: 0
     };

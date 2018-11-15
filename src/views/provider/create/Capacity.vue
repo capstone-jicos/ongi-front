@@ -6,7 +6,6 @@
         <base-slider v-model="response.capacity"
                      :range="{min:0, max:30}"
                      integer
-                     @input="onValueChange"
         ></base-slider>
       </div>
       <p class="text-center h4">{{ response.capacity }}</p>
@@ -15,7 +14,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("createVenue");
 
 export default {
   name: "Capacity",
@@ -27,14 +27,21 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["createVenue/getResponse"]),
-    ...mapActions(["createVenue/setPartialResponse"]),
-    onValueChange() {
-      this["createVenue/setPartialResponse"](this.response);
+    ...mapGetters(["getResponse"]),
+    ...mapActions(["setPartialResponse"])
+  },
+  watch: {
+    capacity() {
+      this.setPartialResponse(this.response);
+    }
+  },
+  computed: {
+    capacity() {
+      return this.response.capacity;
     }
   },
   created() {
-    let capacity = this["createVenue/getResponse"]().capacity;
+    let capacity = this.getResponse().capacity;
     if (capacity !== undefined) {
       this.response.capacity = capacity;
     }

@@ -15,7 +15,8 @@ Vue.use(Argon);
 Vue.use(Vuex);
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyB3EVY_AnKS8qGZXld76jqouKwavnEl57A"
+    key: "AIzaSyB3EVY_AnKS8qGZXld76jqouKwavnEl57A",
+    libraries: "places"
   }
 });
 Vue.use(xeicon);

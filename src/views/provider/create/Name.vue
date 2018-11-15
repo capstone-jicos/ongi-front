@@ -10,6 +10,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+
 export default {
   name: "Name",
   data() {
@@ -18,6 +21,22 @@ export default {
         name: null
       }
     };
+  },
+  methods: {
+    ...mapGetters(["getResponse"]),
+    ...mapActions(["setPartialResponse"])
+  },
+  watch: {
+    response: {
+      handler: function(newValue) {
+        this.setPartialResponse(newValue);
+      },
+      deep: true
+    }
+  },
+  created() {
+    let currentState = this.getResponse();
+    this.response.name = currentState.name;
   }
 };
 </script>

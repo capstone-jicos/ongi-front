@@ -48,6 +48,13 @@ export default new Router({
         default: () => import("../views/provider/create/Index")
       },
       children: CreateVenue
+    },
+    {
+      path: "/my/venue/create/complete",
+      components: {
+        header: Header,
+        default: () => import("../views/provider/create/Complete")
+      }
     }
   ]
 });

@@ -12,21 +12,28 @@
                   v-model="response.city">
       </base-input>
       <base-input label="상세주소"
+                  @keypress.enter="search"
                   v-model="response.detailAddress">
       </base-input>
       <label for="maps">지도 검색</label>
       <GmapMap class='col mb-5'
                id="maps"
-               :center="{lat:37.288429,lng:127.0518711}"
+               :center="response.coordinates"
                :zoom='17'
                style='height:300px;'
+               ref="maps"
       >
+        <GmapMarker v-for="(m, index) in maps.marker"
+                    :key="index"
+                    :position="m">
+        </GmapMarker>
       </GmapMap>
     </div>
   </section>
 </template>
 
 <script>
+import { gmapApi } from "vue2-google-maps";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
 
@@ -40,38 +47,112 @@ export default {
         city: null,
         detailAddress: null,
         coordinates: {
-          lat: null,
-          lng: null
+          lat: 0,
+          lng: 0
         }
+      },
+      maps: {
+        geoCoder: null,
+        marker: []
       }
     };
   },
   methods: {
     ...mapGetters(["getResponse"]),
-    ...mapActions(["setPartialResponse"]),
-    onValueChange() {}
+    ...mapActions(["setLocation"]),
+    setMarker(coordinates) {
+      let lat = coordinates.lat();
+      let lng = coordinates.lng();
+
+      this.response.coordinates.lat = lat;
+      this.response.coordinates.lng = lng;
+
+      this.maps.marker.pop();
+      this.maps.marker.push({ lat: lat, lng: lng });
+    },
+    search() {
+      this.maps.geoCoder.geocode(
+        {
+          address: this.fullAddress
+        },
+        (results, status) => {
+          if (status === "OK") {
+            let coordinates = results[0].geometry.location;
+            this.setMarker(coordinates);
+          } else {
+            console.log("Failed");
+          }
+        }
+      );
+    },
+    initPageWithState() {
+      let keys = Object.keys(this.response);
+      let coordinatesKeys = Object.keys(this.response.coordinates);
+      let currentState = this.getResponse().location;
+
+      for (let i = 0; keys[i] !== "coordinates" && i < keys.length; i++) {
+        if (currentState[keys[i]] !== undefined) {
+          this.response[keys[i]] = currentState[keys[i]];
+        }
+      }
+
+      for (let i = 0; i < coordinatesKeys.length; i++) {
+        if (currentState.coordinates[keys[i] !== undefined]) {
+          this.response.coordinates[keys[i]] = currentState.coordinates;
+        }
+      }
+
+      this.maps.marker.push(currentState.coordinates);
+    },
+    initMapWithNavigator() {
+      // while (!this.google) {
+      //   setTimeout(1000);
+      // }
+
+      this.maps.geoCoder = new this.google.maps.Geocoder();
+
+      console.log(this.response.coordinates);
+      if (this.response.coordinates.lat === 0) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.response.coordinates.lat = position.coords.latitude;
+          this.response.coordinates.lng = position.coords.longitude;
+        });
+      }
+    }
   },
-  mounted() {
-    let keys = Object.keys(this.response);
-    let coordinatesKeys = Object.keys(this.response.coordinates);
-    let response = this.getResponse().location;
-
-    console.log(keys);
-    console.log(coordinatesKeys);
-    console.log(response);
-
-    for (let i = 0; keys[i] !== "coordinates" && i < keys.length; i++) {
-      if (response[keys[i]] !== undefined) {
-        this.response[keys[i]] = response[keys[i]];
-      }
+  watch: {
+    response: {
+      handler: function(oldValue, newValue) {
+        this.setLocation(newValue);
+      },
+      deep: true
     }
+  },
+  computed: {
+    fullAddress() {
+      return (
+        this.response.country +
+        " " +
+        this.response.state +
+        " " +
+        this.response.city +
+        " " +
+        this.response.detailAddress
+      );
+    },
+    google: gmapApi
+  },
+  created() {
+    this.$nextTick(() => {
+      this.initMapWithNavigator();
+    });
 
-    for (let i = 0; i < coordinatesKeys.length; i++) {
-      if (response.coordinates[keys[i] !== undefined]) {
-        this.response.coordinates[keys[i]] = response.coordinates;
-      }
-    }
-  }
+    this.initPageWithState();
+  },
+  beforeMount() {}
+  // mounted() {
+  //   this.maps.marker.push({ lat: 0, lng: 0 });
+  // }
 };
 </script>
 
