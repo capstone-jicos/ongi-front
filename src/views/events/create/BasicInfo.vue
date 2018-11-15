@@ -47,26 +47,25 @@
 
 <script>
 export default {
-    name:"BasicInfo",
-    created() {
+  name: "BasicInfo",
+  created() {
     this.$emit("onNavColorChange", "black");
-    },
-    data() {
-        return {
-          dates: {
-            simple: "2018-07-17"
-          },
-          sliders: {
-           people: 0,
-           money: 0
-         },
-         eventId : {},
-         eventDescription:{}
-        };
-      }
-}
+  },
+  data() {
+    return {
+      dates: {
+        simple: "2018-07-17"
+      },
+      sliders: {
+        people: 0,
+        money: 0
+      },
+      eventId: {},
+      eventDescription: {}
+    };
+  }
+};
 </script>
 
 <style>
-
 </style>

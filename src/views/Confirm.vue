@@ -8,19 +8,17 @@
 
 <script>
 export default {
-    name:"confirm",
- data(){
-        return {
-            text:'모임'
-        
-       }
-    },
-     created(){
-        this.$emit("onNavColorChange", "black")
-    }
-}
+  name: "confirm",
+  data() {
+    return {
+      text: "모임"
+    };
+  },
+  created() {
+    this.$emit("onNavColorChange", "black");
+  }
+};
 </script>
 
 <style>
-
 </style>

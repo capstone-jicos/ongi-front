@@ -32,13 +32,13 @@ export default new Router({
       }
     },
     {
-    path: "/event/create/SetVenue",
-    name: "SetVenue",
-    components: {
-      header: Header,
-      default: () => import("./views/events/create/SetVenue")
-    }
-  },
+      path: "/event/create/SetVenue",
+      name: "SetVenue",
+      components: {
+        header: Header,
+        default: () => import("./views/events/create/SetVenue")
+      }
+    },
     {
       path: "/event/create/middlecheck",
       name: "middlecheck",

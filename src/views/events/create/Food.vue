@@ -23,42 +23,40 @@
 
 <script>
 export default {
-    name:"food",
-    data(){
-        return {
-            checkboxes: {
-                unchecked: false,
-                checked: true,
-                uncheckedDisabled: false,
-                checkedDisabled: true
-            },
-            foods: null
-       }
-    },
-    created(){
-        this.$emit("onNavColorChange", "black"),
-        this.foods= [
-            {
-                foodId:1,
-                name:"한식",
-                check : false
-            },
-            {
-                foodId:2,
-                name:"중식",
-                check : false
-            },
-            {
-                foodId:3,
-                name:"일식",
-                check : false
-            }
-        ]
-    }
-}
+  name: "food",
+  data() {
+    return {
+      checkboxes: {
+        unchecked: false,
+        checked: true,
+        uncheckedDisabled: false,
+        checkedDisabled: true
+      },
+      foods: null
+    };
+  },
+  created() {
+    this.$emit("onNavColorChange", "black"),
+      (this.foods = [
+        {
+          foodId: 1,
+          name: "한식",
+          check: false
+        },
+        {
+          foodId: 2,
+          name: "중식",
+          check: false
+        },
+        {
+          foodId: 3,
+          name: "일식",
+          check: false
+        }
+      ]);
+  }
+};
 </script>
 
 <style>
-
 </style>
-
