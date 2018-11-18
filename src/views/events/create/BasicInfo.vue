@@ -1,28 +1,28 @@
 <template>
     <section class = "section">
         <div class="container pt-lg-md">
-            <form role="form">
-                <base-input class="mb-3" v-model="title" label="모임 이름" placeholder="모임 이름" id="eventName"> </base-input>
-                <base-input label="모임 날짜"  type="date" v-model="eventDate"> </base-input>
+            <form role="form" >
+                <base-input class="mb-3" v-model="event.title" label="모임 이름" placeholder="모임 이름" id="eventName"> </base-input>
+                <base-input label="모임 날짜"  type="date" v-model="event.date"> </base-input>
                 <div class ="row">
                     <div class="col">
-                        <base-input label="모임 시작 시간" type="time" v-model="startTime"> </base-input>
+                        <base-input label="모임 시작 시간" type="time" v-model="event.startTime"> </base-input>
                     </div>
                     <div class="col">
-                        <base-input label="모임 종료 시간"  type="time" v-model="finishTime"> </base-input>
+                        <base-input label="모임 종료 시간"  type="time" v-model="event.finishTime"> </base-input>
                     </div>
                 </div>
                 <label for="eventDescription" >모임 설명</label>
-                <textarea class="form-control" v-model="description" id="eventDescription" rows="3" placeholder="Write a large text here ...">
+                <textarea class="form-control" v-model="event.description" id="eventDescription" rows="3" placeholder="Write a large text here ...">
                 </textarea>
                 <div class=" text-muted mb-2">모임 컨셉 사진 추가</div>
                 <!-- v-model="eventImage" 사진 추가 기능 구현 -->
                 <div class ="row">
                     <div class="col">
-                        <base-input class="mb-3" label="참가 최대 인원수" v-model="people"> </base-input>
+                        <base-input class="mb-3" label="참가 최대 인원수" v-model="event.people"> </base-input>
                     </div>
                     <div class="col">
-                        <base-input class="mb-3" label="참가비" v-model="feeAmount"> </base-input>
+                        <base-input class="mb-3" label="참가비" v-model="event.feeAmount"> </base-input>
                     </div>
                 </div>
             </form>
@@ -46,24 +46,36 @@
 
 
 <script>
+// import {createEventHelpers} from "vuex";
+// const { mapGetters, mapActions } = createEventHelpers("createEvent");
 export default {
   name: "BasicInfo",
-  created() {
-    this.$emit("onNavColorChange", "black");
-  },
   data() {
     return {
-      dates: {
-        simple: "2018-07-17"
-      },
-      sliders: {
-        people: 0,
-        money: 0
-      },
-      eventId: {},
-      eventDescription: {}
+        event :{
+            Id:null,
+            title:null,
+            date:null,
+            startTime:null,
+            finishTime:null,
+            description:null,
+            people:null,
+            feeAmount:null
+        }
     };
-  }
+  },
+//   methods: {
+//     ...mapGetters(["savedEvent"]),
+//     ...mapActions(["setEvent"])
+//   },
+//   watch: {
+//   },
+//   computed: {
+//       ...mapGetters(['savedEvent'])
+//   },
+  created() {
+    this.$emit("onNavColorChange", "black");
+      }
 };
 </script>
 

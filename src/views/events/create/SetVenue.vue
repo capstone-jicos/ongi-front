@@ -13,16 +13,16 @@
         <div v-if="condition===true" class="my-5" >
             <h3 mb-2>내 장소</h3>
             <ul>
-                <li v-for="venue in myVenues" v-bind:key="venue.id">{{venue.address}}</li>
+                <li v-for="venue in event" v-bind:key="venue.id">{{venue.address}}</li>
             </ul>
             <div class="row mx-0 my-5">
             <div class="col text-center my-auto">
-                <router-link to="/event/create/MiddleCheck">
+                <router-link to="/event/create/middlecheck">
                 <base-button type="neutral" variant="primary">이전</base-button>
                 </router-link>
             </div>
             <div class="col text-center my-5">
-                <router-link to="/Confirm">
+                <router-link to="/event/create/confirm">
                 <base-button type="neutral" variant="primary">finish</base-button>
                 </router-link>
             </div>
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       condition: "",
-      myVenues: [
+      event: [
         {
           id: 0,
           address: "경기도 수원시 팔달구 우만동"

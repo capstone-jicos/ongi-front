@@ -13,7 +13,7 @@
                     </router-link>
                 </div>
                 <div class="col text-center my-auto">
-                    <router-link to="/event/create/MiddleCheck">
+                    <router-link to="/event/create/middlecheck">
                     <base-button type="neutral" variant="primary">다음</base-button>
                     </router-link>
                 </div>
