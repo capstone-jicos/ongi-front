@@ -31,7 +31,7 @@
                         </template>
                         <hr class="my-3"/>
                         <template>
-                            <div class="text-center text-muted mb-4">
+                            <div class="text-center text-muted mb-2">
                                 <small>아이디 / 비밀번호 로그인</small>
                             </div>
                             <form role="form">
@@ -46,6 +46,9 @@
                                             type="password"
                                             addon-left-icon="ni ni-lock-circle-open">
                                 </base-input>
+                                <div class="text-center mb-2 error-msg">
+                                  {{ customMsg || msg }}
+                                </div>
                                 <base-checkbox class="mb-3">
                                     로그인 정보 기억하기
                                 </base-checkbox>
@@ -64,25 +67,48 @@
     </section>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("user");
+
 export default {
   name: "Login",
   data() {
     return {
       id: null,
-      password: null
+      password: null,
+      failed: false,
+      customMsg: null
     };
   },
   methods: {
+    ...mapActions(["setUserInfo"]),
     performLogin() {
       let data = {
         userId: this.id,
         accessToken: this.password
       };
 
-      this.$axios.post("/login", data).then(response => {
-        // TODO Vuex 에 로그인한 사용자 정보 넣기
-        console.log(response);
-      });
+      this.$axios
+        .post("/login", data)
+        .then(response => {
+          this.failed = false;
+          this.setUserInfo(response.data);
+          this.$router.push(this.$route.query.redirect_url || "/");
+        })
+        .catch(error => {
+          if (error.response) {
+            if (error.response.status === 401) {
+              this.failed = true;
+            } else {
+              this.customMsg = error.response.data;
+            }
+          }
+        });
+    }
+  },
+  computed: {
+    msg() {
+      return this.failed ? "아이디/비밀번호가 잘못 되었습니다." : "";
     }
   }
 };
@@ -90,5 +116,9 @@ export default {
 <style lang="scss">
 .section-shaped {
   height: 100vh;
+  div.error-msg {
+    font-size: 80%;
+    color: red;
+  }
 }
 </style>
