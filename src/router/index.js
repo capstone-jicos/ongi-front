@@ -28,7 +28,7 @@ export default new Router({
     },
     {
       path: "/event/create",
-      redirect: "/event/create/basicinfo",
+      redirect: "/event/create/baseinfo",
       components: {
         header: Header,
         default: () => import("../views/events/create/Index")

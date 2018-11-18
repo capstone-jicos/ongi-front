@@ -42,10 +42,10 @@ export default {
   data() {
     return {
       route: [
-        "basecinfo",
-        "setvenue",
-        "middlecheck",
+        "baseinfo",
         "food",
+        "middlecheck",
+        "setvenue",
         "confirm"
       ],
       index: 0

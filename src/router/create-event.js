@@ -7,20 +7,20 @@ import Confirm from "../views/events/create/Confirm";
 
 export default [
   {
-    path: "basicinfo",
+    path: "baseinfo",
     component: BasicInfo
   },
   {
-    path: "setvenue",
-    component: SetVenue
+    path: "food",
+    component: Food
   },
   {
     path: "middlecheck",
     component: MiddleCheck
   },
   {
-    path: "food",
-    component: Food
+    path: "setvenue",
+    component: SetVenue
   },
   {
       path: "confirm",
