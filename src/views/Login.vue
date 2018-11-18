@@ -36,10 +36,12 @@
                             </div>
                             <form role="form">
                                 <base-input class="mb-3"
+                                            v-model="id"
                                             placeholder="이메일 주소"
                                             addon-left-icon="ni ni-email-83">
                                 </base-input>
                                 <base-input class="mb-3"
+                                            v-model="password"
                                             placeholder="비밀번호"
                                             type="password"
                                             addon-left-icon="ni ni-lock-circle-open">
@@ -48,7 +50,9 @@
                                     로그인 정보 기억하기
                                 </base-checkbox>
                                 <div class="text-center">
-                                    <base-button type="neutral">로그인</base-button>
+                                    <base-button type="neutral"
+                                                 @click="performLogin"
+                                    >로그인</base-button>
                                     <base-button type="neutral">회원가입</base-button>
                                 </div>
                             </form>
@@ -60,7 +64,28 @@
     </section>
 </template>
 <script>
-export default {};
+export default {
+  name: "Login",
+  data() {
+    return {
+      id: null,
+      password: null
+    };
+  },
+  methods: {
+    performLogin() {
+      let data = {
+        userId: this.id,
+        accessToken: this.password
+      };
+
+      this.$axios.post("/login", data).then(response => {
+        // TODO Vuex 에 로그인한 사용자 정보 넣기
+        console.log(response);
+      });
+    }
+  }
+};
 </script>
 <style lang="scss">
 .section-shaped {

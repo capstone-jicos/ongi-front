@@ -12,8 +12,8 @@
                             <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>경기도 수원시</div>
                         </div>
                       <div class="mt-4">
-                        <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ event.time }}</div>
-                        <div class="h6 ml-1 row"><i class="mr-1 xi-money"></i> {{ event.feeWithComma }}원</div>
+                        <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ dateFormatted }}</div>
+                        <div class="h6 ml-1 row"><i class="mr-1 xi-money"></i> {{ feeWithComma }}원</div>
                       </div>
                         <div class='mt-3 row'>
                             <div class='col-7 float-left'>
@@ -41,12 +41,13 @@
                       </div>
 
                       <GmapMap class='col mb-5'
-                               :center="event.location.coordinates"
+                               :center="coordinates"
                                :zoom='17'
                                style='height:300px;'
+                               ref="map"
                       >
                           <GmapMarker
-                              :position='event.location.coordinates'
+                              :position='coordinates'
                               :clickable='true'
                               :draggable='false'
                               >
@@ -57,7 +58,7 @@
             </div>
             <div id="attend" class="row mx-0">
                 <div class="col text-center my-auto">
-                    {{ event.fee }}
+                    {{ feeWithComma }}원
                 </div>
                 <div class="col text-center my-auto">
                     <base-button type="neutral" variant="primary">참가신청</base-button>
@@ -67,7 +68,6 @@
     </div>
 </template>
 <script>
-// import axios from "axios";
 export default {
   name: "Events",
   computed: {
@@ -80,7 +80,24 @@ export default {
       return this.isShort ? "더 보기" : "간략히 보기";
     },
     feeWithComma() {
-      return this.event.fee.toLocaleString();
+      return this.event.feeAmount.toLocaleString();
+    },
+    coordinates() {
+      return {
+        lat: parseFloat(this.event.location.coordinates.lat),
+        lng: parseFloat(this.event.location.coordinates.lng)
+      };
+    },
+    dateFormatted() {
+      let date = new Date(this.event.date);
+      return `${date.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      })} ${date.toLocaleTimeString("ko-KR", {
+        hour: "numeric",
+        minute: "numeric"
+      })}`;
     }
   },
   data() {
@@ -127,11 +144,12 @@ export default {
   created() {
     // TODO API로 모임 정보 가져와서 붙여주기
     let eventId = this.$route.params.id;
-    let url = "/api/event/".concat(eventId);
-    // axios.get(url).then((res) => {
-    // this.event = res.data;
-    // });
-    console.log(url);
+    let url = "/event/".concat(eventId);
+
+    this.$axios.get(url).then(res => {
+      this.event = res.data;
+    });
+
     this.$emit("onNavColorChange", "white");
   }
 };
