@@ -6,7 +6,7 @@
         </div>
       </div>
     <div class="container">
-      <router-link to="venue/create">
+      <router-link to="create">
         <card shadow class="card-profile add-new-venue" no-body>
           <div class="my-auto text-center">
             <p>+</p>

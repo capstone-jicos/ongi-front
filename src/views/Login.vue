@@ -68,7 +68,7 @@
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapGetters } = createNamespacedHelpers("user");
+const { mapActions } = createNamespacedHelpers("user");
 
 export default {
   name: "Login",
@@ -89,7 +89,7 @@ export default {
       };
 
       this.$axios
-        .post("/login", data)
+        .post("/login", data, { withCredentials: true })
         .then(response => {
           this.failed = false;
           this.setUserInfo(response.data);
