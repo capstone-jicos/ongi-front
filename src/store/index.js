@@ -3,11 +3,14 @@ import Vuex from "vuex";
 
 import eventLocation from "./event-location";
 import createVenueModule from "./create-venue";
+import createEventModule from "./create-event";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     location: eventLocation,
-    createVenue: createVenueModule
+    createVenue: createVenueModule,
+    createEvent: createEventModule
   }
 });
+

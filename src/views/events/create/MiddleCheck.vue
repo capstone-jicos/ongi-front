@@ -9,22 +9,13 @@
                 <div class=" text-muted mb-2">모임 참가 가능 최대 인원수 : {{event.people}} </div>
                 <div class=" text-muted mb-2">참가비 : {{event.feeAmount}} </div>
         </div>
-         <div id="attend" class="row mx-0">
-                <div class="col text-center my-auto">
-                    <router-link to="/event/create/food">
-                    <base-button type="neutral" variant="primary">이전</base-button>
-                    </router-link>
-                </div>
-                <div class="col text-center my-auto">
-                    <router-link to="/event/create/setvenue">
-                    <base-button type="neutral" variant="primary">다음</base-button>
-                    </router-link>
-                </div>
-        </div>
     </section>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+
 export default {
   name: "middlecheck",
   data() {

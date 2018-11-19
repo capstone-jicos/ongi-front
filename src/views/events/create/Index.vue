@@ -46,8 +46,7 @@ export default {
         "food",
         "middlecheck",
         "setvenue",
-        "confirm"
-      ],
+        "confirm"],
       index: 0
     };
   },
@@ -60,7 +59,7 @@ export default {
   },
   computed: {
     final() {
-      return this.index === this.route.length - 1;
+      return this.index === this.route.length - 2;
     }
   }
 };
