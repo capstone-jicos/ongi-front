@@ -22,8 +22,8 @@
                             </div>
                             <div class='col-5'>
                                 <div class='float-right'>
-                                    <!--<img v-lazy="event.host.profileImage" class="rounded-circle host-image mr-2">-->
-                                    <!--<img v-lazy="event.provider.profileImage" class="rounded-circle host-image">-->
+                                    <img v-lazy="event.host.profileImage" class="rounded-circle host-image mr-2">
+                                    <img v-lazy="event.provider.profileImage" class="rounded-circle host-image">
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                         </div>
                       <div class="my-3">
                         <div class="h6">주소 : {{ event.location.name }}</div>
-                        <div>{{ event.location.address }}</div>
+                        <div>{{ fullAddress }}</div>
                       </div>
 
                       <GmapMap class='col mb-5'
@@ -117,7 +117,6 @@ export default {
     }
   },
   created() {
-    // TODO API로 모임 정보 가져와서 붙여주기
     let eventId = this.$route.params.id;
     let url = "/event/".concat(eventId);
 
@@ -155,6 +154,11 @@ export default {
         hour: "numeric",
         minute: "numeric"
       })}`;
+    },
+    fullAddress() {
+      let location = this.event.location;
+      return `${location.country} ${location.state}
+       ${location.city} ${location.detail}`;
     }
   }
 };
