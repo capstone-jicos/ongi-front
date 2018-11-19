@@ -13,11 +13,22 @@
                     </div>
                 </div>
                 <label for="eventDescription" >모임 설명</label>
-                <textarea class="form-control" v-model="event.description" rows="3" placeholder="Write a large text here ...">
+                <textarea class="form-control mb-3" v-model="event.description" rows="3" placeholder="Write a large text here ...">
                 </textarea>
-                {{event.eventDescription}}
-                <div class=" text-muted mb-2">모임 컨셉 사진 추가</div>
-                <!-- v-model="eventImage" 사진 추가 기능 구현 -->
+                <div class="mb-3">
+                   <label for="eventPhoto" >회원님의 모임을 잘 보여줄 수 있는 사진을 올려주세요</label>
+                    <div @click="choosePhoto()">
+                        <card class="card-profile add-new-venue" no-body>
+                        <div class="my-auto text-center">
+                            <p>
+                            <i class="xi-cloud-upload-o"></i><br/>
+                            사진을 올려주세요
+                            </p>
+                        </div>
+                        </card>
+                    </div>
+                    <input type="file" hidden id="event-photo"/>
+                </div>
                 <div class ="row">
                     <div class="col">
                         <base-input class="mb-3" label="참가 최대 인원수" v-model="event.people"> </base-input>
@@ -54,7 +65,10 @@ export default {
   },
   methods: {
     ...mapGetters(["getResponse"]),
-    ...mapActions(["setPartialResponse"])
+    ...mapActions(["setPartialResponse"]),
+    choosePhoto() {
+      this.$el.querySelector("#event-photo").click();
+    }
   },
   watch: {
       title() {
