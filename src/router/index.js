@@ -36,6 +36,14 @@ export default new Router({
       children: CreateEVent
     },
     {
+      path: "/event/create/Confirm",
+      name: "confirm",
+      components: {
+        header: Header,
+        default: () => import("../views/events/create/Confirm")
+      }
+    },
+    {
       path: "/event",
       name: "event-list",
       components: {
@@ -49,6 +57,13 @@ export default new Router({
       components: {
         header: Header,
         default: () => import("../views/events/Info")
+      }
+    },
+    {
+      path: "/my/venue/info",
+      components: {
+        header: Header,
+        default: () => import("../views/myPage/Venue")
       }
     },
     {

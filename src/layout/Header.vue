@@ -36,7 +36,7 @@
                     <router-link to="/landing" class="dropdown-item">회원정보수정</router-link>
                     <router-link to="/profile" class="dropdown-item">참가한 모임</router-link>
                     <router-link to="/login" class="dropdown-item">주최한 모임</router-link>
-                    <router-link to="/register" class="dropdown-item">등록한 장소</router-link>
+                    <router-link to="/my/venue" class="dropdown-item">등록한 장소</router-link>
                 </base-dropdown>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
