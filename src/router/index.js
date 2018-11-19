@@ -59,11 +59,19 @@ export default new Router({
         default: () => import("../views/events/Info")
       }
     },
+    // 내 장소 정보 + 장소제공 요청리스트 확인용 router주소
     {
-      path: "/my/venue/info",
+      path: "/venue/:id",
       components: {
         header: Header,
         default: () => import("../views/myPage/Venue")
+      }
+    },
+    {
+      path: "/hosted",
+      components: {
+        header: Header,
+        default: () => import("../views/myPage/Hosted")
       }
     },
     {
