@@ -41,12 +41,7 @@ export default {
   },
   data() {
     return {
-      route: [
-        "baseinfo",
-        "food",
-        "middlecheck",
-        "setvenue",
-        "confirm"],
+      route: ["baseinfo", "food", "middlecheck", "setvenue", "confirm"],
       index: 0
     };
   },
