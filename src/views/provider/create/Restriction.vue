@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// TODO Vuex 붙여놔야함
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
 

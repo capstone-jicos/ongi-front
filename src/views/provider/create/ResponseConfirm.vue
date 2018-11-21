@@ -70,7 +70,6 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters } = createNamespacedHelpers("createVenue");
 
-// TODO 전송하고 나서 State를 날려줘야함
 export default {
   name: "ResponseConfirm",
   data() {

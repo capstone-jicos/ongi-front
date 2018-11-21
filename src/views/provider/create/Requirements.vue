@@ -17,7 +17,6 @@
 </template>
 
 <script>
-// TODO Vuex 적용해놔야함
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
 
@@ -51,7 +50,6 @@ export default {
         }
         this.response.requirements = requirements;
         this.setPartialResponse(this.response);
-
       },
       deep: true
     }
