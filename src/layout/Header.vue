@@ -33,8 +33,8 @@
                         <i class="xi-user"></i>
                         <span class="nav-link-inner--text">마이 페이지</span>
                     </a>
-                    <router-link to="/landing" class="dropdown-item">회원정보수정</router-link>
-                    <router-link to="/profile" class="dropdown-item">참가한 모임</router-link>
+                    <router-link to="/my/InfoUpdate" class="dropdown-item">회원정보수정</router-link>
+                    <router-link to="/my/attended" class="dropdown-item">참가한 모임</router-link>
                     <router-link to="/my/hosted" class="dropdown-item">주최한 모임</router-link>
                     <router-link to="/my/venue" class="dropdown-item">등록한 장소</router-link>
                 </base-dropdown>

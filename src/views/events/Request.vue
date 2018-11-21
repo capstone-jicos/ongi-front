@@ -13,7 +13,7 @@
         <div v-if="condition===true" class="my-5" >
             <h3 mb-2>결제 모듈 적용하기</h3>
             <div class="col text-center my-5">
-                <router-link to="/Confirm">
+                <router-link to="/event/request/Confirm">
                 <base-button type="neutral" variant="primary">finish</base-button>
                 </router-link>
             </div>

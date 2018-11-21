@@ -15,42 +15,33 @@
                         <div class="col  text-center float-right"><i class="mr-1 xi-user-o"></i>최대 {{ venue.people }}명</div>
                     </div>
                     <div class="h5 text-center"><i class="mr-1 xi-building"></i> 숙소 유형 : {{venue.type}}</div>
-
                 </div>
                 <div class="mt-3 py-2 border-top text-center">
-                    <div class="h5 mb-1">제공사항</div>
-                    <li class="h6"> {{venue.amenities}} </li>
+                    <div class="mb-1">
+                      <h5>제공사항</h5>
+                      <div class="row">
+                        <li class="col h6"> {{venue.amenities}} </li>
+                        <li class="col h6"> {{venue.amenities}} </li>
+                      </div>
+                    </div>
                     <div class="h5">필요사항</div>
                     <li class="h6"> {{venue.requirements}} </li>
                     <div class="h5">제한사항</div>
                     <li class="h6"> {{venue.restrictions}} </li>
-                </div>
-                 <div class="mt-3 py-2 border-top border-bottom text-center">
-                     <h5>예약 대기 목록</h5>
-                 </div>
-                 <div>
-                    <router-link v-for="event in events" :key="event.eventId" :to="getUrl(event.eventId)">
-                        <card shadow class="card-profile" no-body>
-                        <div class="event-item-photo" v-bind:style="{ 'background-image': 'url(' + event.photoUrl +')' }"></div>
-                        <div class="px-2 mb-2">
-                            <div class="event-name mt-2">
-                            <strong>{{ event.name }}</strong>
-                            </div>
-                            <div class="event-address">
-                            <i class="xi-maker"></i> {{ event.address }}
-                            </div>
-                        </div>
-                        </card>
+                    <!-- 주소부분 -->
+                    <!-- "장소제공요청하기"버튼 넣는 장소 -->
+                    <router-link to="/venue/Confirm">
+                      <base-button>장소제공요청하기</base-button>
                     </router-link>
-                 </div>
-            </div>   
+                </div>
+            </div>
         </section>
     </div>
 </template>
 <script>
 // import axios from "axios";
 export default {
-  name: "Events",
+  name: "VenueInfo",
   computed: {
     feeWithComma() {
       return this.event.fee.toLocaleString();
@@ -77,36 +68,12 @@ export default {
         fee: 50000,
         image: "/img/theme/img-2-1200x1000.jpg",
        
-      },
-      events: [
-        {
-          eventId: 1,
-          name: "모임1",
-          address: "경기도 수원시 영통구 월드컵로 206",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg"
-        },
-        {
-         eventId: 2,
-          name: "모임2",
-          address: "서울특별시 강남구 서초대로 222",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg"
-        }
-      ]
+      }
     };
   },
   methods: {
-    getUrl(eventId) {
-      return "/event/" + eventId;
-    }
   },
   created() {
-    // TODO API로 모임 정보 가져와서 붙여주기
-    let eventId = this.$route.params.id;
-    let url = "/api/event/".concat(eventId);
-    // axios.get(url).then((res) => {
-    // this.event = res.data;
-    // });
-    console.log(url);
     this.$emit("onNavColorChange", "white");
   }
 };

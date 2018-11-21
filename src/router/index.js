@@ -19,11 +19,27 @@ export default new Router({
       }
     },
     {
+      path: "/event/request/Confirm",
+      name: "requestConfirm",
+      components: {
+        header: Header,
+        default: () => import("../views/events/RequestConfirm")
+      }
+    },
+    {
       path: "/event/request",
       name: "request",
       components: {
         header: Header,
         default: () => import("../views/events/Request")
+      }
+    },
+    {
+      path: "/event/create/Confirm",
+      name: "confirm",
+      components: {
+        header: Header,
+        default: () => import("../views/events/create/Confirm")
       }
     },
     {
@@ -35,14 +51,7 @@ export default new Router({
       },
       children: CreateEVent
     },
-    {
-      path: "/event/create/Confirm",
-      name: "confirm",
-      components: {
-        header: Header,
-        default: () => import("../views/events/create/Confirm")
-      }
-    },
+    
     {
       path: "/event",
       name: "event-list",
@@ -59,26 +68,60 @@ export default new Router({
         default: () => import("../views/events/Info")
       }
     },
-    // 내 장소 정보 + 장소제공 요청리스트 확인용 router주소
     {
-      path: "/venue/:id",
+      path: "/venue/confirm",
+      name: "venue-requestconfirm",
       components: {
         header: Header,
-        default: () => import("../views/myPage/Venue")
+        default: () => import("../views/venues/Confirm")
+      }
+    },
+  
+    {
+      path: "/venue/:id",
+      name: "venue-info",
+      components: {
+        header: Header,
+        default: () => import("../views/venues/VenueInfo")
       }
     },
     {
-      path: "/hosted",
+      path: "/venue",
+      name: "venue-list",
+      components: {
+        header: Header,
+        default: () => import("../views/venues/VenueList")
+      }
+    },
+    {
+      path: "/my/InfoUpdate",
+      name: "InfoUpdate",
+      components: {
+        header: Header,
+        default: () => import("../views/myPage/MyInfoUpdate")
+      }
+    },
+    {
+      path: "/my/hosted",
+      name: "hostedEvent-list",
       components: {
         header: Header,
         default: () => import("../views/myPage/Hosted")
       }
-    },
+    }, 
     {
-      path: "/my/venue",
+      path: "/my/attended",
+      name: "attendedEvent-list",
       components: {
         header: Header,
-        default: () => import("../views/provider/List")
+        default: () => import("../views/myPage/Attended")
+      }
+    }, 
+    {
+      path: "/my/venue/create/complete",
+      components: {
+        header: Header,
+        default: () => import("../views/provider/create/Complete")
       }
     },
     {
@@ -91,10 +134,17 @@ export default new Router({
       children: CreateVenue
     },
     {
-      path: "/my/venue/create/complete",
+      path: "/my/venue",
       components: {
         header: Header,
-        default: () => import("../views/provider/create/Complete")
+        default: () => import("../views/provider/List")
+      }
+    },
+    {
+      path: "/my/venue/:id",
+      components: {
+        header: Header,
+        default: () => import("../views/myPage/Venue")
       }
     }
   ]
