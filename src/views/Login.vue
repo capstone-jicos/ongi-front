@@ -31,24 +31,31 @@
                         </template>
                         <hr class="my-3"/>
                         <template>
-                            <div class="text-center text-muted mb-4">
+                            <div class="text-center text-muted mb-2">
                                 <small>아이디 / 비밀번호 로그인</small>
                             </div>
                             <form role="form">
                                 <base-input class="mb-3"
+                                            v-model="id"
                                             placeholder="이메일 주소"
                                             addon-left-icon="ni ni-email-83">
                                 </base-input>
                                 <base-input class="mb-3"
+                                            v-model="password"
                                             placeholder="비밀번호"
                                             type="password"
                                             addon-left-icon="ni ni-lock-circle-open">
                                 </base-input>
+                                <div class="text-center mb-2 error-msg">
+                                  {{ customMsg || msg }}
+                                </div>
                                 <base-checkbox class="mb-3">
                                     로그인 정보 기억하기
                                 </base-checkbox>
                                 <div class="text-center">
-                                    <base-button type="neutral">로그인</base-button>
+                                    <base-button type="neutral"
+                                                 @click="performLogin"
+                                    >로그인</base-button>
                                     <base-button type="neutral">회원가입</base-button>
                                 </div>
                             </form>
@@ -60,10 +67,58 @@
     </section>
 </template>
 <script>
-export default {};
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("user");
+
+export default {
+  name: "Login",
+  data() {
+    return {
+      id: null,
+      password: null,
+      failed: false,
+      customMsg: null
+    };
+  },
+  methods: {
+    ...mapActions(["setUserInfo"]),
+    performLogin() {
+      let data = {
+        userId: this.id,
+        accessToken: this.password
+      };
+
+      this.$axios
+        .post("/login", data, { withCredentials: true })
+        .then(response => {
+          this.failed = false;
+          this.setUserInfo(response.data);
+          this.$router.push(this.$route.query.redirect_url || "/");
+        })
+        .catch(error => {
+          if (error.response) {
+            if (error.response.status === 401) {
+              this.failed = true;
+            } else {
+              this.customMsg = error.response.data;
+            }
+          }
+        });
+    }
+  },
+  computed: {
+    msg() {
+      return this.failed ? "아이디/비밀번호가 잘못 되었습니다." : "";
+    }
+  }
+};
 </script>
 <style lang="scss">
 .section-shaped {
   height: 100vh;
+  div.error-msg {
+    font-size: 80%;
+    color: red;
+  }
 }
 </style>

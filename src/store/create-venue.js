@@ -15,8 +15,9 @@ export default {
       },
       amenities: [],
       requirements: [],
+      restrictions: [],
       photoUrl: null, // 업로드를 따로 해두는게 맞을까??
-      name: null,
+      name: null
     }
   },
   getters: {
@@ -43,7 +44,7 @@ export default {
     setPartialResponse: ({ commit }, payload) => {
       commit("setPartialResponse", payload);
     },
-    setLocation: ({commit}, payload) => {
+    setLocation: ({ commit }, payload) => {
       commit("setLocation", payload);
     }
   }

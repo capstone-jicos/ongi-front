@@ -41,5 +41,11 @@
   "bugs": {
     "url": "https://github.com/capstone-jicos/ongi-front/issues"
   },
-  "homepage": "https://github.com/capstone-jicos/ongi-front#readme"
+  "homepage": "https://github.com/capstone-jicos/ongi-front#readme",
+  "config":{
+    "endpoint":{
+      "development":"http://localhost:8080",
+      "production":"http://api.ongi.tk"
+    }
+  }
 }

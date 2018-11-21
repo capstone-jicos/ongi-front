@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { gmapApi } from "vue2-google-maps";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
 
@@ -52,7 +51,6 @@ export default {
         }
       },
       maps: {
-        geoCoder: null,
         marker: []
       }
     };
@@ -70,20 +68,24 @@ export default {
       this.maps.marker.pop();
       this.maps.marker.push({ lat: lat, lng: lng });
     },
-    search() {
-      this.maps.geoCoder.geocode(
-        {
-          address: this.fullAddress
-        },
-        (results, status) => {
-          if (status === "OK") {
-            let coordinates = results[0].geometry.location;
-            this.setMarker(coordinates);
-          } else {
-            console.log("Failed");
+    search: function() {
+      let geoCoder = new window.google.maps.Geocoder();
+
+      this.$nextTick(() => {
+        geoCoder.geocode(
+          {
+            address: this.fullAddress
+          },
+          (results, status) => {
+            if (status === "OK") {
+              let coordinates = results[0].geometry.location;
+              this.setMarker(coordinates);
+            } else {
+              console.log("Failed");
+            }
           }
-        }
-      );
+        );
+      });
     },
     initPageWithState() {
       let keys = Object.keys(this.response);
@@ -105,27 +107,14 @@ export default {
       this.maps.marker.push(currentState.coordinates);
     },
     initMapWithNavigator() {
-      // while (!this.google) {
-      //   setTimeout(1000);
-      // }
-
-      this.maps.geoCoder = new this.google.maps.Geocoder();
-
-      console.log(this.response.coordinates);
-      if (this.response.coordinates.lat === 0) {
-        navigator.geolocation.getCurrentPosition(position => {
-          this.response.coordinates.lat = position.coords.latitude;
-          this.response.coordinates.lng = position.coords.longitude;
-        });
-      }
-    }
-  },
-  watch: {
-    response: {
-      handler: function(oldValue, newValue) {
-        this.setLocation(newValue);
-      },
-      deep: true
+      this.$nextTick(() => {
+        if (this.response.coordinates.lat === 0) {
+          navigator.geolocation.getCurrentPosition(position => {
+            this.response.coordinates.lat = position.coords.latitude;
+            this.response.coordinates.lng = position.coords.longitude;
+          });
+        }
+      });
     }
   },
   computed: {
@@ -139,20 +128,22 @@ export default {
         " " +
         this.response.detailAddress
       );
-    },
-    google: gmapApi
+    }
+  },
+  watch: {
+    response: {
+      handler: function(oldValue, newValue) {
+        this.setLocation(newValue);
+      },
+      deep: true
+    }
   },
   created() {
     this.$nextTick(() => {
       this.initMapWithNavigator();
+      this.initPageWithState();
     });
-
-    this.initPageWithState();
-  },
-  beforeMount() {}
-  // mounted() {
-  //   this.maps.marker.push({ lat: 0, lng: 0 });
-  // }
+  }
 };
 </script>
 

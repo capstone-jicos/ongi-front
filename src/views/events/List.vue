@@ -2,7 +2,7 @@
   <section class="section">
     <div class="container">
       <div id="event-list-header">
-        <span class="h5">{{ location }}의 밥모임</span>
+        <span class="h5">{{ fullLocation }}의 밥모임</span>
         <div class="float-right">
           <router-link to="">
             <i class="xi-maker xi-2x"></i>
@@ -15,9 +15,9 @@
     </div>
     <div class="container">
       <router-link v-for="event in events" :key="event.eventId"
-                   :to="'event/'+event.eventId">
+                   :to="'event/'+event.idx">
         <card shadow class="card-profile" no-body>
-          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.photo +')' }">
+          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.eventImages +')' }">
           </div>
           <div class="px-2 mb-2">
             <div class="row event-title-photo">
@@ -25,20 +25,20 @@
                 <strong>{{ event.title }}</strong>
               </div>
               <div class="col-3">
-                <img v-lazy="event.host.image" class="rounded-circle"/>
+                <!--<img v-lazy="event.host.image" class="rounded-circle"/>-->
               </div>
             </div>
             <div class="event-time">
               <i class="xi-time-o"></i> {{ event.date }}
             </div>
-            <div class="row">
-              <div class="col food-type">
+            <div class="row mx-0">
+              <div class="col-8 food-type px-0">
                 <i class="xi-restaurant"></i>
-                <span v-for="type in event.foodType" :key="type" >
+                <span v-for="type in event.type" :key="type" >
                       <span>{{ type }} </span>
                     </span>
               </div>
-              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.attendee }}명</div>
+              <div class="col-4 attendee px-0 mx-0"><i class="xi-toilet"></i>&nbsp;{{ event.seats }}명</div>
             </div>
           </div>
         </card>
@@ -48,80 +48,104 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("location");
 
 export default {
   name: "List",
   data() {
     return {
-      events: null,
+      events: [],
       location: null
     };
   },
   created() {
-    this.events = [
-      {
-        eventId: 1,
-        title: "터키요리",
-        photo: "/img/theme/img-2-1200x1000.jpg",
-        country: "KR",
-        state: "SEO",
-        date: "2018-10-19 18:30",
-        attendee: 1,
-        foodType: ["해산물", "닭고기"],
-        host: {
-          image: "/img/theme/team-4-800x800.jpg"
-        }
-      },
-      {
-        eventId: 2,
-        title: "터키요리",
-        photo: "/img/theme/team-3-800x800.jpg",
-        country: "KR",
-        state: "SEO",
-        date: "2018-10-19 18:30",
-        attendee: 1,
-        foodType: ["할랄푸드"],
-        host: {
-          image: "/img/theme/team-4-800x800.jpg"
-        }
-      },
-      {
-        eventId: 3,
-        title: "터키요리",
-        photo: "/img/theme/team-1-800x800.jpg",
-        country: "KR",
-        state: "SEO",
-        date: "2018-10-19 18:30",
-        attendee: 1,
-        foodType: ["할랄푸드"],
-        host: {
-          image: "/img/theme/team-4-800x800.jpg"
-        }
-      },
-      {
-        eventId: 4,
-        title: "터키요리",
-        photo: "/img/theme/team-4-800x800.jpg",
-        country: "KR",
-        state: "SEO",
-        date: "2018-10-19 18:30",
-        attendee: 1,
-        foodType: ["할랄푸드"],
-        host: {
-          image: "/img/theme/team-4-800x800.jpg"
-        }
-      }
-    ];
-    this.setLocationForEventList("서울시 광진구");
-    this.location = this.getLocationForEventList;
+    // this.events = [
+    //   {
+    //     eventId: 1,
+    //     title: "터키요리",
+    //     photo: "/img/theme/img-2-1200x1000.jpg",
+    //     country: "KR",
+    //     state: "SEO",
+    //     date: "2018-10-19 18:30",
+    //     attendee: 1,
+    //     foodType: ["해산물", "닭고기"],
+    //     host: {
+    //       image: "/img/theme/team-4-800x800.jpg"
+    //     }
+    //   },
+    //   {
+    //     eventId: 2,
+    //     title: "터키요리",
+    //     photo: "/img/theme/team-3-800x800.jpg",
+    //     country: "KR",
+    //     state: "SEO",
+    //     date: "2018-10-19 18:30",
+    //     attendee: 1,
+    //     foodType: ["할랄푸드"],
+    //     host: {
+    //       image: "/img/theme/team-4-800x800.jpg"
+    //     }
+    //   },
+    //   {
+    //     eventId: 3,
+    //     title: "터키요리",
+    //     photo: "/img/theme/team-1-800x800.jpg",
+    //     country: "KR",
+    //     state: "SEO",
+    //     date: "2018-10-19 18:30",
+    //     attendee: 1,
+    //     foodType: ["할랄푸드"],
+    //     host: {
+    //       image: "/img/theme/team-4-800x800.jpg"
+    //     }
+    //   },
+    //   {
+    //     eventId: 4,
+    //     title: "터키요리",
+    //     photo: "/img/theme/team-4-800x800.jpg",
+    //     country: "KR",
+    //     state: "SEO",
+    //     date: "2018-10-19 18:30",
+    //     attendee: 1,
+    //     foodType: ["할랄푸드"],
+    //     host: {
+    //       image: "/img/theme/team-4-800x800.jpg"
+    //     }
+    //   }
+    // ];
+    this.location = this.getLocationForEventList();
     this.$emit("onNavColorChange", "gray");
+
+    this.$axios.get("/event").then(res => {
+      let data = res.data;
+
+      for (let i = 0; i < data.length; i++) {
+        let date = new Date(data[i].date);
+        if (data[i].type) {
+          data[i].type = JSON.parse(decodeURIComponent(data[i].type));
+        }
+
+        data[i].date = `${date.toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        })} ${date.toLocaleTimeString("ko-KR", {
+          hour: "numeric",
+          minute: "numeric"
+        })}`;
+        this.events.push(data[i]);
+      }
+    });
   },
   methods: {
-    ...mapActions(["setLocationForEventList"])
+    ...mapActions(["setLocationForEventList"]),
+    ...mapGetters(["getLocationForEventList"])
   },
   computed: {
-    ...mapGetters(["getLocationForEventList"])
+    fullLocation() {
+      return `${this.location.state} ${this.location.city}`;
+    }
   }
 };
 </script>

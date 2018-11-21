@@ -1,20 +1,22 @@
 export default {
   namespaced: true,
   state: {
-    eventList: {
-      location: undefined
-    }
+    state: "서울특별시",
+    city: "광진구"
   },
   getters: {
     getLocationForEventList: state => {
-      return state.eventList.location;
+      return state;
     }
   },
   // Action과 Mutation을 따로 둔 이유?
   // Shared Resource라서 그런가?
   mutations: {
     setLocationForEventList: (state, payload) => {
-      state.eventList.location = payload;
+      let keys = Object.keys(this.state);
+      for (let i = 0; i < keys.length; i++) {
+        state[keys[i]] = payload[keys[i]];
+      }
     }
   },
   actions: {

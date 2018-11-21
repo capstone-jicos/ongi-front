@@ -59,7 +59,7 @@ export default {
     for (let i = 0; i < restrictions.length; i++) {
       this.checkboxes[restrictions[i]] = true;
     }
-  },
+  }
 };
 </script>
 
