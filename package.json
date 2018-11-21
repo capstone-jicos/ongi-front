@@ -45,7 +45,7 @@
   "config":{
     "endpoint":{
       "development":"http://localhost:8080",
-      "production":"http://api.ongi.tk"
+      "production":"https://api.ongi.tk"
     }
   }
 }
