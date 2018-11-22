@@ -2,7 +2,8 @@
   <section class="section">
     <div class="container">
       <div id="event-list-header">
-        <span class="h5">{{ fullLocation }}의 밥모임</span>
+        <!--<span class="h5">{{ fullLocation }}의 밥모임</span>-->
+        <span class="h5">모든 지역의 밥모임</span>
         <div class="float-right">
           <router-link to="">
             <i class="xi-maker xi-2x"></i>
@@ -22,7 +23,7 @@
           <div class="px-2 mb-2">
             <div class="row event-title-photo">
               <div class="event-title col-9 mt-2">
-                <strong>{{ event.title }}</strong>
+                <strong>{{ titleFormatted(event.title) }}</strong>
               </div>
               <div class="col-3">
                 <!--<img v-lazy="event.host.image" class="rounded-circle"/>-->
@@ -60,60 +61,6 @@ export default {
     };
   },
   created() {
-    // this.events = [
-    //   {
-    //     eventId: 1,
-    //     title: "터키요리",
-    //     photo: "/img/theme/img-2-1200x1000.jpg",
-    //     country: "KR",
-    //     state: "SEO",
-    //     date: "2018-10-19 18:30",
-    //     attendee: 1,
-    //     foodType: ["해산물", "닭고기"],
-    //     host: {
-    //       image: "/img/theme/team-4-800x800.jpg"
-    //     }
-    //   },
-    //   {
-    //     eventId: 2,
-    //     title: "터키요리",
-    //     photo: "/img/theme/team-3-800x800.jpg",
-    //     country: "KR",
-    //     state: "SEO",
-    //     date: "2018-10-19 18:30",
-    //     attendee: 1,
-    //     foodType: ["할랄푸드"],
-    //     host: {
-    //       image: "/img/theme/team-4-800x800.jpg"
-    //     }
-    //   },
-    //   {
-    //     eventId: 3,
-    //     title: "터키요리",
-    //     photo: "/img/theme/team-1-800x800.jpg",
-    //     country: "KR",
-    //     state: "SEO",
-    //     date: "2018-10-19 18:30",
-    //     attendee: 1,
-    //     foodType: ["할랄푸드"],
-    //     host: {
-    //       image: "/img/theme/team-4-800x800.jpg"
-    //     }
-    //   },
-    //   {
-    //     eventId: 4,
-    //     title: "터키요리",
-    //     photo: "/img/theme/team-4-800x800.jpg",
-    //     country: "KR",
-    //     state: "SEO",
-    //     date: "2018-10-19 18:30",
-    //     attendee: 1,
-    //     foodType: ["할랄푸드"],
-    //     host: {
-    //       image: "/img/theme/team-4-800x800.jpg"
-    //     }
-    //   }
-    // ];
     this.location = this.getLocationForEventList();
     this.$emit("onNavColorChange", "gray");
 
@@ -140,7 +87,14 @@ export default {
   },
   methods: {
     ...mapActions(["setLocationForEventList"]),
-    ...mapGetters(["getLocationForEventList"])
+    ...mapGetters(["getLocationForEventList"]),
+    titleFormatted(title) {
+      if (title) {
+        return title.length < 10 ? title : title.substr(0, 9).concat("...");
+      } else {
+        return "";
+      }
+    }
   },
   computed: {
     fullLocation() {

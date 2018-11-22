@@ -1,7 +1,7 @@
 <template>
     <div class="profile-page">
-        <section class="section-profile-cover section-shaped my-0">
-                 <!--v-bind:style="{ 'background-image': 'url(' + event.image + ')' }">-->
+        <section class="section-profile-cover section-shaped my-0"
+                 v-bind:style="{ 'background-image': 'url(' + event.image + ')' }">
         </section>
         <section class="section section-skew event-info">
             <div class="container">
@@ -9,7 +9,7 @@
                     <div class="px-4">
                         <div class="text-center mt-5">
                             <h3>{{ event.title }}</h3>
-                            <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>경기도 수원시</div>
+                            <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{ briefAddress }}</div>
                         </div>
                       <div class="mt-4">
                         <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ dateFormatted }}</div>
@@ -125,6 +125,7 @@ export default {
     });
 
     this.$emit("onNavColorChange", "white");
+    this.$scrollToTop();
   },
   computed: {
     shownDescription() {
@@ -159,11 +160,19 @@ export default {
       let location = this.event.location;
       return `${location.country} ${location.state}
        ${location.city} ${location.detail}`;
+    },
+    briefAddress() {
+      let location = this.event.location;
+      return `${location.state} ${location.city}`;
     }
   }
 };
 </script>
 <style scoped lang="scss">
+.section-profile-cover {
+  height: 250px;
+}
+
 .host-image {
   max-width: 45px;
 }

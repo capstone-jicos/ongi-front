@@ -21,6 +21,9 @@ Vue.use(xeicon);
 
 axios.defaults.baseURL = config.endpoint[process.env.NODE_ENV];
 Vue.prototype.$axios = axios;
+Vue.prototype.$scrollToTop = () => {
+  window.scrollTo(0, 0);
+};
 
 new Vue({
   router,
