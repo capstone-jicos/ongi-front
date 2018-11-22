@@ -113,9 +113,6 @@
     </section>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapActions } = createNamespacedHelpers("user");
-
 export default {
   name: "Join",
   data() {
@@ -157,5 +154,9 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped lang="scss">
+.section-shaped {
+    height: 100%;
+}
 </style>
+
