@@ -14,25 +14,22 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+const { mapGetters } = createNamespacedHelpers("createVenue");
 
 export default {
   name: "middlecheck",
   data() {
     return {
-      event :{
-      title: "케밥 먹고찌픈 사람!",
-      eventDate: "2018-11-02",
-      startTime: "11:05 AM",
-      finishTime: "13:00 PM",
-      description:
-        "케밥이 먹고싶은데요 제가 친구가 없더라구요! 그래서 저랑 같이 먹어주실수 있나요?",
-      people: 6,
-      feeAmount: 4000
-    }};
+      event :null
+      };
+  },
+  methods: {
+    ...mapGetters(["getResponse"])
   },
   created() {
     this.$emit("onNavColorChange", "black");
+    this.event = this.getResponse();
+
   }
 };
 </script>

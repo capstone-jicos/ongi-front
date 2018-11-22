@@ -45,7 +45,6 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-import { strictEqual } from 'assert';
 const { mapGetters, mapActions } = createNamespacedHelpers("createEvent");
 
 export default {
@@ -94,27 +93,27 @@ export default {
       }
   },
   computed: {
-    title(){
+        title(){
             return this.event.title;
-    },
-    date(){
-        return this.event.date;
-    },
-    startTime(){
-        return this.event.startTime;
-    },
-    finishTime(){
-        return this.event.finishTime;
-    },
-    description(){
-        return this.event.description;
-    },
-    people(){
-        return this.event.people;
-    },
-    feeAmount(){
-        return this.event.feeAmount;
-    }
+        },
+        date(){
+            return this.event.date;
+        },
+        startTime(){
+            return this.event.startTime;
+        },
+        finishTime(){
+            return this.event.finishTime;
+        },
+        description(){
+            return this.event.description;
+        },
+        people(){
+            return this.event.people;
+        },
+        feeAmount(){
+            return this.event.feeAmount;
+        }
     },
   created() {
     let title = this.getResponse().title;
