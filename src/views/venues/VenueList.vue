@@ -31,8 +31,8 @@
             </div>
             <div class="row">
               <div class="col float-left"><i class="xi-building"></i> {{venue.type}}</div>
-              <div class="col float-center" ><i class="xi-money"></i>{{ venue.fee}}원</div>
-              <div class="col float-right"><i class="xi-user-o"></i>{{ venue.people }}명</div>
+              <div class="col text-center" ><i class="xi-money"></i>{{ venue.fee}}원</div>
+              <div class="col text-right"><i class="xi-user-o"></i>{{ venue.people }}명</div>
             </div>
           </div>
         </card>

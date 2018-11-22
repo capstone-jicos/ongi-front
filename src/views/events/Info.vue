@@ -60,7 +60,9 @@
                     {{ event.fee }}
                 </div>
                 <div class="col text-center my-auto">
+                  <router-link to= "/event/create">
                     <base-button type="neutral" variant="primary">참가신청</base-button>
+                  </router-link>
                 </div>
             </div>
         </section>

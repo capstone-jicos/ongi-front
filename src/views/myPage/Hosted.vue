@@ -6,7 +6,7 @@
         </div>
       </div>
     <div class="container">
-      <router-link v-for="event in events" :key="event.eventId" :to="'event/'+event.eventId">
+      <router-link v-for="event in events" :key="event.eventId" :to="'hosted/event/'+event.eventId">
         <card shadow class="card-profile" no-body>
           <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.photo +')' }">
           </div>
