@@ -37,8 +37,8 @@
                             <form role="form">
                                 <base-input class="mb-3"
                                             v-model="id"
-                                            placeholder="이메일 주소"
-                                            addon-left-icon="ni ni-email-83">
+                                            placeholder="아이디"
+                                            addon-left-icon="xi-fingerprint">
                                 </base-input>
                                 <base-input class="mb-3"
                                             v-model="password"
@@ -56,7 +56,9 @@
                                     <base-button type="neutral"
                                                  @click="performLogin"
                                     >로그인</base-button>
-                                    <base-button type="neutral">회원가입</base-button>
+                                    <router-link :to="urlWithRedirect">
+                                        <base-button type="neutral">회원가입</base-button>
+                                    </router-link>
                                 </div>
                             </form>
                         </template>
@@ -109,6 +111,17 @@ export default {
   computed: {
     msg() {
       return this.failed ? "아이디/비밀번호가 잘못 되었습니다." : "";
+    },
+    urlWithRedirect() {
+      let joinUrl = "/join";
+
+      if (this.$route.query.redirect_url !== undefined) {
+        joinUrl = joinUrl.concat(
+          `?redirect_url=${this.$route.query.redirect_url}`
+        );
+      }
+
+      return joinUrl;
     }
   }
 };
