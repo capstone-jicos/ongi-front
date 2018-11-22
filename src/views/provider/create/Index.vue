@@ -41,7 +41,6 @@ export default {
         this.$router.push(`./${this.route[this.index + 1]}`);
       } else {
         let responseState = this.getResponse();
-        // TODO Requirement 컬럼 추가 필요
         let payload = {
           type: responseState.type,
           accomodate: responseState.capacity,
@@ -55,26 +54,21 @@ export default {
             JSON.stringify(responseState.amenities)
           ),
           photoUrl: responseState.photoUrl,
-          // photoUrl: "http://public.ongi.tk/test/frrrr.jpg",
           name: responseState.name,
           rules: encodeURIComponent(JSON.stringify(responseState.restrictions)),
           fee: responseState.fee
         };
 
-        console.log(JSON.stringify(payload));
-
-        this.$axios.post(
-          "/venue/create",
-          payload,
-          { withCredentials: true },
-          response => {
-            if (!response.data.errors) {
+        this.$axios
+          .post("/venue/create", payload, { withCredentials: true })
+          .then(response => {
+            console.log(response.data.errors);
+            if (response.data.errors !== undefined) {
               console.log(response.data.errors);
             } else {
               this.$router.push(`./${this.route[this.index + 1]}`);
             }
-          }
-        );
+          });
       }
     },
     onValueChange(payload) {

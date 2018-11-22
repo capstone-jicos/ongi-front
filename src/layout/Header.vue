@@ -17,7 +17,7 @@
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                    <a href="/" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="xi-home"></i>
                         <span class="nav-link-inner--text">홈</span>
                     </a>

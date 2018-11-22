@@ -2,11 +2,11 @@
   <section class="section">
     <div class="container">
       <div id="event-list-header">
-        <span class="h5">계성혁님의 장소</span>
+        <span class="h5">{{ displayName }}님의 장소</span>
         </div>
       </div>
     <div class="container">
-      <router-link to="create">
+      <router-link to="./venue/create">
         <card shadow class="card-profile add-new-venue" no-body>
           <div class="my-auto text-center">
             <p>+</p>
@@ -36,33 +36,30 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("user");
+
 export default {
   name: "List",
   created() {
     this.$emit("onNavColorChange", "black");
+    this.displayName = this.getUserInfo().displayName;
+
+    this.$axios.get("/user/me/venue", { withCredentials: true }).then(res => {
+      this.venues = res.data;
+    });
   },
   data() {
     return {
-      venues: [
-        {
-          venueId: 1,
-          name: "Happy House",
-          address: "경기도 수원시 영통구 월드컵로 206",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg"
-        },
-        {
-          venueId: 2,
-          name: "Cute House",
-          address: "서울특별시 강남구 서초대로 222",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg"
-        }
-      ]
+      venues: [],
+      displayName: null
     };
   },
   methods: {
     getUrl(venueId) {
       return "/venue/" + venueId;
-    }
+    },
+    ...mapGetters(["getUserInfo"])
   }
 };
 </script>
