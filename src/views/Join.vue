@@ -123,7 +123,7 @@ export default {
         accessToken: null,
         gender: null,
         country: null,
-        photoUrl:"http://public.ongi.tk/profile/jihoon.jpg",
+        photoUrl: "http://public.ongi.tk/profile/jihoon.jpg",
         state: null,
         city: null
       }
@@ -156,7 +156,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .section-shaped {
-    height: 100%;
+  height: 100%;
 }
 </style>
-

@@ -59,11 +59,11 @@ export default {
   data() {
     return {
       venue: {
-       name: "내 장소 1",
-        type : "아파트",
-        amenities:"제공사항",
+        name: "내 장소 1",
+        type: "아파트",
+        amenities: "제공사항",
         requirements: "필요사항",
-        restrictions:"제한사항",
+        restrictions: "제한사항",
         location: {
           name: "아주대학교",
           address: "경기도 수원시 영통구 월드컵로 306",
@@ -73,10 +73,9 @@ export default {
           }
         },
         // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
-        people : 12,
+        people: 12,
         fee: 50000,
-        image: "/img/theme/img-2-1200x1000.jpg",
-       
+        image: "/img/theme/img-2-1200x1000.jpg"
       },
       events: [
         {
@@ -86,7 +85,7 @@ export default {
           photoUrl: "/img/theme/img-1-1200x1000.jpg"
         },
         {
-         eventId: 2,
+          eventId: 2,
           name: "모임2",
           address: "서울특별시 강남구 서초대로 222",
           photoUrl: "/img/theme/img-1-1200x1000.jpg"
@@ -130,7 +129,7 @@ div.container {
   }
 }
 .event-info {
-    padding-top: 2rem;
+  padding-top: 2rem;
   padding-bottom: 6rem;
 }
 
