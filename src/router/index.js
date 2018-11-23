@@ -6,6 +6,10 @@ import Join from "../views/Join";
 
 import CreateVenue from "./create-venue";
 import CreateEVent from "./create-event";
+import EventInfo from "../views/events/Info";
+import AttendeeWaitList from "../views/myPage/AttendeeWaitList";
+
+import RequestFooter from "../views/events/RequestFooter";
 
 Vue.use(Router);
 
@@ -83,7 +87,8 @@ export default new Router({
       name: "event-info",
       components: {
         header: Header,
-        default: () => import("../views/events/Info")
+        default: EventInfo,
+        footer: RequestFooter
       }
     },
     {
@@ -125,6 +130,15 @@ export default new Router({
       components: {
         header: Header,
         default: () => import("../views/myPage/Hosted")
+      }
+    },
+    {
+      path: "/my/hosted/:id",
+      name: "hosted-event-info",
+      components: {
+        header: Header,
+        default: EventInfo,
+        footer: AttendeeWaitList
       }
     },
     {
