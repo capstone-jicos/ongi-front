@@ -9,16 +9,16 @@
                     <div class="px-4">
                         <div class="text-center mt-5">
                             <h3>{{ event.title }}</h3>
-                            <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>경기도 수원시</div>
+                            <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{ briefAddress }}</div>
                         </div>
                       <div class="mt-4">
-                        <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ event.time }}</div>
-                        <div class="h6 ml-1 row"><i class="mr-1 xi-money"></i> {{ event.feeWithComma }}원</div>
+                        <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ dateFormatted }}</div>
+                        <div class="h6 ml-1 row"><i class="mr-1 xi-money"></i> {{ feeWithComma }}원</div>
                       </div>
                         <div class='mt-3 row'>
                             <div class='col-7 float-left'>
-                                <span><i class="xi-flag-o"></i> 호스트: {{ event.host.name }}</span><br/>
-                                <span><i class="xi-home-o"></i> 장소 제공자: {{ event.provider.name }}</span>
+                                <span><i class="xi-flag-o"></i> {{ event.host.name }}</span><br/>
+                                <span><i class="xi-home-o"></i> {{ event.provider.name }}</span>
                             </div>
                             <div class='col-5'>
                                 <div class='float-right'>
@@ -31,22 +31,25 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-9">
                                   <span v-html="shownDescription"></span>
-                                    <a href @click.prevent="toggleMore()">{{ showStatus }}</a>
+                                  <br/>
+                                    <a href v-if="isDescLong()"
+                                       @click.prevent="toggleMore()">{{ showStatus }}</a>
                                 </div>
                             </div>
                         </div>
                       <div class="my-3">
                         <div class="h6">주소 : {{ event.location.name }}</div>
-                        <div>{{ event.location.address }}</div>
+                        <div>{{ fullAddress }}</div>
                       </div>
 
                       <GmapMap class='col mb-5'
-                               :center="event.location.coordinates"
+                               :center="coordinates"
                                :zoom='17'
                                style='height:300px;'
+                               ref="map"
                       >
                           <GmapMarker
-                              :position='event.location.coordinates'
+                              :position='coordinates'
                               :clickable='true'
                               :draggable='false'
                               >
@@ -57,7 +60,7 @@
             </div>
             <div id="attend" class="row mx-0">
                 <div class="col text-center my-auto">
-                    {{ event.fee }}
+                    {{ feeWithComma }}원
                 </div>
                 <div class="col text-center my-auto">
                   <router-link to= "/event/create">
@@ -69,54 +72,40 @@
     </div>
 </template>
 <script>
-// import axios from "axios";
 export default {
   name: "Events",
-  computed: {
-    shownDescription() {
-      return this.isShort
-        ? this.event.description.substr(0, 50).concat("...")
-        : this.event.description;
-    },
-    showStatus() {
-      return this.isShort ? "더 보기" : "간략히 보기";
-    },
-    feeWithComma() {
-      return this.event.fee.toLocaleString();
-    }
-  },
   data() {
     return {
       event: {
-        title: "터키요리 해먹기 모임",
-        description:
-          "<p>터키요리 해먹으면서 노는 모임</p>" +
-          "<p>아싸 퇴근이다.</p>" +
-          "<p>에헤라디야 바람 분다.</p>" +
-          "<p>에헤라디야 바람 분다.</p>" +
-          "<p>에헤라디야 바람 분다.</p>",
+        title: "",
+        description: "",
         location: {
-          name: "아주대학교",
-          address: "경기도 수원시 영통구 월드컵로 306",
+          name: "",
+          country: "",
+          state: "",
+          city: "",
+          detail: "",
           coordinates: {
-            lat: 37.2828093,
-            lng: 127.0441714
+            lat: 0,
+            lng: 0
           }
         },
-        // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
-        time: "2018년 10월 19일 오후 6시 30분",
-        fee: 50000,
-        image: "/img/theme/img-2-1200x1000.jpg",
         host: {
-          id: "1a",
-          name: "계성혁",
-          profileImage: "/img/theme/team-4-800x800.jpg"
+          id: "",
+          name: "",
+          profileImage: ""
         },
         provider: {
-          id: "2a",
-          name: "꿉꿉이",
-          profileImage: "/img/theme/team-4-800x800.jpg"
-        }
+          id: "",
+          name: "",
+          profileImage: ""
+        },
+        feeAmount: 0,
+        type: null,
+        seats: 0,
+        date: null,
+        attendCheck: 0,
+        hostCheck: false
       },
       isShort: true
     };
@@ -124,21 +113,68 @@ export default {
   methods: {
     toggleMore() {
       this.isShort = !this.isShort;
+    },
+    isDescLong() {
+      return this.event.description.length > 50;
     }
   },
   created() {
-    // TODO API로 모임 정보 가져와서 붙여주기
     let eventId = this.$route.params.id;
-    let url = "/api/event/".concat(eventId);
-    // axios.get(url).then((res) => {
-    // this.event = res.data;
-    // });
-    console.log(url);
+    let url = "/event/".concat(eventId);
+
+    this.$axios.get(url).then(res => {
+      this.event = res.data;
+    });
+
     this.$emit("onNavColorChange", "white");
+    this.$scrollToTop();
+  },
+  computed: {
+    shownDescription() {
+      return this.isShort && this.isDescLong()
+        ? this.event.description.substr(0, 50).concat("...")
+        : this.event.description;
+    },
+    showStatus() {
+      return this.isShort ? "더 보기" : "간략히 보기";
+    },
+    feeWithComma() {
+      return this.event.feeAmount.toLocaleString();
+    },
+    coordinates() {
+      return {
+        lat: parseFloat(this.event.location.coordinates.lat),
+        lng: parseFloat(this.event.location.coordinates.lng)
+      };
+    },
+    dateFormatted() {
+      let date = new Date(this.event.date);
+      return `${date.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      })} ${date.toLocaleTimeString("ko-KR", {
+        hour: "numeric",
+        minute: "numeric"
+      })}`;
+    },
+    fullAddress() {
+      let location = this.event.location;
+      return `${location.country} ${location.state}
+       ${location.city} ${location.detail}`;
+    },
+    briefAddress() {
+      let location = this.event.location;
+      return `${location.state} ${location.city}`;
+    }
   }
 };
 </script>
 <style scoped lang="scss">
+.section-profile-cover {
+  height: 250px;
+}
+
 .host-image {
   max-width: 45px;
 }

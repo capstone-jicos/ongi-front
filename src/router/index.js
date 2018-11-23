@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Header from "../layout/Header";
+import Main from "../views/Main";
+import Join from "../views/Join";
 
 import CreateVenue from "./create-venue";
 import CreateEVent from "./create-event";
@@ -12,6 +14,22 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "main",
+      components: {
+        header: Header,
+        default: Main
+      }
+    },
+    {
+      path: "/join",
+      name: "join",
+      components: {
+        header: Header,
+        default: Join
+      }
+    },
+    {
+      path: "/login",
       name: "login",
       components: {
         header: Header,

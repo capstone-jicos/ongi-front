@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// TODO Vuex 붙여놔야함
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
 
@@ -59,7 +58,7 @@ export default {
     for (let i = 0; i < restrictions.length; i++) {
       this.checkboxes[restrictions[i]] = true;
     }
-  },
+  }
 };
 </script>
 

@@ -5,7 +5,9 @@ import router from "./router";
 import store from "./store";
 import Argon from "./plugins/argon-kit";
 import xeicon from "xeicon";
+import axios from "axios";
 import * as VueGoogleMaps from "vue2-google-maps";
+import { config } from "../package";
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
@@ -16,6 +18,12 @@ Vue.use(VueGoogleMaps, {
   }
 });
 Vue.use(xeicon);
+
+axios.defaults.baseURL = config.endpoint[process.env.NODE_ENV];
+Vue.prototype.$axios = axios;
+Vue.prototype.$scrollToTop = () => {
+  window.scrollTo(0, 0);
+};
 
 new Vue({
   router,
