@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     getUrl(venueId) {
-      return "/venue/" + venueId;
+      return "/my/venue/" + venueId;
     },
     ...mapGetters(["getUserInfo"])
   }
