@@ -25,7 +25,8 @@ export default {
         let key = keys[i];
         state.event[key] = payload[key];
       }
-    }},
+    }
+  },
   actions: {
     setPartialResponse: ({ commit }, payload) => {
       commit("setPartialResponse", payload);

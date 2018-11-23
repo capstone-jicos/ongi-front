@@ -12,9 +12,8 @@
 <script>
 export default {
   name: "requestConfirm",
-  data() {
-    return {
-    };
+  data: function() {
+    return {};
   },
   created() {
     this.$emit("onNavColorChange", "black");

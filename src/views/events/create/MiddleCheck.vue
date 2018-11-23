@@ -20,8 +20,8 @@ export default {
   name: "middlecheck",
   data() {
     return {
-      event :null
-      };
+      event: null
+    };
   },
   methods: {
     ...mapGetters(["getResponse"])
@@ -29,7 +29,6 @@ export default {
   created() {
     this.$emit("onNavColorChange", "black");
     this.event = this.getResponse();
-
   }
 };
 </script>

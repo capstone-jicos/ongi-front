@@ -55,20 +55,20 @@ export default {
           name: "Happy House",
           address: "경기도 수원시 영통구 월드컵로 206",
           photoUrl: "/img/theme/img-1-1200x1000.jpg",
-          type : "아파트",
-          people : 12,
+          type: "아파트",
+          people: 12,
           fee: 50000,
-          providerImage : "/img/theme/team-4-800x800.jpg"
+          providerImage: "/img/theme/team-4-800x800.jpg"
         },
         {
           venueId: 2,
           name: "Cute House",
           address: "서울특별시 강남구 서초대로 222",
           photoUrl: "/img/theme/img-1-1200x1000.jpg",
-          type : "아파트",
-          people : 12,
+          type: "아파트",
+          people: 12,
           fee: 50000,
-          providerImage : "/img/theme/team-4-800x800.jpg"
+          providerImage: "/img/theme/team-4-800x800.jpg"
         }
       ]
     };
@@ -87,14 +87,13 @@ export default {
 
 img {
   max-height: 50px;
-  
 }
 
 div.provider-photo {
-    img {
-      margin-top: -30px;
-    }
+  img {
+    margin-top: -30px;
   }
+}
 
 div.container {
   .card-profile {

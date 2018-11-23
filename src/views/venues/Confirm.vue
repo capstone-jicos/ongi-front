@@ -13,8 +13,7 @@
 export default {
   name: "Confirm",
   data() {
-    return {
-    };
+    return {};
   },
   created() {
     this.$emit("onNavColorChange", "black");

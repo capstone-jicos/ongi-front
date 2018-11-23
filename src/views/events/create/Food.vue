@@ -23,30 +23,30 @@ export default {
   data() {
     return {
       event: {
-      foods: []
+        foods: []
       },
       checkboxes: {
-        Korean : false,
+        Korean: false,
         Chinese: false,
         Japanese: false
       }
     };
   },
   methods: {
-   ...mapGetters(["getResponse"]),
+    ...mapGetters(["getResponse"]),
     ...mapActions(["setPartialResponse"])
   },
   created() {
-   let foods = this.getResponse().foods;
-   if(foods !==undefined && foods.length !==0){
-     this.foods = foods;
-   }
-   for(let i=0;i<foods.length; i++){
-     this.checkboxes[foods[i]]=true;
-   }
+    let foods = this.getResponse().foods;
+    if (foods !== undefined && foods.length !== 0) {
+      this.foods = foods;
+    }
+    for (let i = 0; i < foods.length; i++) {
+      this.checkboxes[foods[i]] = true;
+    }
   },
   watch: {
-     checkboxes: {
+    checkboxes: {
       handler: function(newValue) {
         let foods = [];
         let keys = Object.keys(newValue);
