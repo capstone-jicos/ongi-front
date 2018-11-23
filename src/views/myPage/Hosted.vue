@@ -43,7 +43,7 @@ export default {
   name: "Hosted",
   created() {
     this.$emit("onNavColorChange", "black");
-     this.events = [
+    this.events = [
       {
         eventId: 1,
         title: "터키요리",
@@ -73,11 +73,9 @@ export default {
     ];
   },
   data() {
-    return {
-    };
+    return {};
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 

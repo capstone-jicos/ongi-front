@@ -13,11 +13,9 @@ export default {
     this.$emit("onNavColorChange", "black");
   },
   data() {
-    return {
-    };
+    return {};
   },
-  methods: {
-  }
+  methods: {}
 };
 </script>
 

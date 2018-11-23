@@ -47,15 +47,15 @@ export default {
   name: "BasicInfo",
   data() {
     return {
-        event :{
-            title: null, 
-            date: null,
-            startTime: null,
-            finishTime: null,
-            description: null,
-            people: 0,
-            feeAmount: 0
-        }
+      event: {
+        title: null,
+        date: null,
+        startTime: null,
+        finishTime: null,
+        description: null,
+        people: 0,
+        feeAmount: 0
+      }
     };
   },
   methods: {
@@ -66,51 +66,51 @@ export default {
     }
   },
   watch: {
-      title() {
+    title() {
       this.setPartialResponse(this.event);
-      },
-      date(){
-          this.setPartialResponse(this.event);
-      },
-      startTime(){
-          this.setPartialResponse(this.event);
-      },
-      finishTime(){
-          this.setPartialResponse(this.event);
-      },
-      description(){
-          this.setPartialResponse(this.event);
-      },
-      people(){
-          this.setPartialResponse(this.event);
-      },
-      feeAmount(){
-          this.setPartialResponse(this.event);
-      }
+    },
+    date() {
+      this.setPartialResponse(this.event);
+    },
+    startTime() {
+      this.setPartialResponse(this.event);
+    },
+    finishTime() {
+      this.setPartialResponse(this.event);
+    },
+    description() {
+      this.setPartialResponse(this.event);
+    },
+    people() {
+      this.setPartialResponse(this.event);
+    },
+    feeAmount() {
+      this.setPartialResponse(this.event);
+    }
   },
   computed: {
-        title(){
-            return this.event.title;
-        },
-        date(){
-            return this.event.date;
-        },
-        startTime(){
-            return this.event.startTime;
-        },
-        finishTime(){
-            return this.event.finishTime;
-        },
-        description(){
-            return this.event.description;
-        },
-        people(){
-            return this.event.people;
-        },
-        feeAmount(){
-            return this.event.feeAmount;
-        }
+    title() {
+      return this.event.title;
     },
+    date() {
+      return this.event.date;
+    },
+    startTime() {
+      return this.event.startTime;
+    },
+    finishTime() {
+      return this.event.finishTime;
+    },
+    description() {
+      return this.event.description;
+    },
+    people() {
+      return this.event.people;
+    },
+    feeAmount() {
+      return this.event.feeAmount;
+    }
+  },
   created() {
     let title = this.getResponse().title;
     let date = this.getResponse().date;

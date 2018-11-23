@@ -11,7 +11,7 @@
                         </div>
                         </card>
                     </div>
-                    <input type="file" hidden id="event-photo"/><br>
+                    <input type="file" hidden id="myPhoto"/><br>
                     <div class="container pt-lg-md text-left">
                       <div class="text-muted mb-2">ID : {{info.id}}</div>
                       <div class ="row">
@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import { strictEqual } from 'assert';
-
 export default {
   name: "MyInfoUpdate",
   created() {
@@ -48,17 +46,17 @@ export default {
   data() {
     return {
       info: {
-        id:"아이디",
+        id: "아이디",
         pw: "패스워드",
-        gender : "남",
+        gender: "남",
         country: "대한민국",
-        state : "경기도",
-        city : "수원시"
+        state: "경기도",
+        city: "수원시"
       }
     };
   },
   methods: {
-     choosePhoto() {
+    choosePhoto() {
       this.$el.querySelector("#my-photo").click();
     }
   }

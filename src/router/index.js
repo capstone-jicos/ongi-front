@@ -69,7 +69,7 @@ export default new Router({
       },
       children: CreateEVent
     },
-    
+
     {
       path: "/event",
       name: "event-list",
@@ -94,7 +94,7 @@ export default new Router({
         default: () => import("../views/venues/Confirm")
       }
     },
-  
+
     {
       path: "/venue/:id",
       name: "venue-info",
@@ -126,7 +126,7 @@ export default new Router({
         header: Header,
         default: () => import("../views/myPage/Hosted")
       }
-    }, 
+    },
     {
       path: "/my/attended",
       name: "attendedEvent-list",
@@ -134,7 +134,7 @@ export default new Router({
         header: Header,
         default: () => import("../views/myPage/Attended")
       }
-    }, 
+    },
     {
       path: "/my/venue/create/complete",
       components: {
