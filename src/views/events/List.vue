@@ -30,7 +30,7 @@
               </div>
             </div>
             <div class="event-time">
-              <i class="xi-time-o"></i> {{ event.date }}
+              <i class="xi-time-o"></i> {{ event.startDate }}
             </div>
             <div class="row mx-0">
               <div class="col-8 food-type px-0">
@@ -68,12 +68,12 @@ export default {
       let data = res.data;
 
       for (let i = 0; i < data.length; i++) {
-        let date = new Date(data[i].date);
+        let date = new Date(data[i].startDate);
         if (data[i].type) {
           data[i].type = JSON.parse(decodeURIComponent(data[i].type));
         }
 
-        data[i].date = `${date.toLocaleDateString("ko-KR", {
+        data[i].startDate = `${date.toLocaleDateString("ko-KR", {
           year: "numeric",
           month: "long",
           day: "numeric"
