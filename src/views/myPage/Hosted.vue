@@ -29,7 +29,7 @@
                       <span>{{ type }} </span>
                     </span>
               </div>
-              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.attendee }}명</div>
+              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.people }}명</div>
             </div>
           </div>
         </card>
@@ -39,44 +39,23 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
+
 export default {
   name: "Hosted",
   created() {
     this.$emit("onNavColorChange", "black");
-     this.events = [
-      {
-        eventId: 1,
-        title: "터키요리",
-        photo: "/img/theme/img-2-1200x1000.jpg",
-        country: "KR",
-        state: "SEO",
-        date: "2018-10-19 18:30",
-        attendee: 1,
-        foodType: ["해산물", "닭고기"],
-        host: {
-          image: "/img/theme/team-4-800x800.jpg"
-        }
-      },
-      {
-        eventId: 2,
-        title: "터키요리",
-        photo: "/img/theme/team-3-800x800.jpg",
-        country: "KR",
-        state: "SEO",
-        date: "2018-10-19 18:30",
-        attendee: 1,
-        foodType: ["할랄푸드"],
-        host: {
-          image: "/img/theme/team-4-800x800.jpg"
-        }
-      }
-    ];
+         this.events = this.getResponse();
   },
   data() {
     return {
+      events: null
     };
   },
   methods: {
+    ...mapGetters(["getResponse"]),
+
   }
 };
 </script>

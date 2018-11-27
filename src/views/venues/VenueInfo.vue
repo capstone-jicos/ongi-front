@@ -1,7 +1,7 @@
 <template>
     <div class="profile-page">
         <section class="section-profile-cover section-shaped my-0"
-                 v-bind:style="{ 'background-image': 'url(' + venue.image + ')' }">
+                 v-bind:style="{ 'background-image': 'url(' + venue.photoUrl + ')' }">
         </section>
         <section class="section section-skew event-info">
             <div class="container">
@@ -35,6 +35,8 @@
     </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createVenue");
 // import axios from "axios";
 export default {
   name: "VenueInfo",
@@ -45,32 +47,17 @@ export default {
   },
   data() {
     return {
-      venue: {
-       name: "내 장소 1",
-        type : "아파트",
-        amenities:"제공사항",
-        requirements: "필요사항",
-        restrictions:"제한사항",
-        location: {
-          name: "아주대학교",
-          address: "경기도 수원시 영통구 월드컵로 306",
-          coordinates: {
-            lat: 37.2828093,
-            lng: 127.0441714
-          }
-        },
+      venue:null
         // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
-        people : 12,
-        fee: 50000,
-        image: "/img/theme/img-2-1200x1000.jpg",
-       
-      }
     };
   },
   methods: {
+        ...mapGetters(["getResponse"])
   },
   created() {
     this.$emit("onNavColorChange", "white");
+    this.venue = this.getResponse();
+
   }
 };
 </script>

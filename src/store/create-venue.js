@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     response: {
+      venueId:null,
       type: null,
       location: {
         country: null,

@@ -13,7 +13,8 @@
                     </div>
                     <input type="file" hidden id="event-photo"/><br>
                     <div class="container pt-lg-md text-left">
-                      <div class="text-muted mb-2">ID : {{info.id}}</div>
+                      <div class="text-muted mb-2">ID : {{info.uniqueId}}</div>
+                      <div class="text-muted mb-2">별명 : {{info.displayName}}</div>
                       <div class ="row">
                         <div class="col">
                           <div class="text-muted">PW 수정 : </div>
@@ -45,6 +46,8 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("userInfo");
 
 export default {
   name: "MyInfoUpdate",
@@ -54,20 +57,51 @@ export default {
   data() {
     return {
       info: {
-        id:"아이디",
-        pw: "패스워드",
-        testpw: "테스트pw",
-        gender : "남",
-        country: "대한민국",
-        state : "경기도",
-        city : "수원시"
-      }
+        displayName: null,
+        uniqueId: null,
+        pw:  null,
+        testpw:  null,
+        gender :  null,
+        country:  null,
+        state :  null,
+        profileImage:null
+        }
     };
   },
   methods: {
-     choosePhoto() {
+    ...mapGetters(["getUserInfo"]),
+    ...mapActions(["setUserInfo"]),
+    choosePhoto() {
       this.$el.querySelector("#my-photo").click();
     }
+  },
+  computed: {
+    displayName(){
+      return this.info.displayName;
+    },
+    uniqueId(){
+      return this.info.uniqueId;
+    },
+    gender(){
+      return this.info.gender;
+    },
+    country(){
+      return this.info.country;
+    },
+    state(){
+      return this.info.state;
+    },
+    profileImage(){
+      return this.info.profileImage
+    }
+  },
+  created() {
+    let displayName = this.getUserInfo().displayName;
+    let uniqueId = this.getUserInfo().uniqueId;
+    let gender = this.getUserInfo().gender;
+    let country = this.getUserInfo().country;
+    let state = this.getUserInfo().state;
+    let profileImage = this.getUserInfo().profileImage;
   }
 };
 </script>
