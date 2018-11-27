@@ -29,10 +29,6 @@
                     <div class="h5">제한사항</div>
                     <li class="h6"> {{venue.restrictions}} </li>
                     <!-- 주소부분 -->
-                    <!-- "장소제공요청하기"버튼 넣는 장소 -->
-                    <router-link to="/venue/Confirm">
-                      <base-button>장소제공요청하기</base-button>
-                    </router-link>
                 </div>
             </div>
         </section>
