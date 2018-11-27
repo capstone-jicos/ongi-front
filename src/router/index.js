@@ -7,9 +7,12 @@ import Join from "../views/Join";
 import CreateVenue from "./create-venue";
 import CreateEVent from "./create-event";
 import EventInfo from "../views/events/Info";
-import AttendeeWaitList from "../views/myPage/AttendeeWaitList";
+import VenueInfo from "../views/venues/VenueInfo";
 
 import RequestFooter from "../views/events/RequestFooter";
+import VenueReqFooter from "../views/venues/VenueReqFooter";
+import AttendeeFooter from "../views/myPage/Venue";
+import ProviderAnswerFooter from "../views/myPage/HostWaitList";
 
 Vue.use(Router);
 
@@ -105,7 +108,8 @@ export default new Router({
       name: "venue-info",
       components: {
         header: Header,
-        default: () => import("../views/venues/VenueInfo")
+        default: VenueInfo,
+        footer: VenueReqFooter
       }
     },
     {
@@ -133,12 +137,21 @@ export default new Router({
       }
     },
     {
-      path: "/my/hosted/:id",
+      path: "/my/hosted/event/:id",
       name: "hosted-event-info",
       components: {
         header: Header,
+        default: () => import("../views/myPage/HostedInfo")
+
+      }
+    },
+    {
+      path: "my/attended/event/:id",
+      namme: "atttendedEvent-info",
+      components: {
+        header: Header,
         default: EventInfo,
-        footer: AttendeeWaitList
+        footer: ProviderAnswerFooter
       }
     },
     {
@@ -166,6 +179,14 @@ export default new Router({
       children: CreateVenue
     },
     {
+      path: "/my/venue/event/:eventId",
+      components: {
+        header: Header,
+        default: EventInfo,
+        footer: ProviderAnswerFooter
+      }
+    },
+    {
       path: "/my/venue",
       components: {
         header: Header,
@@ -176,7 +197,8 @@ export default new Router({
       path: "/my/venue/:id",
       components: {
         header: Header,
-        default: () => import("../views/myPage/Venue")
+        default: () => import("../views/venues/VenueInfo"),
+        footer: AttendeeFooter
       }
     }
   ]
