@@ -7,14 +7,14 @@
           <div class=" text-muted mb-2">모임 설명 : {{event.description}} </div>
           <div class=" text-muted mb-2">모임 컨셉 사진</div>
           <div class=" text-muted mb-2">모임 참가 가능 최대 인원수 : {{event.people}} </div>
-          <div class=" text-muted mb-2">참가비 : {{event.feeAmount}} </div>}}
+          <div class=" text-muted mb-2">참가비 : {{event.feeAmount}} </div>
         </div>
     </section>
 </template>
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createVenue");
+const { mapGetters } = createNamespacedHelpers("createEvent");
 
 export default {
   name: "middlecheck",

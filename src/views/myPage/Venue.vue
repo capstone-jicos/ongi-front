@@ -10,7 +10,7 @@
             <div class="event-item-photo" v-bind:style="{ 'background-image': 'url(' + event.photoUrl +')' }"></div>
             <div class="px-2 mb-2">
                 <div class="event-name mt-2">
-                <strong>{{ event.name }}</strong>
+                <strong>{{ event.title }}</strong>
                 </div>
                 <div class="event-address">
                 <i class="xi-maker"></i> {{ event.address }}
@@ -24,30 +24,25 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
+
 export default {
   name: "Venue",
-  data: function() {
+  created() {
+    this.$emit("onNavColorChange", "black");
+    this.events = this.getResponse();
+  },
+  data() {
     return {
-      events: [
-        {
-          eventId: 1,
-          name: "모임1",
-          address: "경기도 수원시 영통구 월드컵로 206",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg"
-        },
-        {
-          eventId: 2,
-          name: "모임2",
-          address: "서울특별시 강남구 서초대로 222",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg"
-        }
-      ],
+      events: null,
       venues: {
         venueId: 1
       }
     };
   },
   methods: {
+    ...mapGetters(["getResponse"]),
     getUrl(eventId) {
       return "/my/venue/event/" + eventId;
       // 원래 주소를 my/venue/:venueId/event/:eventId로 해주고 싶은데 방법을 모름

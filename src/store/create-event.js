@@ -9,7 +9,8 @@ export default {
       date: null,
       startTime: null,
       finishTime: null,
-      foods: []
+      foods: [],
+      photo: null
     }
     //address는 제외
   },
