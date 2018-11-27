@@ -18,11 +18,18 @@
                         <div class="col">
                           <div class="text-muted">PW 수정 : </div>
                         </div>
-                        <div class="col">
-                         <base-input class="float-left" type="password" v-model="info.pw" ></base-input>
+                        <div class="col-8">
+                         <base-input class="float-left modifiedPw" type="password" v-model="info.pw" ></base-input>
                         </div>
                       </div>
-                      <div class=" text-muted mb-2">PW 재확인 : </div>
+                       <div class ="row">
+                        <div class="col">
+                          <div class="text-muted">PW 재확인 : </div>
+                        </div>
+                        <div class="col-8">
+                         <base-input class="float-left modifiedPw" type="password" v-model="info.testpw" ></base-input>
+                        </div>
+                      </div>
                       <div class=" text-muted mb-2">Gender : {{info.gender}} </div>
                       <div class=" text-muted mb-2">Country : {{info.country}}</div>
                       <div class=" text-muted mb-2">State : {{info.state}} </div>
@@ -48,7 +55,8 @@ export default {
       info: {
         id: "아이디",
         pw: "패스워드",
-        gender: "남",
+        testpw: "테스트pw",
+        gender : "남",
         country: "대한민국",
         state: "경기도",
         city: "수원시"
@@ -72,5 +80,9 @@ div.container {
       min-height: 150px;
     }
   }
+}
+.modifiedPw{
+    width: 100%;
+    height: calc(2rem + 2px);
 }
 </style>
