@@ -142,16 +142,6 @@ export default new Router({
       components: {
         header: Header,
         default: () => import("../views/myPage/HostedInfo")
-
-      }
-    },
-    {
-      path: "my/attended/event/:id",
-      namme: "atttendedEvent-info",
-      components: {
-        header: Header,
-        default: EventInfo,
-        footer: ProviderAnswerFooter
       }
     },
     {
@@ -162,6 +152,15 @@ export default new Router({
         default: () => import("../views/myPage/Attended")
       }
     },
+    {
+      path: "my/attended/event/:id",
+      namme: "atttendedEvent-info",
+      components: {
+        header: Header,
+        default: EventInfo
+      }
+    },
+
     {
       path: "/my/venue/create/complete",
       components: {
