@@ -22,7 +22,9 @@
         <div v-else-if="condition===false" class="my-5">
             <h3>모임 참가 신청을 취소하시겠습니까?</h3>
             <div class="text-center mt-5">
+                <router-link to="/event">
                 <base-button type="neutral" variant="primary">YES!</base-button>
+                </router-link>
             </div>
         </div>
         </div>

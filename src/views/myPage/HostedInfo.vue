@@ -61,20 +61,10 @@
                         <card shadow class="card-profile col mx-1" no-body>
                           <div class="row">
                             <div class="col">
-                              <img v-lazy="event.guest.profileImage" class="rounded-circle"/>
+                              <img v-lazy="guest.profileImage" class="rounded-circle"/>
                             </div>
                             <div class="col text-center">
-                              {{event.guest.name}}님
-                            </div>
-                          </div>
-                        </card>
-                        <card shadow class="card-profile col mx-1" no-body>
-                          <div class="row">
-                            <div class="col">
-                              <img v-lazy="event.guest.profileImage" class="rounded-circle"/>
-                            </div>
-                            <div class="col text-center">
-                              {{event.guest.name}}님
+                              {{guest.attendeeName}}님
                             </div>
                           </div>
                         </card>
@@ -92,43 +82,15 @@ export default {
   components: {  },
   data() {
     return {
-      event: {
-        title: "",
-        description: "",
-        location: {
-          name: "",
-          country: "",
-          state: "",
-          city: "",
-          detail: "",
-          coordinates: {
-            lat: 0,
-            lng: 0
-          }
-        },
-        host: {
-          id: "",
-          name: "",
-          profileImage: ""
-        },
-        provider: {
-          id: "",
-          name: "",
-          profileImage: ""
-        },
-        guest: {
-          id: "",
-          name: "먹방요정",
-          profileImage: "/img/theme/team-4-800x800.jpg"
-        },
+      event:[],
+        guest: [],
         feeAmount: 0,
         type: null,
         seats: 0,
         startDate: null,
         endDate: null,
         attendCheck: 0,
-        hostCheck: false
-      },
+        hostCheck: false,
       isShort: true
     };
   },
@@ -143,9 +105,14 @@ export default {
   created() {
     let eventId = this.$route.params.id;
     let url = "/event/".concat(eventId);
+    let url1 = "/user/me/hosted/".concat(eventId);
 
     this.$axios.get(url).then(res => {
       this.event = res.data;
+    });
+
+    this.$axios.get(url1).then(res => {
+      this.guest = res.data;
     });
 
     this.$emit("onNavColorChange", "white");

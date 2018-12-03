@@ -30,8 +30,8 @@
                     <input type="file" hidden id="event-photo"/>
                 </div>
                 <div class ="row">
-                        <base-input class="mb-3" label="참가 최대 인원수" v-model="event.people"> </base-input>
-                        <base-input class="mb-3" label="참가비" v-model="event.feeAmount"> </base-input>
+                        <base-input class="mb-3 col" label="참가 최대 인원수" v-model="event.people"> </base-input>
+                        <base-input class="mb-3 col" label="참가비" v-model="event.feeAmount"> </base-input>
                 </div>
             </form>
         </div>

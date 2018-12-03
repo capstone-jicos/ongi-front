@@ -8,11 +8,11 @@
                 <div class="text-center mx-5 mb-5">
                     <h2>{{ venue.name }}</h2>
                 </div>
-                <div class="text-center h5 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{venue.location.address}}</div>
+                <div class="text-center h5 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{venue.city}}</div>
                 <div class="mt-4">
                     <div class="h5 ml-1 mr-1 row">
                         <div class="col text-center float-left" ><i class="mr-1 xi-money"></i>{{ venue.fee}}원</div>
-                        <div class="col  text-center float-right"><i class="mr-1 xi-user-o"></i>최대 {{ venue.people }}명</div>
+                        <div class="col  text-center float-right"><i class="mr-1 xi-user-o"></i>최대 {{ venue.accomodate }}명</div>
                     </div>
                     <div class="h5 text-center"><i class="mr-1 xi-building"></i> 숙소 유형 : {{venue.type}}</div>
                 </div>
@@ -25,38 +25,68 @@
                       </div>
                     </div>
                     <div class="h5">필요사항</div>
-                    <li class="h6"> {{venue.requirements}} </li>
-                    <div class="h5">제한사항</div>
-                    <li class="h6"> {{venue.restrictions}} </li>
-                    <!-- 주소부분 -->
+                    <li class="h6"> {{venue.rules}} </li>
+                    <div class="my-3">
+                        <div class="h6">주소 :{{ fullAddress }}</div>
+                      </div>
+
+                      <GmapMap class='col mb-5'
+                               :center="coordinates"
+                               :zoom='17'
+                               style='height:300px;'
+                               ref="map"
+                      >
+                          <GmapMarker
+                              :position='coordinates'
+                              :clickable='true'
+                              :draggable='false'
+                              >
+                          </GmapMarker>
+                      </GmapMap>
                 </div>
             </div>
         </section>
     </div>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createVenue");
-// import axios from "axios";
 export default {
   name: "VenueInfo",
   computed: {
     feeWithComma() {
-      return this.event.fee.toLocaleString();
+      return this.venue.fee.toLocaleString();
+    },
+     coordinates() {
+      return {
+        lat: parseFloat(this.venue.location.coordinates.lat),
+        lng: parseFloat(this.venue.location.coordinates.lng)
+      };
+    },
+     fullAddress() {
+      let location = this.venue.location;
+      return `${location.country} ${location.state}
+       ${location.city} ${location.detail}`;
+    },
+    briefAddress() {
+      let location = this.venue.location;
+      return `${location.state} ${location.city}`;
     }
   },
   data() {
     return {
-      venue:null
+      venue: []
         // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
     };
   },
   methods: {
-        ...mapGetters(["getResponse"])
   },
   created() {
     this.$emit("onNavColorChange", "white");
-    this.venue = this.getResponse();
+    let venueId = this.$route.params.id;
+    let url = "/venue/infor/".concat(venueId);
+    
+    this.$axios.get(url).then(res => {
+      this.venue = res.data;
+    });
 
   }
 };

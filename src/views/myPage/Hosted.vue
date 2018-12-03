@@ -2,34 +2,31 @@
   <section class="section">
     <div class="container">
       <div id="event-list-header">
-        <span class="h5">계성혁님의 주최한 모임</span>
+        <span class="h5">{{displayName}}님의 주최한 모임</span>
         </div>
       </div>
     <div class="container">
-      <router-link v-for="event in events" :key="event.eventId" :to="'hosted/event/'+event.eventId">
+      <router-link v-for="event in events" :key="event.eventIndex" :to="'/my/hosted/event/'+event.eventIndex">
         <card shadow class="card-profile" no-body>
-          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.photo +')' }">
+          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.eventImages +')' }">
           </div>
           <div class="px-2 mb-2">
             <div class="row event-title-photo">
               <div class="event-title col-9 mt-2">
                 <strong>{{ event.title }}</strong>
               </div>
-              <div class="col-3">
-                <img v-lazy="event.host.image" class="rounded-circle"/>
-              </div>
             </div>
             <div class="event-time">
-              <i class="xi-time-o"></i> {{ event.date }}
+              <i class="xi-time-o"></i> {{ event.startDate }}
             </div>
             <div class="row">
               <div class="col food-type">
                 <i class="xi-restaurant"></i>
-                <span v-for="type in event.foodType" :key="type" >
-                      <span>{{ type }} </span>
+                <span v-for="food in event.type" :key="food" >
+                      <span>{{ food }} </span>
                     </span>
               </div>
-              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.people }}명</div>
+              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.holdNum }}명</div>
             </div>
           </div>
         </card>
@@ -40,22 +37,26 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createEvent");
+const { mapGetters } = createNamespacedHelpers("user");
 
 export default {
   name: "Hosted",
   created() {
     this.$emit("onNavColorChange", "black");
-         this.events = this.getResponse();
+    this.displayName = this.getUserInfo().displayName;
+
+    this.$axios.get("/user/me/hosted", { withCredentials: true }).then(res => {
+      this.events = res.data;
+    });
   },
   data() {
     return {
-      events: null
+      events: [],
+      displayName: null
     };
   },
   methods: {
-    ...mapGetters(["getResponse"]),
-
+    ...mapGetters(["getUserInfo"])
   }
 };
 </script>

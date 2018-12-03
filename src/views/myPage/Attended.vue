@@ -2,13 +2,13 @@
   <section class="section">
     <div class="container">
       <div id="event-list-header">
-        <span class="h5">계성혁님의 참가한 모임</span>
+        <span class="h5">{{displayName}}님의 참가한 모임</span>
         </div>
       </div>
     <div class="container">
-      <router-link v-for="event in events" :key="event.eventId" :to="getUrl(event.eventId)">
+      <router-link v-for="event in events" :key="event.eventIdx" :to="'/my/attended/event/'+event.eventIdx">
         <card shadow class="card-profile" no-body>
-          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.photo +')' }">
+          <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.image +')' }">
           </div>
           <div class="px-2 mb-2">
             <div class="row event-title-photo">
@@ -16,20 +16,20 @@
                 <strong>{{ event.title }}</strong>
               </div>
               <div class="col-3">
-                <img v-lazy="event.host.image" class="rounded-circle"/>
+                <img v-lazy="event.hostImage" class="rounded-circle"/>
               </div>
             </div>
             <div class="event-time">
-              <i class="xi-time-o"></i> {{ event.date }}
+              <i class="xi-time-o"></i> {{ dateFormatted }}
             </div>
             <div class="row">
               <div class="col food-type">
                 <i class="xi-restaurant"></i>
-                <span v-for="type in event.foods" :key="type" >
-                      <span>{{ type }} </span>
+                <span v-for="food in event.type" :key="food" >
+                      <span>{{ food }} </span>
                     </span>
               </div>
-              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.people }}명</div>
+              <div class="col attendee"><i class="xi-toilet"></i>&nbsp;{{ event.seats }}명</div>
             </div>
           </div>
         </card>
@@ -40,26 +40,42 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createEvent");
+const { mapGetters } = createNamespacedHelpers("user");
 
 export default {
   name: "Attended",
-  created() {
-    this.$emit("onNavColorChange", "black");
-    this.events = this.getResponse();
-
-  },
-  data() {
+   data() {
     return {
-      events: null
+      events: [],
+      displayName: null
     };
   },
-  methods: {
-        ...mapGetters(["getResponse"]),
-    getUrl(eventId) {
-      return "/my/attended/event/"+eventId;
-      // 원래 주소를 my/venue/:venueId/event/:eventId로 해주고 싶은데 방법을 모름
+  created() {
+    this.$emit("onNavColorChange", "black");
+    this.displayName = this.getUserInfo().displayName;
+
+    this.$axios.get("/user/me/attended", { withCredentials: true }).then(res => {
+      //let type = JSON.parse(decodeURIComponent(res.data.type));
+      this.events = res.data; 
+      //this.events.type = type;
+    });
+  },
+  computed:{
+    dateFormatted() {
+      let date = new Date(this.events.startDate);
+      return `${date.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      })} ${date.toLocaleTimeString("ko-KR", {
+        hour: "numeric",
+        minute: "numeric"
+      })}`;
     }
+  },
+ 
+  methods: {
+    ...mapGetters(["getUserInfo"])
   }
 };
 </script>

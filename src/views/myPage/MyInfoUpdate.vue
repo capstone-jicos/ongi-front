@@ -47,7 +47,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapActions } = createNamespacedHelpers("userInfo");
+const { mapGetters, mapActions } = createNamespacedHelpers("user");
 
 export default {
   name: "MyInfoUpdate",

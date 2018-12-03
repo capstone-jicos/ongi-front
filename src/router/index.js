@@ -9,6 +9,7 @@ import CreateEVent from "./create-event";
 import EventInfo from "../views/events/Info";
 import VenueInfo from "../views/venues/VenueInfo";
 
+import confirmFooter from "../views/events/create/ConfirmFooter";
 import RequestFooter from "../views/events/RequestFooter";
 import VenueReqFooter from "../views/venues/VenueReqFooter";
 import AttendeeFooter from "../views/myPage/Venue";
@@ -64,7 +65,8 @@ export default new Router({
       name: "confirm",
       components: {
         header: Header,
-        default: () => import("../views/events/create/Confirm")
+        default: () => import("../views/events/create/Confirm"),
+        footer: confirmFooter
       }
     },
     {
@@ -141,26 +143,26 @@ export default new Router({
       name: "hosted-event-info",
       components: {
         header: Header,
-        default: () => import("../views/myPage/HostedInfo")
+        default: () => import("../views/myPage/HostedInfo"),
+        footer: ProviderAnswerFooter
       }
     },
     {
-      path: "/my/attended",
-      name: "attendedEvent-list",
-      components: {
-        header: Header,
-        default: () => import("../views/myPage/Attended")
-      }
-    },
-    {
-      path: "my/attended/event/:id",
-      namme: "atttendedEvent-info",
+      path: "/my/attended/event/:id",
+      name: "attended",
       components: {
         header: Header,
         default: EventInfo
       }
     },
-
+    {
+      path: "/my/attended",
+      name: "attended",
+      components: {
+        header: Header,
+        default: () => import("../views/myPage/Attended")
+      }
+    },
     {
       path: "/my/venue/create/complete",
       components: {
@@ -178,7 +180,7 @@ export default new Router({
       children: CreateVenue
     },
     {
-      path: "/my/venue/event/:eventId",
+      path: "/my/venue/event/:Id",
       components: {
         header: Header,
         default: EventInfo,
