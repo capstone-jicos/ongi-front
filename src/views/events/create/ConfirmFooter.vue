@@ -1,8 +1,7 @@
 <template>
     <section class = "section">
         <div class="container pt-lg-md my-10 text-center mt-5">
-            <p>장소 대여신청 요청이 되었습니다</p>
-            <router-link to="/my/hosted">
+            <router-link to="/">
             <base-button>홈으로</base-button>
             </router-link>
         </div>
@@ -11,9 +10,10 @@
 
 <script>
 export default {
-  name: "Confirm",
+  name: "confirmFooter",
   data() {
-    return {};
+    return {
+    };
   },
   created() {
     this.$emit("onNavColorChange", "black");

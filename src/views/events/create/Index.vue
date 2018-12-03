@@ -32,7 +32,7 @@ export default {
       this.$router.push(`./${this.route[++this.index]}`);
     },
     onValueChange(payload) {
-      let keys = Object.keys(payload);
+      let keys = Object.keys(zpayload);
       for (let i = 0; i < keys.length; i++) {
         let key = keys[i];
         this.response[key] = payload[key];

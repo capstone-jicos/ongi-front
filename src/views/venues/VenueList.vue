@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="container">
-      <router-link v-for="venue in venues" :key="venue.venueId" :to="getUrl(venue.venueId)">
+      <router-link v-for="venue in venues" :key="venue.idx" :to="getUrl(venue.idx)">
         <card shadow class="card-profile" no-body>
           <div class="venue-item-photo" v-bind:style="{ 'background-image': 'url(' + venue.photoUrl +')' }"></div>
           <div class="px-2 mb-2 row">
@@ -27,11 +27,11 @@
           </div>
           <div class="px-2 mb-2">
             <div class="venue-address">
-              <i class="xi-maker"></i> {{ venue.address }}
+              <i class="xi-maker"></i> {{ venue.state }}
             </div>
             <div class="row">
               <div class="col float-left"><i class="xi-building"></i> {{venue.type}}</div>
-              <div class="col text-center" ><i class="xi-money"></i>{{ venue.eventFee}}원</div>
+              <div class="col text-center" ><i class="xi-money"></i>{{ venue.fee}}원</div>
               <div class="col text-right"><i class="xi-user-o"></i>{{ venue.accomodate }}명</div>
             </div>
           </div>
@@ -42,14 +42,19 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createVenue");
-
 export default {
   name: "VenueList",
   created() {
     this.$emit("onNavColorChange", "black");
-    this.venues = this.getResponse();
+
+    this.$axios
+      .get(
+        "/venue/list?startDate=2018-11-10T09:33:00.000Z&endDate=2018-11-10T10:00:00.000Z&seats=3",
+        { withCredentials: true }
+      )
+      .then(res => {
+        this.venues = res.data;
+      });
   },
   data() {
     return {
@@ -57,10 +62,9 @@ export default {
     };
   },
   methods: {
-    getUrl(venueId) {
-      return "/venue/" + venueId;
-    },
-    ...mapGetters(["getResponse"])
+    getUrl(idx) {
+      return "/venue/" + idx;
+    }
   }
 };
 </script>
