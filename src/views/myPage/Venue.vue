@@ -35,10 +35,8 @@ export default {
   },
   data(){
     return{
-      events:null,
-      venues: {
-        venueId:1
-      }
+      events:'',
+      venues: []
     }
   },
   methods: {

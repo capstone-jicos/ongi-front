@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       event: {
-      foods: []
+      type: []
       },
       checkboxes: {
         Korean : false,
@@ -37,26 +37,26 @@ export default {
     ...mapActions(["setPartialResponse"])
   },
   created() {
-   let foods = this.getResponse().foods;
-   if(foods !==undefined && foods.length !==0){
-     this.foods = foods;
+   let type = this.getResponse().type;
+   if(type !==undefined && type.length !==0){
+     this.type = type;
    }
-   for(let i=0;i<foods.length; i++){
-     this.checkboxes[foods[i]]=true;
+   for(let i=0;i<type.length; i++){
+     this.checkboxes[type[i]]=true;
    }
   },
   watch: {
      checkboxes: {
       handler: function(newValue) {
-        let foods = [];
+        let type = [];
         let keys = Object.keys(newValue);
 
         for (let i = 0; i < keys.length; i++) {
           if (newValue[keys[i]] === true) {
-            foods.push(keys[i]);
+            type.push(keys[i]);
           }
         }
-        this.event.foods = foods;
+        this.event.type =type;
         this.setPartialResponse(this.event);
       },
       deep: true

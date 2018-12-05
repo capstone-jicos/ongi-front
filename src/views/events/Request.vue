@@ -13,9 +13,7 @@
         <div v-if="condition===true" class="my-5" >
             <h3 mb-2>결제 모듈 적용하기</h3>
             <div class="col text-center my-5">
-                <router-link to="/event/request/Confirm">
-                <base-button type="neutral" variant="primary">finish</base-button>
-                </router-link>
+                <base-button type="neutral" variant="primary" @click="Confirm">finish</base-button>
             </div>
         </div>
         
@@ -23,7 +21,7 @@
             <h3>모임 참가 신청을 취소하시겠습니까?</h3>
             <div class="text-center mt-5">
                 <router-link to="/event">
-                <base-button type="neutral" variant="primary">YES!</base-button>
+                <base-button type="neutral" variant="primary" >YES!</base-button>
                 </router-link>
             </div>
         </div>
@@ -42,6 +40,27 @@ export default {
     return {
       condition: ""
     };
+  },
+  methods:{
+      getUrl(){
+          return `/event/${this.$route.params.id}/request/Confirm`;
+      },
+      Confirm(){
+        let payload ={
+         eventId:  this.$route.params.id
+          };
+        let url=`/event/${this.$route.params.id}/join`;
+        this.$axios
+          .post(url, payload, { withCredentials: true })
+          .then(response => {
+            console.log(response.data.errors);
+            if (response.data.errors !== undefined) {
+              console.log(response.data.errors);
+            } else {
+              this.$router.push(`/event/${this.$route.params.id}/request/Confirm`);
+            }
+          });
+      }
   }
 };
 </script>

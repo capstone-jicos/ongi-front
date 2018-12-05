@@ -14,6 +14,7 @@ import RequestFooter from "../views/events/RequestFooter";
 import VenueReqFooter from "../views/venues/VenueReqFooter";
 import AttendeeFooter from "../views/myPage/Venue";
 import ProviderAnswerFooter from "../views/myPage/HostWaitList";
+import VenuePickFooter from "../views/events/create/MyvenuePick";
 
 Vue.use(Router);
 
@@ -45,7 +46,7 @@ export default new Router({
       }
     },
     {
-      path: "/event/request/Confirm",
+      path: "/event/:id/request/Confirm",
       name: "requestConfirm",
       components: {
         header: Header,
@@ -53,11 +54,28 @@ export default new Router({
       }
     },
     {
-      path: "/event/request",
+      path: "/event/:id/request",
       name: "request",
       components: {
         header: Header,
         default: () => import("../views/events/Request")
+      }
+    },
+    {
+      path: "/event/create/setvenue/my/venue/:id",
+      name: "setvenue",
+      components: {
+        header: Header,
+        default: VenueInfo,
+        footer: VenuePickFooter
+      }
+    },
+    {
+      path: "/event/create/setvenue",
+      name: "setvenue",
+      components: {
+        header: Header,
+        default: () => import("../views/events/create/SetVenue")
       }
     },
     {
@@ -188,18 +206,18 @@ export default new Router({
       }
     },
     {
+      path: "/my/venue/:id",
+      components: {
+        header: Header,
+        default: VenueInfo,
+        footer: AttendeeFooter
+      }
+    },
+    {
       path: "/my/venue",
       components: {
         header: Header,
         default: () => import("../views/provider/List")
-      }
-    },
-    {
-      path: "/my/venue/:id",
-      components: {
-        header: Header,
-        default: () => import("../views/venues/VenueInfo"),
-        footer: AttendeeFooter
       }
     }
   ]
