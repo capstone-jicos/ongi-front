@@ -37,15 +37,15 @@ export default new Router({
       }
     },
     {
-      path: "/event/request/Confirm",
-      name: "requestConfirm",
+      path: "/event/:id/complete",
+      name: "Complete",
       components: {
         header: Header,
-        default: () => import("../views/events/RequestConfirm")
+        default: () => import("../views/events/Complete")
       }
     },
     {
-      path: "/event/request",
+      path: "/event/:id/join",
       name: "request",
       components: {
         header: Header,
@@ -69,7 +69,7 @@ export default new Router({
       },
       children: CreateEVent
     },
-    
+
     {
       path: "/event",
       name: "event-list",
@@ -94,7 +94,7 @@ export default new Router({
         default: () => import("../views/venues/Confirm")
       }
     },
-  
+
     {
       path: "/venue/:id",
       name: "venue-info",
@@ -126,7 +126,7 @@ export default new Router({
         header: Header,
         default: () => import("../views/myPage/Hosted")
       }
-    }, 
+    },
     {
       path: "/my/attended",
       name: "attendedEvent-list",
@@ -134,7 +134,7 @@ export default new Router({
         header: Header,
         default: () => import("../views/myPage/Attended")
       }
-    }, 
+    },
     {
       path: "/my/venue/create/complete",
       components: {
