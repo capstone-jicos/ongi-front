@@ -33,13 +33,11 @@ export default {
     this.$emit("onNavColorChange", "black");
     this.events = this.getResponse();
   },
-  data() {
-    return {
-      events: null,
-      venues: {
-        venueId: 1
-      }
-    };
+  data(){
+    return{
+      events:'',
+      venues: []
+    }
   },
   methods: {
     ...mapGetters(["getResponse"]),

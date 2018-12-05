@@ -80,8 +80,8 @@ export default {
   methods: {},
   created() {
     this.$emit("onNavColorChange", "white");
-    let venueId = this.$route.params.id;
-    let url = "/venue/infor/".concat(venueId);
+    let venueId = this.$route.params.idx;
+    let url = `/venue/${venueId}/infor`;
 
     this.$axios.get(url).then(res => {
       this.venue = res.data;

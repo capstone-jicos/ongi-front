@@ -54,13 +54,14 @@ export default {
     this.$emit("onNavColorChange", "black");
     this.displayName = this.getUserInfo().displayName;
 
-    this.$axios
-      .get("/user/me/attended", { withCredentials: true })
-      .then(res => {
-        let type = JSON.parse(decodeURIComponent(res.data.type));
-        this.events = res.data;
-        this.events.type = type;
-      });
+    this.$axios.get("/user/me/attended", { withCredentials: true }).then(res => {
+      for (let index = 0; index < res.data.length; index++) {
+        let type = JSON.parse(decodeURIComponent(res.data[index].type));
+        let event = res.data[index];
+        event.type = type;
+        this.events.push(event);
+      }
+    });
   },
   computed: {
     dateFormatted() {
