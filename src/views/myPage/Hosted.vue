@@ -32,6 +32,7 @@
         </card>
       </router-link>
     </div>
+    
   </section>
 </template>
 

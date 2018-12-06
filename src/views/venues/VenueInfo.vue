@@ -85,7 +85,7 @@ export default {
     let url = `/venue/infor/${venueId}`;
     
     this.$axios.get(url).then(res => {
-      this.venue = res.data;
+      this.venue = res.data;zzz
     });
 
   }

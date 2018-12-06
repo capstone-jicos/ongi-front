@@ -122,7 +122,6 @@ export default new Router({
         default: () => import("../views/venues/Confirm")
       }
     },
-//http://localhost:8080/venue/list?startDate=2018-11-12T09:29:00.000Z&endDate=2018-11-12T10:00:00.000Z
     {
       path: "/venue/:id",
       name: "venue-info",
@@ -161,8 +160,8 @@ export default new Router({
       name: "hosted-event-info",
       components: {
         header: Header,
-        default: () => import("../views/myPage/HostedInfo"),
-        footer: ProviderAnswerFooter
+        default: EventInfo,
+        footer: () => import("../views/myPage/HostedInfo")
       }
     },
     {
@@ -198,7 +197,7 @@ export default new Router({
       children: CreateVenue
     },
     {
-      path: "/my/venue/event/:Id",
+      path: "/my/venue/event/:id",
       components: {
         header: Header,
         default: EventInfo,
