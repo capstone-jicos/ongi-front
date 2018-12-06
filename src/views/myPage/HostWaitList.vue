@@ -15,8 +15,7 @@
 <script>
 export default {
   name: "HostWaitList",
-  props: {
-  }
+  props: {}
 };
 </script>
 <style scoped lang="scss">

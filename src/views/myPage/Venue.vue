@@ -30,14 +30,20 @@ const { mapGetters } = createNamespacedHelpers("createEvent");
 export default {
   name: "Venue",
   created() {
-    this.$emit("onNavColorChange", "black");
-    this.events = this.getResponse();
+    // TODO API로 모임 정보 가져와서 붙여주기
+    let eventId = this.$route.params.id;
+    let url = "/api/event/".concat(eventId);
+    // axios.get(url).then((res) => {
+    // this.event = res.data;
+    // });
+    console.log(url);
+    this.$emit("onNavColorChange", "white");
   },
-  data(){
-    return{
-      events:'',
+  data() {
+    return {
+      events: "",
       venues: []
-    }
+    };
   },
   methods: {
     ...mapGetters(["getResponse"]),

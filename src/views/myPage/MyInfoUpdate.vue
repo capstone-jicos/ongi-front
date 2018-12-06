@@ -35,6 +35,10 @@ const { mapGetters, mapActions } = createNamespacedHelpers("user");
 
 export default {
   name: "MyInfoUpdate",
+  created() {
+    this.$emit("onNavColorChange", "black");
+    this.info = this.getUserInfo();
+  },
   data() {
     return {
       info: {}
@@ -42,52 +46,48 @@ export default {
   },
   methods: {
     ...mapGetters(["getUserInfo"]),
-    ...mapActions(['setUserInfo']),
+    ...mapActions(["setUserInfo"]),
     choosePhoto() {
       this.$el.querySelector("#my-photo").click();
     }
   },
   watch: {
-    city(){
+    city() {
       this.setUserInfo(this.info);
     },
-    country(){
+    country() {
       this.setUserInfo(this.info);
     },
-    displayname(){
+    displayname() {
       this.setUserInfo(this.info);
     },
-    gender(){
+    gender() {
       this.setUserInfo(this.info);
     },
-    state(){
+    state() {
       this.setUserInfo(this.info);
     },
-    profileImage(){
+    profileImage() {
       this.setUserInfo(this.info);
     }
   },
   computed: {
-    city(){
+    city() {
       return this.info.city;
     },
     country() {
       return this.info.country;
     },
-    displayname(){
-      return this.info.displayname
+    displayname() {
+      return this.info.displayname;
     },
-    gender(){
+    gender() {
       return this.info.gender;
     },
-    state(){
+    state() {
       return this.info.state;
     }
-  },
-  created() {
-    this.$emit("onNavColorChange", "black");
-    this.info = this.getUserInfo();
-  },
+  }
 };
 </script>
 

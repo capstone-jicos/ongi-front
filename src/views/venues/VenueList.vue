@@ -47,7 +47,7 @@ export default {
   created() {
     this.$emit("onNavColorChange", "black");
     let url = `/venue/list?startDate={$}&endDate={$}&seats={$}`;
-     this.$axios.get(url, { withCredentials: true }).then(res => {
+    this.$axios.get(url, { withCredentials: true }).then(res => {
       this.venues = res.data;
     });
   },
