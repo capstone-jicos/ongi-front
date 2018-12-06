@@ -55,13 +55,13 @@ export default {
     feeWithComma() {
       return this.venue.fee.toLocaleString();
     },
-     coordinates() {
+    coordinates() {
       return {
         lat: parseFloat(this.venue.location.coordinates.lat),
         lng: parseFloat(this.venue.location.coordinates.lng)
       };
     },
-     fullAddress() {
+    fullAddress() {
       let location = this.venue.location;
       return `${location.country} ${location.state}
        ${location.city} ${location.detail}`;
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       venue: []
-        // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
+      // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
     };
   },
   methods: {},
@@ -86,7 +86,6 @@ export default {
     this.$axios.get(url).then(res => {
       this.venue = res.data;
     });
-
   }
 };
 </script>

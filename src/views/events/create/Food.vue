@@ -47,7 +47,7 @@ export default {
   },
   watch: {
     checkboxes: {
-      handler: function (newValue) {
+      handler: function(newValue) {
         let type = [];
         let keys = Object.keys(newValue);
 

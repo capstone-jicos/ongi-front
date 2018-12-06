@@ -29,23 +29,6 @@ const { mapGetters } = createNamespacedHelpers("createEvent");
 export default {
   name: "Venue",
   created() {
-    this.$emit("onNavColorChange", "black");
-    this.events = this.getResponse();
-  },
-  data(){
-    return{
-      events:'',
-      venues: []
-    }
-  },
-  methods: {
-    ...mapGetters(["getResponse"]),
-    getUrl(eventId) {
-      return "/my/venue/event/"+eventId;
-      // 원래 주소를 my/venue/:venueId/event/:eventId로 해주고 싶은데 방법을 모름
-    }
-  },
-  created() {
     // TODO API로 모임 정보 가져와서 붙여주기
     let eventId = this.$route.params.id;
     let url = "/api/event/".concat(eventId);
@@ -54,6 +37,19 @@ export default {
     // });
     console.log(url);
     this.$emit("onNavColorChange", "white");
+  },
+  data() {
+    return {
+      events: "",
+      venues: []
+    };
+  },
+  methods: {
+    ...mapGetters(["getResponse"]),
+    getUrl(eventId) {
+      return "/my/venue/event/" + eventId;
+      // 원래 주소를 my/venue/:venueId/event/:eventId로 해주고 싶은데 방법을 모름
+    }
   }
 };
 </script>

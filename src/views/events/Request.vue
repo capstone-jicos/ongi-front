@@ -41,26 +41,28 @@ export default {
       condition: ""
     };
   },
-  methods:{
-      getUrl(){
-          return `/event/${this.$route.params.id}/request/Confirm`;
-      },
-      Confirm(){
-        let payload ={
-         eventId:  this.$route.params.id
-          };
-        let url=`/event/${this.$route.params.id}/join`;
-        this.$axios
-          .post(url, payload, { withCredentials: true })
-          .then(response => {
+  methods: {
+    getUrl() {
+      return `/event/${this.$route.params.id}/request/Confirm`;
+    },
+    Confirm() {
+      let payload = {
+        eventId: this.$route.params.id
+      };
+      let url = `/event/${this.$route.params.id}/join`;
+      this.$axios
+        .post(url, payload, { withCredentials: true })
+        .then(response => {
+          console.log(response.data.errors);
+          if (response.data.errors !== undefined) {
             console.log(response.data.errors);
-            if (response.data.errors !== undefined) {
-              console.log(response.data.errors);
-            } else {
-              this.$router.push(`/event/${this.$route.params.id}/request/Confirm`);
-            }
-          });
-      }
+          } else {
+            this.$router.push(
+              `/event/${this.$route.params.id}/request/Confirm`
+            );
+          }
+        });
+    }
   }
 };
 </script>

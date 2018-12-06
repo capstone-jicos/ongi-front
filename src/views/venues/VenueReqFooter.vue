@@ -10,8 +10,7 @@
 <script>
 export default {
   name: "VenueReqFooter",
-  props: {
-  }
+  props: {}
 };
 </script>
 <style scoped lang="scss">

@@ -76,21 +76,20 @@
     </div>
 </template>
 <script>
-
 export default {
   name: "HostedInfo",
-  components: {  },
+  components: {},
   data() {
     return {
-      event:'',
-        guests: '',
-        feeAmount: 0,
-        type: null,
-        seats: 0,
-        startDate: null,
-        endDate: null,
-        attendCheck: 0,
-        hostCheck: false,
+      event: "",
+      guests: "",
+      feeAmount: 0,
+      type: null,
+      seats: 0,
+      startDate: null,
+      endDate: null,
+      attendCheck: 0,
+      hostCheck: false,
       isShort: true
     };
   },
@@ -193,7 +192,6 @@ div.container {
     }
   }
 }
-
 
 img {
   max-height: 50px;

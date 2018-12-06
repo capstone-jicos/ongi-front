@@ -16,7 +16,6 @@ import { FadeTransition } from "vue2-transitions";
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters } = createNamespacedHelpers("createEvent");
 
-
 export default {
   name: "Index",
   components: {
@@ -27,7 +26,7 @@ export default {
     ...mapGetters(["getResponse"]),
     onBackButton() {
       if (this.index >= 1) {
-        this.$router.push(`./${this.route[this.index-1]}`);
+        this.$router.push(`./${this.route[this.index - 1]}`);
       } else {
         if (
           window.confirm(
@@ -40,22 +39,18 @@ export default {
     onNextButton() {
       if (!this.final) {
         this.$router.push(`./${this.route[this.index + 1]}`);
-      } 
-      else {
+      } else {
         let eventState = this.getResponse();
         let payload = {
           title: eventState.title,
-          description: eventState.description, 
-          fee : eventState.feeAmount,
-          photoUrl : eventState.photo,
+          description: eventState.description,
+          fee: eventState.feeAmount,
+          photoUrl: eventState.photo,
           seats: eventState.people,
           startDate: eventState.startDate,
           endDate: eventState.endDate,
-          type: encodeURIComponent(
-            JSON.stringify(eventState.type)
-          ),
+          type: encodeURIComponent(JSON.stringify(eventState.type))
           //venueId:1//이거값 때려박음 고쳐야함,
-          
         };
         this.$axios
           .post("/event/create", payload, { withCredentials: true })
@@ -89,7 +84,7 @@ export default {
     final() {
       return this.index === this.route.length - 2;
     },
-     index() {
+    index() {
       let pattern = /.*\/(.*)/;
       let pathResult = pattern.exec(this.$route.path);
       return this.route.indexOf(pathResult[1]);

@@ -12,8 +12,7 @@
 export default {
   name: "confirmFooter",
   data() {
-    return {
-    };
+    return {};
   },
   created() {
     this.$emit("onNavColorChange", "black");

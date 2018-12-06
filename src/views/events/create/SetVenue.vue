@@ -60,7 +60,7 @@ export default {
     };
   },
   methods: {
-      getUrl(venueId) {
+    getUrl(venueId) {
       return "/event/create/setvenue/my/venue/" + venueId;
     }
   }

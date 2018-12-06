@@ -44,7 +44,7 @@ const { mapGetters } = createNamespacedHelpers("user");
 
 export default {
   name: "Attended",
-   data() {
+  data() {
     return {
       events: [],
       displayName: null
@@ -54,16 +54,18 @@ export default {
     this.$emit("onNavColorChange", "black");
     this.displayName = this.getUserInfo().displayName;
 
-    this.$axios.get("/user/me/attended", { withCredentials: true }).then(res => {
-      for (let index = 0; index < res.data.length; index++) {
-        let type = JSON.parse(decodeURIComponent(res.data[index].type));
-        let event = res.data[index];
-        event.type = type;
-        this.events.push(event);
-      }
-    });
+    this.$axios
+      .get("/user/me/attended", { withCredentials: true })
+      .then(res => {
+        for (let index = 0; index < res.data.length; index++) {
+          let type = JSON.parse(decodeURIComponent(res.data[index].type));
+          let event = res.data[index];
+          event.type = type;
+          this.events.push(event);
+        }
+      });
   },
-  computed:{
+  computed: {
     dateFormatted() {
       let date = new Date(this.events.startDate);
       return `${date.toLocaleDateString("ko-KR", {

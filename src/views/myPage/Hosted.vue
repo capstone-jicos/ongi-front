@@ -45,7 +45,7 @@ export default {
     this.$emit("onNavColorChange", "black");
     this.displayName = this.getUserInfo().displayName;
 
-    this.$axios.get("/user/me/hosted", {withCredentials: true}).then(res => {
+    this.$axios.get("/user/me/hosted", { withCredentials: true }).then(res => {
       for (let index = 0; index < res.data.length; index++) {
         let type = JSON.parse(decodeURIComponent(res.data[index].type));
         let event = res.data[index];

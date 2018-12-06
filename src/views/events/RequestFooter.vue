@@ -20,13 +20,12 @@ export default {
       description: "이벤트 참가비"
     }
   },
-  created(){
-
-  },
-   methods: {
+  created() {},
+  methods: {
     getUrl() {
       return `/event/${this.$route.params.id}/request`;
-    },  }
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
