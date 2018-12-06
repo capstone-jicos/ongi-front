@@ -12,26 +12,31 @@
         </div>
         <div v-if="condition===true" class="my-5" >
             <h3 mb-2>내 장소</h3>
-            <ul>
-                <li v-for="venue in event" v-bind:key="venue.id">{{venue.address}}</li>
-            </ul>
-            <div class="row mx-0 my-5">
-            <div class="col text-center my-auto">
-                <router-link to="/event/create/middlecheck">
-                <base-button type="neutral" variant="primary">이전</base-button>
-                </router-link>
-            </div>
-            <div class="col text-center my-5">
-                <router-link to="/event/create/confirm">
-                <base-button type="neutral" variant="primary">finish</base-button>
-                </router-link>
-            </div>
-        </div>
+            <router-link v-for="venue in venues"
+                   :key="venue.venueId"
+                   :to="getUrl(venue.venueId)"
+            >
+                <card shadow class="card-profile" no-body>
+                    <div class="venue-item-photo"
+                        v-bind:style="{ 'background-image': 'url(' + venue.photoUrl +')' }"
+                    ></div>
+                    <div class="px-2 mb-2">
+                        <div class="venue-name mt-2">
+                        <strong>{{ venue.name }}</strong>
+                        </div>
+                        <div class="venue-address">
+                        <i class="xi-maker"></i> {{ venue.address }}
+                        </div>
+                    </div>
+                </card>
+            </router-link>
         </div>
         <div v-else-if="condition===false" class="my-5">
             <h3>장소 대여를 도와드릴까요?</h3>
             <div class="text-center mt-5">
+                <router-link to="/venue">
                 <base-button type="neutral" variant="primary">YES!</base-button>
+                 </router-link>
             </div>
         </div>
         </div>
@@ -44,21 +49,20 @@ export default {
   name: "SetVenue",
   created() {
     this.$emit("onNavColorChange", "black");
+    this.$axios.get("/user/me/venue", { withCredentials: true }).then(res => {
+      this.venues = res.data;
+    });
   },
   data() {
     return {
       condition: "",
-      event: [
-        {
-          id: 0,
-          address: "경기도 수원시 팔달구 우만동"
-        },
-        {
-          id: 1,
-          address: "경기도 성남시 분당구 서현동"
-        }
-      ]
+      venues: []
     };
+  },
+  methods: {
+      getUrl(venueId) {
+      return "/event/create/setvenue/my/venue/" + venueId;
+    }
   }
 };
 </script>

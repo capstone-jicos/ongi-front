@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="container">
-      <router-link v-for="venue in venues" :key="venue.venueId" :to="getUrl(venue.venueId)">
+      <router-link v-for="venue in venues" :key="venue.idx" :to="getUrl(venue.idx)">
         <card shadow class="card-profile" no-body>
           <div class="venue-item-photo" v-bind:style="{ 'background-image': 'url(' + venue.photoUrl +')' }"></div>
           <div class="px-2 mb-2 row">
@@ -27,12 +27,12 @@
           </div>
           <div class="px-2 mb-2">
             <div class="venue-address">
-              <i class="xi-maker"></i> {{ venue.address }}
+              <i class="xi-maker"></i> {{ venue.state }}
             </div>
             <div class="row">
               <div class="col float-left"><i class="xi-building"></i> {{venue.type}}</div>
               <div class="col text-center" ><i class="xi-money"></i>{{ venue.fee}}원</div>
-              <div class="col text-right"><i class="xi-user-o"></i>{{ venue.people }}명</div>
+              <div class="col text-right"><i class="xi-user-o"></i>{{ venue.accomodate }}명</div>
             </div>
           </div>
         </card>
@@ -46,36 +46,19 @@ export default {
   name: "VenueList",
   created() {
     this.$emit("onNavColorChange", "black");
+    let url = `/venue/list?startDate={$}&endDate={$}&seats={$}`;
+     this.$axios.get(url, { withCredentials: true }).then(res => {
+      this.venues = res.data;
+    });
   },
   data() {
     return {
-      venues: [
-        {
-          venueId: 1,
-          name: "Happy House",
-          address: "경기도 수원시 영통구 월드컵로 206",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg",
-          type: "아파트",
-          people: 12,
-          fee: 50000,
-          providerImage: "/img/theme/team-4-800x800.jpg"
-        },
-        {
-          venueId: 2,
-          name: "Cute House",
-          address: "서울특별시 강남구 서초대로 222",
-          photoUrl: "/img/theme/img-1-1200x1000.jpg",
-          type: "아파트",
-          people: 12,
-          fee: 50000,
-          providerImage: "/img/theme/team-4-800x800.jpg"
-        }
-      ]
+      venues: []
     };
   },
   methods: {
-    getUrl(venueId) {
-      return "/venue/" + venueId;
+    getUrl(idx) {
+      return "/venue/" + idx;
     }
   }
 };
@@ -87,6 +70,7 @@ export default {
 
 img {
   max-height: 50px;
+
 }
 
 div.provider-photo {

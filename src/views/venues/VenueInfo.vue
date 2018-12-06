@@ -1,18 +1,18 @@
 <template>
     <div class="profile-page">
         <section class="section-profile-cover section-shaped my-0"
-                 v-bind:style="{ 'background-image': 'url(' + venue.image + ')' }">
+                 v-bind:style="{ 'background-image': 'url(' + venue.photoUrl + ')' }">
         </section>
         <section class="section section-skew event-info">
             <div class="container">
                 <div class="text-center mx-5 mb-5">
                     <h2>{{ venue.name }}</h2>
                 </div>
-                <div class="text-center h5 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{venue.location.address}}</div>
+                <div class="text-center h5 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{venue.location.city}}</div>
                 <div class="mt-4">
                     <div class="h5 ml-1 mr-1 row">
                         <div class="col text-center float-left" ><i class="mr-1 xi-money"></i>{{ venue.fee}}원</div>
-                        <div class="col  text-center float-right"><i class="mr-1 xi-user-o"></i>최대 {{ venue.people }}명</div>
+                        <div class="col  text-center float-right"><i class="mr-1 xi-user-o"></i>최대 {{ venue.accomodate }}명</div>
                     </div>
                     <div class="h5 text-center"><i class="mr-1 xi-building"></i> 숙소 유형 : {{venue.type}}</div>
                 </div>
@@ -25,54 +25,68 @@
                       </div>
                     </div>
                     <div class="h5">필요사항</div>
-                    <li class="h6"> {{venue.requirements}} </li>
-                    <div class="h5">제한사항</div>
-                    <li class="h6"> {{venue.restrictions}} </li>
-                    <!-- 주소부분 -->
-                    <!-- "장소제공요청하기"버튼 넣는 장소 -->
-                    <router-link to="/venue/Confirm">
-                      <base-button>장소제공요청하기</base-button>
-                    </router-link>
+                    <li class="h6"> {{venue.rules}} </li>
+                    <div class="my-3">
+                        <div class="h6">주소 :{{ fullAddress }}</div>
+                      </div>
+
+                      <GmapMap class='col mb-5'
+                               :center="coordinates"
+                               :zoom='17'
+                               style='height:300px;'
+                               ref="map"
+                      >
+                          <GmapMarker
+                              :position='coordinates'
+                              :clickable='true'
+                              :draggable='false'
+                              >
+                          </GmapMarker>
+                      </GmapMap>
                 </div>
             </div>
         </section>
     </div>
 </template>
 <script>
-// import axios from "axios";
 export default {
   name: "VenueInfo",
   computed: {
     feeWithComma() {
-      return this.event.fee.toLocaleString();
+      return this.venue.fee.toLocaleString();
+    },
+     coordinates() {
+      return {
+        lat: parseFloat(this.venue.location.coordinates.lat),
+        lng: parseFloat(this.venue.location.coordinates.lng)
+      };
+    },
+     fullAddress() {
+      let location = this.venue.location;
+      return `${location.country} ${location.state}
+       ${location.city} ${location.detail}`;
+    },
+    briefAddress() {
+      let location = this.venue.location;
+      return `${location.state} ${location.city}`;
     }
   },
   data() {
     return {
-      venue: {
-        name: "내 장소 1",
-        type: "아파트",
-        amenities: "제공사항",
-        requirements: "필요사항",
-        restrictions: "제한사항",
-        location: {
-          name: "아주대학교",
-          address: "경기도 수원시 영통구 월드컵로 306",
-          coordinates: {
-            lat: 37.2828093,
-            lng: 127.0441714
-          }
-        },
+      venue: []
         // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
-        people: 12,
-        fee: 50000,
-        image: "/img/theme/img-2-1200x1000.jpg"
-      }
     };
   },
   methods: {},
   created() {
     this.$emit("onNavColorChange", "white");
+    let venueId = this.$route.params.id;
+    let url = `/venue/infor/${venueId}`;
+
+    this.$axios.get(url).then(res => {
+      this.venue = res.data;
+    });
+
   }
 };
 </script>

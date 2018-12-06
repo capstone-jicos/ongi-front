@@ -13,6 +13,9 @@
 <script>
 import Footer from "./Footer";
 import { FadeTransition } from "vue2-transitions";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
+
 
 export default {
   name: "Index",
@@ -21,15 +24,50 @@ export default {
     Footer
   },
   methods: {
+    ...mapGetters(["getResponse"]),
     onBackButton() {
       if (this.index >= 1) {
-        this.$router.push(`./${this.route[--this.index]}`);
+        this.$router.push(`./${this.route[this.index-1]}`);
       } else {
-        // TODO 초기화면으로 넘어가는 것을 경고
+        if (
+          window.confirm(
+            "신청을 종료하시나요?\n입력하신 내용은 접속하시는 동안 저장되어 있습니다."
+          )
+        )
+          this.$router.push("../");
       }
     },
     onNextButton() {
-      this.$router.push(`./${this.route[++this.index]}`);
+      if (!this.final) {
+        this.$router.push(`./${this.route[this.index + 1]}`);
+      } 
+      else {
+        let eventState = this.getResponse();
+        let payload = {
+          title: eventState.title,
+          description: eventState.description, 
+          fee : eventState.feeAmount,
+          photoUrl : eventState.photo,
+          seats: eventState.people,
+          startDate: eventState.startDate,
+          endDate: eventState.endDate,
+          type: encodeURIComponent(
+            JSON.stringify(eventState.type)
+          ),
+          //venueId:1//이거값 때려박음 고쳐야함,
+          
+        };
+        this.$axios
+          .post("/event/create", payload, { withCredentials: true })
+          .then(response => {
+            console.log(response.data.errors);
+            if (response.data.errors !== undefined) {
+              console.log(response.data.errors);
+            } else {
+              this.$router.push(`./${this.route[this.index + 1]}`);
+            }
+          });
+      }
     },
     onValueChange(payload) {
       let keys = Object.keys(payload);
@@ -41,20 +79,20 @@ export default {
   },
   data() {
     return {
-      route: ["baseinfo", "food", "middlecheck", "setvenue", "confirm"],
-      index: 0
+      route: ["baseinfo", "food", "middlecheck", "setvenue"]
     };
   },
   created() {
-    let pattern = /.*\/(.*)/;
-    let pathResult = pattern.exec(this.$route.path);
-    this.index = this.route.indexOf(pathResult[1]);
-
     this.$emit("onNavColorChange", "black");
   },
   computed: {
     final() {
       return this.index === this.route.length - 2;
+    },
+     index() {
+      let pattern = /.*\/(.*)/;
+      let pathResult = pattern.exec(this.$route.path);
+      return this.route.indexOf(pathResult[1]);
     }
   }
 };

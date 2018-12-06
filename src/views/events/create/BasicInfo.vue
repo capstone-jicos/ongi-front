@@ -3,15 +3,8 @@
         <div class="container pt-lg-md">
             <form role="form" >
                 <base-input class="mb-3" v-model="event.title" label="모임 이름" placeholder="모임 이름"> </base-input>
-                <base-input label="모임 날짜"  type="date" v-model="event.date"> </base-input>
-                <div class ="row">
-                    <div class="col">
-                        <base-input label="모임 시작 시간" type="time" v-model="event.startTime"> </base-input>
-                    </div>
-                    <div class="col">
-                        <base-input label="모임 종료 시간"  type="time" v-model="event.finishTime"> </base-input>
-                    </div>
-                </div>
+                <base-input label="모임 시작 시간" type="datetime-local" v-model="event.startDate"> </base-input>
+                <base-input label="모임 종료 시간"  type="datetime-local" v-model="event.endDate"> </base-input>
                 <label for="eventDescription" >모임 설명</label>
                 <textarea class="form-control mb-3" v-model="event.description" rows="3" placeholder="Write a large text here ...">
                 </textarea>
@@ -30,8 +23,8 @@
                     <input type="file" hidden id="event-photo"/>
                 </div>
                 <div class ="row">
-                        <base-input class="mb-3" label="참가 최대 인원수" v-model="event.people"> </base-input>
-                        <base-input class="mb-3" label="참가비" v-model="event.feeAmount"> </base-input>
+                        <base-input class="mb-3 col" label="참가 최대 인원수" v-model="event.people"> </base-input>
+                        <base-input class="mb-3 col" label="참가비" v-model="event.feeAmount"> </base-input>
                 </div>
             </form>
         </div>
@@ -49,9 +42,8 @@ export default {
     return {
       event: {
         title: null,
-        date: null,
-        startTime: null,
-        finishTime: null,
+        startDate: null,
+        endDate: null,
         description: null,
         people: 0,
         feeAmount: 0
@@ -69,13 +61,10 @@ export default {
     title() {
       this.setPartialResponse(this.event);
     },
-    date() {
+    startDate() {
       this.setPartialResponse(this.event);
     },
-    startTime() {
-      this.setPartialResponse(this.event);
-    },
-    finishTime() {
+    endDate() {
       this.setPartialResponse(this.event);
     },
     description() {
@@ -95,11 +84,11 @@ export default {
     date() {
       return this.event.date;
     },
-    startTime() {
-      return this.event.startTime;
+    startDate() {
+      return this.event.startDate;
     },
-    finishTime() {
-      return this.event.finishTime;
+    endDate() {
+      return this.event.endDate;
     },
     description() {
       return this.event.description;
@@ -113,9 +102,8 @@ export default {
   },
   created() {
     let title = this.getResponse().title;
-    let date = this.getResponse().date;
-    let startTime = this.getResponse().startTime;
-    let finishTime = this.getResponse().finishTime;
+    let startDate = this.getResponse().startDate;
+    let endDate = this.getResponse().endDate;
     let description = this.getResponse().description;
     let people = this.getResponse().people;
     let feeAmount = this.getResponse().feeAmount;
@@ -123,14 +111,11 @@ export default {
     if (title !== undefined) {
       this.event.title = title;
     }
-    if (date !== undefined) {
-      this.event.date = date;
+    if (startDate !== undefined) {
+      this.event.startDate = startDate;
     }
-    if (startTime !== undefined) {
-      this.event.startTime = startTime;
-    }
-    if (finishTime !== undefined) {
-      this.event.finishTime = finishTime;
+    if (endDate !== undefined) {
+      this.event.endDate = endDate;
     }
     if (description !== undefined) {
       this.event.description = description;

@@ -1,32 +1,17 @@
 <template>
   <div id="attend" class="row mx-0">
     <div class="col text-center my-auto">
-      {{ feeWithComma }}원
-    </div>
-    <div class="col text-center my-auto">
-      <router-link :to="getUrl()">
-        <base-button type="neutral" variant="primary">참가신청</base-button>
+      <router-link to="/event/create/Confirm">
+        <base-button type="neutral" variant="primary">장소선택하기</base-button>
       </router-link>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "RequestFooter",
+  name: "MyvenuePick",
   props: {
-    feeWithComma: {
-      type: String,
-      default: "0",
-      description: "이벤트 참가비"
-    }
-  },
-  created(){
-
-  },
-   methods: {
-    getUrl() {
-      return `/event/${this.$route.params.id}/request`;
-    },  }
+  }
 };
 </script>
 <style scoped lang="scss">

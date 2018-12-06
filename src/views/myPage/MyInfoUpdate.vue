@@ -11,26 +11,18 @@
                         </div>
                         </card>
                     </div>
-                    <input type="file" hidden id="myPhoto"/><br>
+                    <input type="file" hidden id="event-photo"/><br>
                     <div class="container pt-lg-md text-left">
-                      <div class="text-muted mb-2">ID : {{info.id}}</div>
-                      <div class ="row">
-                        <div class="col">
-                          <div class="text-muted">PW 수정 : </div>
-                        </div>
-                        <div class="col">
-                         <base-input class="float-left" type="password" v-model="info.pw" ></base-input>
-                        </div>
-                      </div>
-                      <div class=" text-muted mb-2">PW 재확인 : </div>
-                      <div class=" text-muted mb-2">Gender : {{info.gender}} </div>
-                      <div class=" text-muted mb-2">Country : {{info.country}}</div>
-                      <div class=" text-muted mb-2">State : {{info.state}} </div>
-                      <div class=" text-muted mb-2">City : {{info.city}} </div>
+                      <base-input label="DispayName" class="mb-2" type="text" v-model="info.displayName"></base-input>
+                      <base-input label="PW수정" class=" modifiedPw" type="password" v-model="info.pw" ></base-input>
+                      <base-input label="PW수정확인" class=" modifiedPw" type="password" v-model="info.testpw" ></base-input>
+                      <base-input label=">Gender" class="mb-2" type="text" v-model="info.gender"></base-input>
+                      <base-input label="Country" class="mb-2" type="text" v-model="info.country"></base-input>
+                      <base-input label="State" class="mb-2" type="text" v-model="info.state"></base-input>
+                      <base-input label="City" class="mb-2" type="text" v-model="info.city"></base-input>
                     </div>
                     <!-- 저장버튼 -->
                     <base-button class="float-right">저장</base-button>
-
               </div>
             </form>
         </div>
@@ -38,6 +30,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("user");
+
 export default {
   name: "MyInfoUpdate",
   created() {
@@ -45,21 +40,57 @@ export default {
   },
   data() {
     return {
-      info: {
-        id: "아이디",
-        pw: "패스워드",
-        gender: "남",
-        country: "대한민국",
-        state: "경기도",
-        city: "수원시"
-      }
+      info: {}
     };
   },
   methods: {
+    ...mapGetters(["getUserInfo"]),
+    ...mapActions(['setUserInfo']),
     choosePhoto() {
       this.$el.querySelector("#my-photo").click();
     }
-  }
+  },
+  watch: {
+    city(){
+      this.setUserInfo(this.info);
+    },
+    country(){
+      this.setUserInfo(this.info);
+    },
+    displayname(){
+      this.setUserInfo(this.info);
+    },
+    gender(){
+      this.setUserInfo(this.info);
+    },
+    state(){
+      this.setUserInfo(this.info);
+    },
+    profileImage(){
+      this.setUserInfo(this.info);
+    }
+  },
+  computed: {
+    city(){
+      return this.info.city;
+    },
+    country(){
+      return this.info.country;
+    },
+    displayname(){
+      return this.info.displayname
+    },
+    gender(){
+      return this.info.gender;
+    },
+    state(){
+      return this.info.state;
+    }
+  },
+  created() {
+    this.$emit("onNavColorChange", "black");
+    this.info = this.getUserInfo();
+  },
 };
 </script>
 

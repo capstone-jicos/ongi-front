@@ -8,7 +8,7 @@
         </div>
       </div>
     </router-link>
-    <router-link to="#">
+    <router-link to="/event/create">
       <div class="role-splitter" id="host">
         <div class="role-description text-center">
           <h2>Host</h2>

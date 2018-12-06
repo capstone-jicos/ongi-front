@@ -6,10 +6,10 @@ export default {
       description: null,
       people: null,
       feeAmount: null,
-      date: null,
-      startTime: null,
-      finishTime: null,
-      foods: []
+      startDate: null,
+      endDate: null,
+      type: [],
+      photo: null
     }
     //address는 제외
   },
