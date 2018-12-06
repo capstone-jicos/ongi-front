@@ -47,8 +47,8 @@ export default {
   name: "VenueList",
   created() {
     this.$emit("onNavColorChange", "black");
-
-     this.$axios.get("/venue/list?startDate=2018-11-10T09:33:00.000Z&endDate=2018-11-10T10:00:00.000Z&seats=3", { withCredentials: true }).then(res => {
+    let url = `/venue/list?startDate={$}&endDate={$}&seats={$}`;
+     this.$axios.get(url, { withCredentials: true }).then(res => {
       this.venues = res.data;
     });
   },

@@ -8,7 +8,7 @@
                 <div class="text-center mx-5 mb-5">
                     <h2>{{ venue.name }}</h2>
                 </div>
-                <div class="text-center h5 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{venue.city}}</div>
+                <div class="text-center h5 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{venue.location.city}}</div>
                 <div class="mt-4">
                     <div class="h5 ml-1 mr-1 row">
                         <div class="col text-center float-left" ><i class="mr-1 xi-money"></i>{{ venue.fee}}원</div>
@@ -81,8 +81,8 @@ export default {
   },
   created() {
     this.$emit("onNavColorChange", "white");
-    let venueId = this.$route.params.idx;
-    let url = `/venue/${venueId}/infor`;
+    let venueId = this.$route.params.id;
+    let url = `/venue/infor/${venueId}`;
     
     this.$axios.get(url).then(res => {
       this.venue = res.data;

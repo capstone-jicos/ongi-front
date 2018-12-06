@@ -54,7 +54,8 @@ export default {
           type: encodeURIComponent(
             JSON.stringify(eventState.type)
           ),
-          venueId:1//이거값 때려박음 고쳐야함
+          //venueId:1//이거값 때려박음 고쳐야함,
+          
         };
         this.$axios
           .post("/event/create", payload, { withCredentials: true })

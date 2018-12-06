@@ -122,7 +122,7 @@ export default new Router({
         default: () => import("../views/venues/Confirm")
       }
     },
-
+//http://localhost:8080/venue/list?startDate=2018-11-12T09:29:00.000Z&endDate=2018-11-12T10:00:00.000Z
     {
       path: "/venue/:id",
       name: "venue-info",
