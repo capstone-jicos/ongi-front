@@ -63,7 +63,7 @@
                     {{ feeWithComma }}원
                 </div>
                 <div class="col text-center my-auto">
-                  <router-link :to="joinUrl()">
+                  <router-link to= "/event/create">
                     <base-button type="neutral" variant="primary">참가신청</base-button>
                   </router-link>
                 </div>
@@ -120,9 +120,6 @@ export default {
     },
     isDescLong() {
       return this.event.description.length > 50;
-    },
-    joinUrl() {
-      return `/event/${this.$route.params.id}/join`;
     }
   },
   created() {
