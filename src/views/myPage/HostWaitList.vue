@@ -1,21 +1,49 @@
 <template>
   <div id="attend" class="row mx-0">
     <div class="col text-center my-auto">
-      <!-- <router-link to="/event/request"> -->
-        <base-button type="neutral" variant="primary">수락</base-button>
-      <!-- </router-link> -->
+        <base-button type="neutral" variant="primary" @click="accept">수락</base-button>
     </div>
     <div class="col text-center my-auto">
-      <!-- <router-link to="/event/request"> -->
-        <base-button type="neutral" variant="primary">거절</base-button>
-      <!-- </router-link> -->
+        <base-button type="neutral" variant="primary" @click="decline">거절</base-button>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "HostWaitList",
-  props: {}
+  props: {
+  },
+  created() {
+    let eventId = this.$route.params.id;
+  },
+  methods: {
+    accept(){
+      let payload= {eventId: this.$route.params.id};
+      this.$axios
+          .post("/venue/accept", payload, { withCredentials: true })
+          .then(response => {
+            console.log(response.data.errors);
+            if (response.data.errors !== undefined) {
+              console.log(response.data.errors);
+            } else {
+              this.$router.push(`/my/venue`);
+            }
+          });
+    },
+    decline(){
+      let payload= {eventId: this.$route.params.id};
+      this.$axios
+          .post("/venue/refuse", payload, { withCredentials: true })
+          .then(response => {
+            console.log(response.data.errors);
+            if (response.data.errors !== undefined) {
+              console.log(response.data.errors);
+            } else {
+              this.$router.push(`/my/venue`);
+            }
+          });
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
