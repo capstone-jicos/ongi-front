@@ -50,7 +50,7 @@ export default new Router({
       name: "requestConfirm",
       components: {
         header: Header,
-        default: () => import("../views/events/Complete")
+        default: () => import("../views/events/RequestConfirm")
       }
     },
     {
