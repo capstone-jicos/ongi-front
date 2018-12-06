@@ -54,7 +54,7 @@
                               >
                           </GmapMarker>
                       </GmapMap>
-                      <div class="mt-3 py-2 border-top border-bottom text-center">
+                      <div class="mt-3 py-2 border-top border-bottom text-center" v-bind="guest in guests">
                         <h5>참석 신청 대기 목록</h5>
                       </div>
                       <div class="row">
@@ -82,8 +82,8 @@ export default {
   components: {  },
   data() {
     return {
-      event:[],
-        guest: [],
+      event:'',
+        guests: '',
         feeAmount: 0,
         type: null,
         seats: 0,
@@ -112,7 +112,7 @@ export default {
     });
 
     this.$axios.get(url1).then(res => {
-      this.guest = res.data;
+      this.guests = res.data;
     });
 
     this.$emit("onNavColorChange", "white");
