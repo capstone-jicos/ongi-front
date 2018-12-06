@@ -72,8 +72,11 @@
     </div>
 </template>
 <script>
+import RequestFooter from "./RequestFooter";
+
 export default {
   name: "Events",
+  components: { RequestFooter },
   data() {
     return {
       event: {
@@ -103,7 +106,8 @@ export default {
         feeAmount: 0,
         type: null,
         seats: 0,
-        date: null,
+        startDate: null,
+        endDate: null,
         attendCheck: 0,
         hostCheck: false
       },
@@ -151,7 +155,7 @@ export default {
       };
     },
     dateFormatted() {
-      let date = new Date(this.event.date);
+      let date = new Date(this.event.startDate);
       return `${date.toLocaleDateString("ko-KR", {
         year: "numeric",
         month: "long",
