@@ -62,7 +62,6 @@ export default {
         this.$axios
           .post("/venue/create", payload, { withCredentials: true })
           .then(response => {
-            console.log(response.data.errors);
             if (response.data.errors !== undefined) {
               console.log(response.data.errors);
             } else {
