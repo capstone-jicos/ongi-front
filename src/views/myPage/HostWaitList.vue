@@ -18,30 +18,18 @@ export default {
   },
   methods: {
     accept(){
-      let payload= {eventId: this.$route.params.id};
-      this.$axios
-          .post("/venue/accept", payload, { withCredentials: true })
-          .then(response => {
-            console.log(response.data.errors);
-            if (response.data.errors !== undefined) {
-              console.log(response.data.errors);
-            } else {
-              this.$router.push(`/my/venue`);
-            }
-          });
+      let url = `/venue/accept/?eventId=${this.$route.params.id}`;
+      this.$axios.get(url,{ withCredentials: true }).then(res => {
+        // this.event = res.data;
+        this.$router.push(`/my/venue`);
+      });
     },
     decline(){
-      let payload= {eventId: this.$route.params.id};
-      this.$axios
-          .post("/venue/refuse", payload, { withCredentials: true })
-          .then(response => {
-            console.log(response.data.errors);
-            if (response.data.errors !== undefined) {
-              console.log(response.data.errors);
-            } else {
-              this.$router.push(`/my/venue`);
-            }
-          });
+      let url = `/venue/refuse/?eventId=${this.$route.params.id}`;
+      this.$axios.get(url,{ withCredentials: true }).then(res => {
+        // this.event = res.data;
+        this.$router.push(`/my/venue`);
+      });
     }
   }
 };

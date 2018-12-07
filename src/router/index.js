@@ -63,7 +63,7 @@ export default new Router({
     },
     {
       path: "/event/create/setvenue/my/venue/:id",
-      name: "setvenue",
+      name: "setvenue-myvenue",
       components: {
         header: Header,
         default: VenueInfo,
@@ -166,7 +166,7 @@ export default new Router({
     },
     {
       path: "/my/attended/event/:id",
-      name: "attended",
+      name: "attended-event",
       components: {
         header: Header,
         default: EventInfo

@@ -34,20 +34,22 @@
         <div v-else-if="condition===false" class="my-5">
             <h3>장소 대여를 도와드릴까요?</h3>
             <div class="text-center mt-5">
-                <router-link to="/venue">
+                <router-link to= "/venue">
                 <base-button type="neutral" variant="primary">YES!</base-button>
                  </router-link>
             </div>
         </div>
         </div>
-
     </section>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
 export default {
   name: "SetVenue",
   created() {
+    this.event = this.getResponse();
     this.$emit("onNavColorChange", "black");
     this.$axios.get("/user/me/venue", { withCredentials: true }).then(res => {
       this.venues = res.data;
@@ -56,13 +58,18 @@ export default {
   data() {
     return {
       condition: "",
-      venues: []
+      venues: [],
+      event: null
     };
   },
   methods: {
+      ...mapGetters(["getResponse"]),
       getUrl(venueId) {
       return "/event/create/setvenue/my/venue/" + venueId;
     }
+    //  gotoList() {
+    //   return `/venue/list?startDate=${this.event.startDate}&endDate=${this.event.endDate}&seats=${this.event.seats}`;
+    // }
   }
 };
 </script>
