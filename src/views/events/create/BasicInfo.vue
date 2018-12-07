@@ -1,32 +1,40 @@
+<!--suppress HtmlUnknownTag -->
 <template>
     <section class = "section">
         <div class="container pt-lg-md">
+          <h5>개설할 모임에 대한 정보를 알려주세요</h5>
             <form role="form" >
                 <base-input class="mb-3" v-model="event.title" label="모임 이름" placeholder="모임 이름"> </base-input>
                 <base-input label="모임 시작 시간" type="datetime-local" v-model="event.startDate"> </base-input>
                 <base-input label="모임 종료 시간"  type="datetime-local" v-model="event.endDate"> </base-input>
-                <label for="eventDescription" >모임 설명</label>
-                <textarea class="form-control mb-3" v-model="event.description" rows="3" placeholder="Write a large text here ...">
-                </textarea>
-                <div class="mb-3">
-                   <label for="eventPhoto" >회원님의 모임을 잘 보여줄 수 있는 사진을 올려주세요</label>
+                <label>모임 설명</label>
+                <wysiwyg v-model="event.description"></wysiwyg>
+                <div class="my-3">
+                   <label>회원님의 모임을 잘 보여줄 수 있는 사진을 올려주세요</label>
                     <div @click="choosePhoto()">
                         <card class="card-profile add-new-venue" no-body>
-                        <div class="my-auto text-center">
-                            <p>
-                            <i class="xi-cloud-upload-o"></i><br/>
-                            사진을 올려주세요
+                          <div class="my-auto text-center">
+                            <p v-if="uploadStatus === 0">
+                              <i class="xi-cloud-upload-o"></i><br/>
+                              사진을 올려주세요
                             </p>
-                        </div>
+                            <p v-if="uploadStatus === 1">
+                              <i class="xi-spinner-2 xi-spin"></i>
+                            </p>
+                            <img v-if="uploadStatus === 2"
+                                 v-lazy="event.photo"/>
+                          </div>
                         </card>
                     </div>
-                    <input type="file" hidden id="event-photo"/>
                 </div>
                 <div class ="row">
                         <base-input class="mb-3 col" label="참가 최대 인원수" v-model="event.seats"> </base-input>
                         <base-input class="mb-3 col" label="참가비" v-model="event.feeAmount"> </base-input>
                 </div>
             </form>
+          <form id="upload-photo" hidden>
+            <input type="file" name="upload" id="event-photo" @change="upload"/>
+          </form>
         </div>
     </section>
 </template>
@@ -46,8 +54,10 @@ export default {
         endDate: null,
         description: null,
         seats: 0,
-        feeAmount: 0
-      }
+        feeAmount: 0,
+        photo: null
+      },
+      uploadStatus: 0
     };
   },
   methods: {
@@ -55,6 +65,19 @@ export default {
     ...mapActions(["setPartialResponse"]),
     choosePhoto() {
       this.$el.querySelector("#event-photo").click();
+    },
+    upload() {
+      let form = this.$el.querySelector("#upload-photo");
+      let data = new FormData(form);
+
+      this.$axios
+        .post("/upload", data, { withCredentials: true })
+        .then(response => {
+          this.event.photo = response.data.photoUrl;
+          this.setPartialResponse(this.event);
+          this.uploadStatus = 2;
+        });
+      this.uploadStatus = 1;
     }
   },
   watch: {
@@ -107,6 +130,7 @@ export default {
     let description = this.getResponse().description;
     let seats = this.getResponse().seats;
     let feeAmount = this.getResponse().feeAmount;
+    let photoUrl = this.getResponse().photo;
 
     if (title !== undefined) {
       this.event.title = title;
@@ -121,14 +145,32 @@ export default {
       this.event.description = description;
     }
     if (seats !== 0) {
-      this.event.seats =seats;
+      this.event.seats = seats;
     }
     if (feeAmount !== 0) {
       this.event.feeAmount = feeAmount;
+    }
+    if (photoUrl !== null) {
+      this.event.photo = photoUrl;
+      this.uploadStatus = 2;
     }
   }
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "~vue-wysiwyg/dist/vueWysiwyg.css";
+
+div {
+  .card-profile {
+    height: 120px;
+
+    div {
+      overflow: hidden;
+      i {
+        font-size: 3rem;
+      }
+    }
+  }
+}
 </style>
