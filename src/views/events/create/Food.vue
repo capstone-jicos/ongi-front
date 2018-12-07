@@ -1,6 +1,7 @@
 <template>
   <section class = "section">
     <div class="container pt-lg-md">
+      <h5>같이 함께할 음식의 종류를 선택해주세요</h5>
       <base-checkbox class="mb-3" v-model="checkboxes.Korean">
         한식
       </base-checkbox>
