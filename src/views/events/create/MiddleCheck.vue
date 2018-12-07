@@ -1,13 +1,32 @@
 <template>
      <section class = "section">
         <div class="container pt-lg-md">
-          <div class=" text-muted mb-2">모임 이름 : {{event.title}}</div>
-          <div class=" text-muted mb-2">모임 시작시간 : {{event.startDate}} </div>
-          <div class=" text-muted mb-2">모임 종료시간 : {{event.endDate}}</div>
-          <div class=" text-muted mb-2">모임 설명 : {{event.description}} </div>
-          <div class=" text-muted mb-2">모임 컨셉 사진</div>
-          <div class=" text-muted mb-2">모임 참가 가능 최대 인원수 : {{event.people}} </div>
-          <div class=" text-muted mb-2">참가비 : {{event.feeAmount}} </div>
+          <h5 class="mb-3">입력해주신 내용들을 확인해주세요</h5>
+          <div class="row">
+            <div class="col-4"><p><strong>모임 이름</strong></p></div>
+            <div class="col-8">{{ event.title }}</div>
+          </div>
+          <div class="row">
+            <div class="col-4"><p><strong>시작시간</strong></p></div>
+            <div class="col-8">{{ localeString(event.startDate) }}</div>
+          </div>
+          <div class="row">
+            <div class="col-4"><p><strong>종료시간</strong></p></div>
+            <div class="col-8">{{ localeString(event.endDate) }}</div>
+          </div>
+          <div class="row">
+            <div class="col-4"><p><strong>설명</strong></p></div>
+            <div class="col-8">{{ event.description }}</div>
+          </div>
+          <div class="row">
+            <div class="col">모임 컨셉사진</div>
+          </div>
+          <card class="card-profile add-new-venue my-3" no-body>
+
+              <div class="my-auto text-center">
+                <img v-lazy="event.photo"/>
+              </div>
+            </card>
         </div>
     </section>
 </template>
@@ -24,7 +43,17 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["getResponse"])
+    ...mapGetters(["getResponse"]),
+    localeString(date) {
+      let dateObject = new Date(date);
+      return dateObject.toLocaleString("ko-kr", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric"
+      });
+    }
   },
   created() {
     this.$emit("onNavColorChange", "black");
@@ -32,5 +61,11 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped lang="scss">
+.card-profile {
+  height: 120px;
+  div {
+    overflow: hidden;
+  }
+}
 </style>

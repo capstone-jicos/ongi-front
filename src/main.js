@@ -6,6 +6,7 @@ import store from "./store";
 import Argon from "./plugins/argon-kit";
 import xeicon from "xeicon";
 import axios from "axios";
+import wysiwyg from "vue-wysiwyg";
 import * as VueGoogleMaps from "vue2-google-maps";
 import { config } from "../package";
 
@@ -18,6 +19,15 @@ Vue.use(VueGoogleMaps, {
   }
 });
 Vue.use(xeicon);
+Vue.use(wysiwyg, {
+  hideModules: {
+    image: true,
+    table: true,
+    separator: true,
+    link: true,
+    code: true
+  }
+});
 
 axios.defaults.baseURL = config.endpoint[process.env.NODE_ENV];
 Vue.prototype.$axios = axios;

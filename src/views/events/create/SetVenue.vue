@@ -1,16 +1,19 @@
 <template>
     <section class = "section">
         <div class="container pt-lg-md">
-            <h2>Host의 장소에서 모임을 여시겠습니까?</h2>
-            <div class="row mx-0 my-5">
-            <div class="col text-center my-auto">
-                <base-button type="neutral" variant="primary" v-on:click="condition=true">Y</base-button>
+          <div class="mb-3">
+            <h5>회원님의 장소에서 모임을 여시겠습니까?</h5>
+            <p>등록해놓은 장소로 개설하시면 바로 모임이 공개됩니다.</p>
+            <div class="row mx-0">
+              <div class="col text-center my-auto">
+                <base-button type="neutral" variant="primary" v-on:click="condition=true">예</base-button>
+              </div>
+              <div class="col text-center my-auto">
+                <base-button type="neutral" variant="primary" v-on:click="condition=false">아니오</base-button>
+              </div>
             </div>
-            <div class="col text-center my-auto">
-                <base-button type="neutral" variant="primary" v-on:click="condition=false">N</base-button>
-            </div>
-        </div>
-        <div v-if="condition===true" class="my-5" >
+          </div>
+        <div v-if="condition===true">
             <h3 mb-2>내 장소</h3>
             <router-link v-for="venue in venues"
                    :key="venue.venueId"
@@ -31,11 +34,11 @@
                 </card>
             </router-link>
         </div>
-        <div v-else-if="condition===false" class="my-5">
-            <h3>장소 대여를 도와드릴까요?</h3>
-            <div class="text-center mt-5">
-                <router-link to="/venue">
-                <base-button type="neutral" variant="primary">YES!</base-button>
+        <div v-else-if="condition===false">
+            <h5>다른 분들의 장소에서 모임을<br/>여실 수 있게 도와드릴게요!</h5>
+            <div class="row text-center">
+                <router-link to="/venue" class="col mx-auto">
+                <base-button type="neutral" variant="primary">장소 선택하기</base-button>
                  </router-link>
             </div>
         </div>
