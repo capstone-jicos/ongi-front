@@ -46,7 +46,7 @@ export default {
           description: eventState.description,
           fee: eventState.feeAmount,
           photoUrl: eventState.photo,
-          seats: eventState.people,
+          seats: eventState.seats,
           startDate: eventState.startDate,
           endDate: eventState.endDate,
           type: encodeURIComponent(JSON.stringify(eventState.type))

@@ -1,21 +1,35 @@
 <template>
   <div id="attend" class="row mx-0">
     <div class="col text-center my-auto">
-      <!-- <router-link to="/event/request"> -->
-        <base-button type="neutral" variant="primary">수락</base-button>
-      <!-- </router-link> -->
+        <base-button type="neutral" variant="primary" @click="accept">수락</base-button>
     </div>
     <div class="col text-center my-auto">
-      <!-- <router-link to="/event/request"> -->
-        <base-button type="neutral" variant="primary">거절</base-button>
-      <!-- </router-link> -->
+        <base-button type="neutral" variant="primary" @click="decline">거절</base-button>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "HostWaitList",
-  props: {}
+  created() {
+    let eventId = this.$route.params.id;
+  },
+  methods: {
+    accept() {
+      let url = `/venue/accept/?eventId=${this.$route.params.id}`;
+      this.$axios.get(url, { withCredentials: true }).then(res => {
+        // this.event = res.data;
+        this.$router.push(`/my/venue`);
+      });
+    },
+    decline() {
+      let url = `/venue/refuse/?eventId=${this.$route.params.id}`;
+      this.$axios.get(url, { withCredentials: true }).then(res => {
+        // this.event = res.data;
+        this.$router.push(`/my/venue`);
+      });
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

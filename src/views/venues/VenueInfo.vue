@@ -52,9 +52,6 @@
 export default {
   name: "VenueInfo",
   computed: {
-    feeWithComma() {
-      return this.venue.fee.toLocaleString();
-    },
     coordinates() {
       return {
         lat: parseFloat(this.venue.location.coordinates.lat),
@@ -73,7 +70,7 @@ export default {
   },
   data() {
     return {
-      venue: []
+      venue: ""
       // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
     };
   },

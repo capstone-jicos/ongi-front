@@ -4,16 +4,17 @@
       <div class="mt-3 py-2 border-top border-bottom text-center">
           <h5>예약 대기 목록</h5>
       </div>
-      <div>
-        <router-link v-for="event in events" :key="event.eventId" :to="getUrl(event.eventId)">
+      <div class="pb-2">
+        <router-link v-for="event in events" :key="event.eventId"
+                   :to="'/my/venue/event/'+event.idx">
             <card shadow class="card-profile" no-body>
-            <div class="event-item-photo" v-bind:style="{ 'background-image': 'url(' + event.photoUrl +')' }"></div>
-            <div class="px-2 mb-2">
-                <div class="event-name mt-2">
+            <div class="event-item-photo" v-bind:style="{ 'background-image': 'url(' + event.eventImages +')' }"></div>
+            <div class="px-2 mb-2 row">
+                <div class="event-name mt-2 col">
                 <strong>{{ event.title }}</strong>
                 </div>
-                <div class="event-address">
-                <i class="xi-maker"></i> {{ event.address }}
+                <div class="event-address col">
+                <i class="xi-user"></i> {{ event.seats }}
                 </div>
             </div>
             </card>
@@ -23,32 +24,22 @@
   </section>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createEvent");
-
 export default {
   name: "Venue",
   created() {
-    // TODO API로 모임 정보 가져와서 붙여주기
-    let eventId = this.$route.params.id;
-    let url = "/api/event/".concat(eventId);
-    // axios.get(url).then((res) => {
-    // this.event = res.data;
-    // });
-    console.log(url);
-    this.$emit("onNavColorChange", "white");
+    this.$emit("onNavColorChange", "black");
+    this.$axios.get("/venue/applylist", { withCredentials: true }).then(res => {
+      this.events = res.data;
+    });
   },
   data() {
     return {
-      events: "",
-      venues: []
+      events: ""
     };
   },
   methods: {
-    ...mapGetters(["getResponse"]),
     getUrl(eventId) {
       return "/my/venue/event/" + eventId;
-      // 원래 주소를 my/venue/:venueId/event/:eventId로 해주고 싶은데 방법을 모름
     }
   }
 };

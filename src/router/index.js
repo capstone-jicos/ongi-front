@@ -63,7 +63,7 @@ export default new Router({
     },
     {
       path: "/event/create/setvenue/my/venue/:id",
-      name: "setvenue",
+      name: "setvenue-myvenue",
       components: {
         header: Header,
         default: VenueInfo,
@@ -159,13 +159,13 @@ export default new Router({
       name: "hosted-event-info",
       components: {
         header: Header,
-        default: () => import("../views/myPage/HostedInfo"),
-        footer: ProviderAnswerFooter
+        default: EventInfo,
+        footer: () => import("../views/myPage/HostedInfo")
       }
     },
     {
       path: "/my/attended/event/:id",
-      name: "attended",
+      name: "attended-event",
       components: {
         header: Header,
         default: EventInfo
@@ -196,7 +196,7 @@ export default new Router({
       children: CreateVenue
     },
     {
-      path: "/my/venue/event/:Id",
+      path: "/my/venue/event/:id",
       components: {
         header: Header,
         default: EventInfo,

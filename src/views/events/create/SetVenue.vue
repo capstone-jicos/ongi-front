@@ -40,14 +40,16 @@
             </div>
         </div>
         </div>
-
     </section>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
 export default {
   name: "SetVenue",
   created() {
+    this.event = this.getResponse();
     this.$emit("onNavColorChange", "black");
     this.$axios.get("/user/me/venue", { withCredentials: true }).then(res => {
       this.venues = res.data;
@@ -56,10 +58,12 @@ export default {
   data() {
     return {
       condition: "",
-      venues: []
+      venues: [],
+      event: null
     };
   },
   methods: {
+    ...mapGetters(["getResponse"]),
     getUrl(venueId) {
       return "/event/create/setvenue/my/venue/" + venueId;
     }

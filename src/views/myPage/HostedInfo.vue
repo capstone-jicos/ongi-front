@@ -1,73 +1,31 @@
 <template>
     <div class="profile-page">
-        <section class="section-profile-cover section-shaped my-0"
-                 v-bind:style="{ 'background-image': 'url(' + event.image + ')' }">
-        </section>
         <section class="section section-skew event-info">
             <div class="container">
                 <card shadow class="card-profile mt--300" no-body>
                     <div class="px-4">
-                      <div class="text-center mt-5">
-                          <h3>{{ event.title }}</h3>
-                          <div class="h6 font-weight-300"><i class="mr-1 xi-marker-circle"></i>{{ briefAddress }}</div>
-                      </div>
-                      <div class="mt-4">
-                        <div class="h6 ml-1 row"><i class="mr-1 xi-time-o"></i> {{ dateFormatted }}</div>
-                        <div class="h6 ml-1 row"><i class="mr-1 xi-money"></i> {{ feeWithComma }}원</div>
-                      </div>
-                        <div class='mt-3 row'>
-                            <div class='col-7 float-left'>
-                                <span><i class="xi-flag-o"></i> {{ event.host.name }}</span><br/>
-                                <span><i class="xi-home-o"></i> {{ event.provider.name }}</span>
-                            </div>
-                            <div class='col-5'>
-                                <div class='float-right'>
-                                    <img v-lazy="event.host.profileImage" class="rounded-circle host-image mr-2">
-                                    <img v-lazy="event.provider.profileImage" class="rounded-circle host-image">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-3 py-2 border-top text-center">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-9">
-                                  <span v-html="shownDescription"></span>
-                                  <br/>
-                                    <a href v-if="isDescLong()"
-                                       @click.prevent="toggleMore()">{{ showStatus }}</a>
-                                </div>
-                            </div>
-                        </div>
-                      <div class="my-3">
-                        <div class="h6">주소 : {{ event.location.name }}</div>
-                        <div>{{ fullAddress }}</div>
-                      </div>
-                      <GmapMap class='col mb-5'
-                               :center="coordinates"
-                               :zoom='17'
-                               style='height:300px;'
-                               ref="map"
-                      >
-                          <GmapMarker
-                              :position='coordinates'
-                              :clickable='true'
-                              :draggable='false'
-                              >
-                          </GmapMarker>
-                      </GmapMap>
-                      <div class="mt-3 py-2 border-top border-bottom text-center" v-bind="guest in guests">
+                      <div class="mt-3 py-2 border-top border-bottom text-center">
                         <h5>참석 신청 대기 목록</h5>
+                        <h1> {{guest}} </h1>
                       </div>
-                      <div class="row">
-                        <card shadow class="card-profile col mx-1" no-body>
-                          <div class="row">
-                            <div class="col">
-                              <img v-lazy="guest.profileImage" class="rounded-circle"/>
+                      <div class="row"  v-for="guest in guests" :key="guest.attendeeId">
+                          <card shadow class="card-profile col mx-1" no-body>
+                            <div class="row">
+                              <div class="col-4">
+                                <img v-lazy="guest.attendeeImage" class="rounded-circle"/>
+                              </div>
+                              <div class="col-4 text-center">
+                                {{guest.attendeeName}}님
+                              </div>
+                              <div class="col-2 text-center">
+                                  <base-button type="neutral" variant="primary" @click="accept(guest.attendeeId)">수락</base-button>
+                              </div>
+                              <div class="col-2 text-center">
+                                  <base-button type="neutral" variant="primary" @click="decline(guest.attendeeId)">거절</base-button>
+                              </div>
                             </div>
-                            <div class="col text-center">
-                              {{guest.attendeeName}}님
-                            </div>
-                          </div>
-                        </card>
+                          </card>
+
                       </div>
                     </div>
                 </card>
@@ -81,16 +39,7 @@ export default {
   components: {},
   data() {
     return {
-      event: "",
-      guests: "",
-      feeAmount: 0,
-      type: null,
-      seats: 0,
-      startDate: null,
-      endDate: null,
-      attendCheck: 0,
-      hostCheck: false,
-      isShort: true
+      guests: ""
     };
   },
   methods: {
@@ -99,18 +48,40 @@ export default {
     },
     isDescLong() {
       return this.event.description.length > 50;
+    },
+    accept(guestId) {
+      let url = `/user/me/hosted/${guestId}/accepted`;
+      let payload = { attendeeId: guestId };
+      this.$axios
+        .post(url, payload, { withCredentials: true })
+        .then(response => {
+          console.log(response.data.errors);
+          if (response.data.errors !== undefined) {
+            console.log(response.data.errors);
+          } else {
+            this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
+          }
+        });
+    },
+    decline(guestId) {
+      let url = `/user/me/hosted/${guestId}/declined`;
+      let payload = { attendeeId: guestId };
+      this.$axios
+        .post(url, payload, { withCredentials: true })
+        .then(response => {
+          console.log(response.data.errors);
+          if (response.data.errors !== undefined) {
+            console.log(response.data.errors);
+          } else {
+            this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
+          }
+        });
     }
   },
   created() {
     let eventId = this.$route.params.id;
-    let url = "/event/".concat(eventId);
-    let url1 = "/user/me/hosted/".concat(eventId);
-
-    this.$axios.get(url).then(res => {
-      this.event = res.data;
-    });
-
-    this.$axios.get(url1).then(res => {
+    let url = "/user/me/hosted/".concat(eventId);
+    this.$axios.get(url, { withCredentials: true }).then(res => {
       this.guests = res.data;
     });
 
@@ -172,11 +143,6 @@ export default {
 
 .event-info {
   padding-bottom: 6rem;
-}
-
-button[variant="primary"] {
-  padding-right: 3rem;
-  padding-left: 3rem;
 }
 
 div.container {
