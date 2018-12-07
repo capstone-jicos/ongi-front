@@ -52,10 +52,14 @@
 export default {
   name: "VenueInfo",
   computed: {
+<<<<<<< HEAD
     feeWithComma() {
       return this.venue.fee.toLocaleString();
     },
     coordinates() {
+=======
+     coordinates() {
+>>>>>>>  modified venueList
       return {
         lat: parseFloat(this.venue.location.coordinates.lat),
         lng: parseFloat(this.venue.location.coordinates.lng)
@@ -73,8 +77,8 @@ export default {
   },
   data() {
     return {
-      venue: []
-      // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
+      venue: ''
+        // TODO: moment를 사용해서 API 측에선 Raw한 날짜 정보만 받도록
     };
   },
   methods: {},
@@ -84,7 +88,10 @@ export default {
     let url = `/venue/infor/${venueId}`;
 
     this.$axios.get(url).then(res => {
-      this.venue = res.data;zzz
+      this.venue = res.data;
+      // let amenities = JSON.parse(decodeURIComponent(res.data.amenities));
+      // venue.amenities = amenities;
+      console.log(this.venue.amenities);
     });
   }
 };

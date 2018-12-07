@@ -3,7 +3,6 @@
     <div class="container">
       <div class="mt-3 py-2 border-top border-bottom text-center">
           <h5>예약 대기 목록</h5>
-          {{event}}
       </div>
       <div class="pb-2">
         <router-link v-for="event in events" :key="event.eventId"

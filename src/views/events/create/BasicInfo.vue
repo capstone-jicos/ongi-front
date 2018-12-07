@@ -23,7 +23,7 @@
                     <input type="file" hidden id="event-photo"/>
                 </div>
                 <div class ="row">
-                        <base-input class="mb-3 col" label="참가 최대 인원수" v-model="event.people"> </base-input>
+                        <base-input class="mb-3 col" label="참가 최대 인원수" v-model="event.seats"> </base-input>
                         <base-input class="mb-3 col" label="참가비" v-model="event.feeAmount"> </base-input>
                 </div>
             </form>
@@ -45,7 +45,7 @@ export default {
             startDate: null,
             endDate: null,
             description: null,
-            people: 0,
+            seats: 0,
             feeAmount: 0
         }
     };
@@ -70,7 +70,7 @@ export default {
       description(){
           this.setPartialResponse(this.event);
       },
-      people(){
+      seats(){
           this.setPartialResponse(this.event);
       },
       feeAmount(){
@@ -93,7 +93,7 @@ export default {
         description(){
             return this.event.description;
         },
-        people(){
+        seats(){
             return this.event.people;
         },
         feeAmount(){
@@ -118,7 +118,7 @@ export default {
     let startDate = this.getResponse().startDate;
     let endDate = this.getResponse().endDate;
     let description = this.getResponse().description;
-    let people = this.getResponse().people;
+    let seats = this.getResponse().seats;
     let feeAmount = this.getResponse().feeAmount;
 
     if (title !== undefined) {
@@ -133,8 +133,8 @@ export default {
     if (description !== undefined) {
       this.event.description = description;
     }
-    if (people !== 0) {
-      this.event.people = people;
+    if (seats !== 0) {
+      this.event.seats =seats;
     }
     if (feeAmount !== 0) {
       this.event.feeAmount = feeAmount;

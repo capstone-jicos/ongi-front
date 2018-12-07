@@ -4,7 +4,7 @@ export default {
     event: {
       title: null,
       description: null,
-      people: null,
+      seats: null,
       feeAmount: null,
       startDate: null,
       endDate: null,
