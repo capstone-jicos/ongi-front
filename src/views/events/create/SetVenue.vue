@@ -66,8 +66,8 @@ export default {
     };
   },
   methods: {
-      ...mapGetters(["getResponse"]),
-      getUrl(venueId) {
+    ...mapGetters(["getResponse"]),
+    getUrl(venueId) {
       return "/event/create/setvenue/my/venue/" + venueId;
     }
     //  gotoList() {

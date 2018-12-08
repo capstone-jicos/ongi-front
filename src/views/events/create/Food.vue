@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       event: {
-      type: []
+        type: []
       },
       checkboxes: {
         Korean: false,
@@ -38,13 +38,13 @@ export default {
     ...mapActions(["setPartialResponse"])
   },
   created() {
-   let type = this.getResponse().type;
-   if(type !==undefined && type.length !==0){
-     this.type = type;
-   }
-   for(let i=0;i<type.length; i++){
-     this.checkboxes[type[i]]=true;
-   }
+    let type = this.getResponse().type;
+    if (type !== undefined && type.length !== 0) {
+      this.type = type;
+    }
+    for (let i = 0; i < type.length; i++) {
+      this.checkboxes[type[i]] = true;
+    }
   },
   watch: {
     checkboxes: {
@@ -57,7 +57,7 @@ export default {
             type.push(keys[i]);
           }
         }
-        this.event.type =type;
+        this.event.type = type;
         this.setPartialResponse(this.event);
       },
       deep: true

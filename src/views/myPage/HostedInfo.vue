@@ -39,7 +39,7 @@ export default {
   components: {},
   data() {
     return {
-        guests: ''
+      guests: ""
     };
   },
   methods: {
@@ -49,39 +49,39 @@ export default {
     isDescLong() {
       return this.event.description.length > 50;
     },
-    accept(guestId){
+    accept(guestId) {
       let url = `/user/me/hosted/${guestId}/accepted`;
-      let payload= {attendeeId: guestId}
+      let payload = { attendeeId: guestId };
       this.$axios
-          .post(url, payload, { withCredentials: true })
-          .then(response => {
+        .post(url, payload, { withCredentials: true })
+        .then(response => {
+          console.log(response.data.errors);
+          if (response.data.errors !== undefined) {
             console.log(response.data.errors);
-            if (response.data.errors !== undefined) {
-              console.log(response.data.errors);
-            } else {
-              this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
-            }
-          });
+          } else {
+            this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
+          }
+        });
     },
-    decline(guestId){
-       let url = `/user/me/hosted/${guestId}/declined`;
-       let payload= {attendeeId: guestId}
+    decline(guestId) {
+      let url = `/user/me/hosted/${guestId}/declined`;
+      let payload = { attendeeId: guestId };
       this.$axios
-          .post(url, payload, { withCredentials: true })
-          .then(response => {
+        .post(url, payload, { withCredentials: true })
+        .then(response => {
+          console.log(response.data.errors);
+          if (response.data.errors !== undefined) {
             console.log(response.data.errors);
-            if (response.data.errors !== undefined) {
-              console.log(response.data.errors);
-            } else {
-              this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
-            }
-          });
+          } else {
+            this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
+          }
+        });
     }
   },
   created() {
     let eventId = this.$route.params.id;
     let url = "/user/me/hosted/".concat(eventId);
-    this.$axios.get(url,{ withCredentials: true }).then(res => {
+    this.$axios.get(url, { withCredentials: true }).then(res => {
       this.guests = res.data;
     });
 

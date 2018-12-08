@@ -23,7 +23,7 @@ export default {
   created() {},
   methods: {
     getUrl() {
-      return `/event/${this.$route.params.id}/request`;
+      return `/event/${this.$route.params.id}/join`;
     }
   }
 };

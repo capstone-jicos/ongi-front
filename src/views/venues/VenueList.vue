@@ -50,9 +50,11 @@ export default {
   created() {
     this.event = this.getResponse();
     this.$emit("onNavColorChange", "black");
-    let url = `/venue/list?startDate=${this.event.startDate}&endDate=${this.event.endDate}&seats=${this.event.seats}`;
+    let url = `/venue/list?startDate=${this.event.startDate}&endDate=${
+      this.event.endDate
+    }&seats=${this.event.seats}`;
     console.log(event.startDate);
-     this.$axios.get(url, { withCredentials: true }).then(res => {
+    this.$axios.get(url, { withCredentials: true }).then(res => {
       this.venues = res.data;
     });
   },
@@ -62,7 +64,7 @@ export default {
     };
   },
   methods: {
-     ...mapGetters(["getResponse"]),
+    ...mapGetters(["getResponse"]),
     getUrl(idx) {
       return "/venue/" + idx;
     }
