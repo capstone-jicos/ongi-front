@@ -43,7 +43,6 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createEvent");
 export default {
   name: "VenueList",
   created() {
