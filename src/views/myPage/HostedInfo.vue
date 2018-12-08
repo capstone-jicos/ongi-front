@@ -55,10 +55,7 @@ export default {
       this.$axios
         .post(url, payload, { withCredentials: true })
         .then(response => {
-          console.log(response.data.errors);
-          if (response.data.errors !== undefined) {
-            console.log(response.data.errors);
-          } else {
+          if (response.data.errors === undefined) {
             this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
           }
         });
@@ -69,10 +66,7 @@ export default {
       this.$axios
         .post(url, payload, { withCredentials: true })
         .then(response => {
-          console.log(response.data.errors);
-          if (response.data.errors !== undefined) {
-            console.log(response.data.errors);
-          } else {
+          if (response.data.errors === undefined) {
             this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
           }
         });
