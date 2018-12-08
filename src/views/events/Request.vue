@@ -16,7 +16,6 @@
                 <base-button type="neutral" variant="primary" @click="Confirm">finish</base-button>
             </div>
         </div>
-        
         <div v-else-if="condition===false" class="my-5">
             <h3>모임 참가 신청을 취소하시겠습니까?</h3>
             <div class="text-center mt-5">
@@ -26,7 +25,6 @@
             </div>
         </div>
         </div>
-        
     </section>
 </template>
 
@@ -53,10 +51,7 @@ export default {
       this.$axios
         .post(url, payload, { withCredentials: true })
         .then(response => {
-          console.log(response.data.errors);
-          if (response.data.errors !== undefined) {
-            console.log(response.data.errors);
-          } else {
+          if (response.data.errors === undefined) {
             this.$router.push(
               `/event/${this.$route.params.id}/request/Confirm`
             );
