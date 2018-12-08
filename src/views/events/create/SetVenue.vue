@@ -70,9 +70,6 @@ export default {
     getUrl(venueId) {
       return "/event/create/setvenue/my/venue/" + venueId;
     }
-    //  gotoList() {
-    //   return `/venue/list?startDate=${this.event.startDate}&endDate=${this.event.endDate}&seats=${this.event.seats}`;
-    // }
   }
 };
 </script>

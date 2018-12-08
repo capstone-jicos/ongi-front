@@ -12,14 +12,14 @@
 export default {
   name: "HostWaitList",
   methods: {
-    accept(){
+    accept() {
       let url = `/venue/accept/?eventId=${this.$route.params.id}`;
       this.$axios.get(url, { withCredentials: true }).then(() => {
         // this.event = res.data;
         this.$router.push(`/my/venue`);
       });
     },
-    decline(){
+    decline() {
       let url = `/venue/refuse/?eventId=${this.$route.params.id}`;
       this.$axios.get(url, { withCredentials: true }).then(() => {
         // this.event = res.data;

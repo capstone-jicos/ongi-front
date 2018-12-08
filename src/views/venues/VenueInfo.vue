@@ -82,9 +82,6 @@ export default {
 
     this.$axios.get(url).then(res => {
       this.venue = res.data;
-      // let amenities = JSON.parse(decodeURIComponent(res.data.amenities));
-      // venue.amenities = amenities;
-      console.log(this.venue.amenities);
     });
   }
 };

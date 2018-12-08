@@ -46,15 +46,15 @@ export default new Router({
       }
     },
     {
-      path: "/event/:id/complete",
-      name: "Complete",
+      path: "/event/:id/request/Confirm",
+      name: "requestConfirm",
       components: {
         header: Header,
-        default: () => import("../views/events/Complete")
+        default: () => import("../views/events/RequestConfirm")
       }
     },
     {
-      path: "/event/:id/join",
+      path: "/event/:id/request",
       name: "request",
       components: {
         header: Header,
@@ -96,7 +96,6 @@ export default new Router({
       },
       children: CreateEVent
     },
-
     {
       path: "/event",
       name: "event-list",

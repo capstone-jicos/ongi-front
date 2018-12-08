@@ -44,7 +44,6 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters } = createNamespacedHelpers("createEvent");
-
 export default {
   name: "VenueList",
   created() {
@@ -64,9 +63,8 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["getResponse"]),
-    getUrl(idx) {
-      return "/venue/" + idx;
+    getUrl(venueId) {
+      return "/venue/" + venueId;
     }
   }
 };

@@ -23,31 +23,29 @@
     </div>
   </section>
 </template>
-
 <script>
 export default {
   name: "Venue",
   created() {
     this.$emit("onNavColorChange", "black");
-   this.$axios.get("/venue/applylist",{ withCredentials: true }).then(res => {
+    this.$axios.get("/venue/applylist", { withCredentials: true }).then(res => {
       this.events = res.data;
     });
   },
-  data(){
-    return{
-      events:''
-    }
+  data() {
+    return {
+      events: ""
+    };
   },
   methods: {
     getUrl(eventId) {
       return "/my/venue/event/" + eventId;
-      // 원래 주소를 my/venue/:venueId/event/:eventId로 해주고 싶은데 방법을 모름
     }
   }
 };
 </script>
 
-<style scoped  lang="scss">
+<style scoped lang="scss">
 @import "../../assets/scss/bootstrap/functions";
 @import "../../assets/scss/custom/variables";
 

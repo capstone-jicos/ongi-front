@@ -15,6 +15,9 @@
               <div class="event-title col-9 mt-2">
                 <strong>{{ event.title }}</strong>
               </div>
+              <div class="col-3">
+                <img v-lazy="event.host.image" class="rounded-circle"/>
+              </div>
             </div>
             <div class="event-time">
               <i class="xi-time-o"></i> {{ event.startDate }}
@@ -32,7 +35,7 @@
         </card>
       </router-link>
     </div>
-    
+
   </section>
 </template>
 
@@ -49,9 +52,9 @@ export default {
     this.$axios.get("/user/me/hosted", { withCredentials: true }).then(res => {
       for (let index = 0; index < res.data.length; index++) {
         let type = JSON.parse(decodeURIComponent(res.data[index].type));
-        let event = res.data[index]; 
+        let event = res.data[index];
         event.type = type;
-        this.events.push(event); 
+        this.events.push(event);
       }
     });
   },

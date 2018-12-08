@@ -110,6 +110,9 @@ export default {
     },
     isDescLong() {
       return this.event.description.length > 50;
+    },
+    joinUrl() {
+      return `/event/${this.$route.params.id}/join`;
     }
   },
   created() {
