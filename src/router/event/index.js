@@ -77,5 +77,5 @@ export default [
       header: Header,
       default: () => import("../../views/events/List")
     }
-  },
-]
+  }
+];

@@ -29,4 +29,4 @@ export default [
       default: () => import("../../views/venues/VenueList")
     }
   }
-]
+];
