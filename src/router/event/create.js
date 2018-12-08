@@ -1,6 +1,6 @@
-import BasicInfo from "../views/events/create/BasicInfo";
-import MiddleCheck from "../views/events/create/MiddleCheck";
-import Food from "../views/events/create/Food";
+import BasicInfo from "../../views/events/create/BasicInfo";
+import MiddleCheck from "../../views/events/create/MiddleCheck";
+import Food from "../../views/events/create/Food";
 
 export default [
   {
