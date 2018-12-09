@@ -15,9 +15,6 @@
               <div class="event-title col-9 mt-2">
                 <strong>{{ event.title }}</strong>
               </div>
-              <div class="col-3">
-                <img v-lazy="event.host.image" class="rounded-circle"/>
-              </div>
             </div>
             <div class="event-time">
               <i class="xi-time-o"></i> {{ event.startDate }}
