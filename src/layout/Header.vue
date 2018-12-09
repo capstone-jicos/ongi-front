@@ -3,12 +3,12 @@
         <base-nav class="navbar-main" transparent type=""
                   effect="light" :navColor="navColor">
             <router-link slot="brand" class="mr-lg-5" to="/" active-class="app-name">
-                    <i class="fa fa-cutlery" aria-hidden="true"></i> 온기
+                    <img class="logo" src="img/logo.png"/>
             </router-link>
 
             <div class="row" slot="content-header" slot-scope="{closeMenu}">
                 <div class="col-6 collapse-brand">
-                  <i class="fa fa-cutlery"></i> 온기
+                    <img class="logo" src="img/logo.png"/>
                 </div>
                 <div class="col-6 collapse-close">
                     <close-button @click="closeMenu"></close-button>
@@ -69,20 +69,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.app-name {
-  margin: 0 1rem;
-  font-size: 1.75rem;
-  color: lightsalmon;
-}
-
-@media (max-device-width: 880px) {
-  .app-name {
-    margin: 0;
-  }
-}
-
-.collapse-brand {
-  font-size: 1.75rem;
-  color: lightsalmon;
+img.logo {
+  height: 2.5rem;
 }
 </style>
