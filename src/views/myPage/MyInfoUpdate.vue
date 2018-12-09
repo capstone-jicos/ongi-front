@@ -17,6 +17,7 @@
                       <base-input label="PW수정" class=" modifiedPw" type="password" v-model="info.pw" ></base-input>
                       <base-input label="PW수정확인" class=" modifiedPw" type="password" v-model="info.testpw" ></base-input>
                       <base-input label=">Gender" class="mb-2" type="text" v-model="info.gender"></base-input>
+                      <base-input label="Email" class="mb-2" type="text" v-model="info.email"></base-input>
                       <base-input label="Country" class="mb-2" type="text" v-model="info.country"></base-input>
                       <base-input label="State" class="mb-2" type="text" v-model="info.state"></base-input>
                       <base-input label="City" class="mb-2" type="text" v-model="info.city"></base-input>
@@ -52,40 +53,11 @@ export default {
     }
   },
   watch: {
-    city() {
-      this.setUserInfo(this.info);
-    },
-    country() {
-      this.setUserInfo(this.info);
-    },
-    displayname() {
-      this.setUserInfo(this.info);
-    },
-    gender() {
-      this.setUserInfo(this.info);
-    },
-    state() {
-      this.setUserInfo(this.info);
-    },
-    profileImage() {
-      this.setUserInfo(this.info);
-    }
-  },
-  computed: {
-    city() {
-      return this.info.city;
-    },
-    country() {
-      return this.info.country;
-    },
-    displayname() {
-      return this.info.displayname;
-    },
-    gender() {
-      return this.info.gender;
-    },
-    state() {
-      return this.info.state;
+    info: {
+      handler: function(newValue) {
+        this.setUserInfo(newValue);
+      },
+      deep: true
     }
   }
 };

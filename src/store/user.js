@@ -7,7 +7,8 @@ export default {
     gender: null,
     profileImage: null,
     state: null,
-    uniqueId: null
+    uniqueId: null,
+    email: null
   },
   getters: {
     getUserInfo: state => {

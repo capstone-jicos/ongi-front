@@ -74,6 +74,13 @@
                                 <base-input alternative
                                             required
                                             class="mb-3"
+                                            v-model="user.email"
+                                            placeholder="이메일 주소"
+                                            addon-left-icon="xi-mail-o">
+                                </base-input>
+                                <base-input alternative
+                                            required
+                                            class="mb-3"
                                             v-model="user.country"
                                             placeholder="국가"
                                             addon-left-icon="ni ni-world-2">
@@ -123,7 +130,8 @@ export default {
         accessToken: null,
         gender: null,
         country: null,
-        photoUrl: "http://public.ongi.tk/profile/jihoon.jpg",
+        email: null,
+        photoUrl: "http://public.ongi.tk/profile/placeholder.png",
         state: null,
         city: null
       }
