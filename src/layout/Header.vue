@@ -3,7 +3,7 @@
         <base-nav class="navbar-main" transparent type=""
                   effect="light" :navColor="navColor">
             <router-link slot="brand" class="mr-lg-5" to="/" active-class="app-name">
-                    <img class="logo" src="img/logo.png"/>
+                    <img class="logo" src="/img/logo.png"/>
             </router-link>
 
             <div class="row" slot="content-header" slot-scope="{closeMenu}">

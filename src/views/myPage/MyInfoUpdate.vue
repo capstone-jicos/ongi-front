@@ -3,20 +3,26 @@
         <div class="container pt-lg-md">
             <form role="form" >
               <div class="mb-3">
-                    <input type="file" hidden id="my-photo" @change="uploadPhoto"/><br>
                     <div class="container pt-lg-md text-left">
+                      <form id="upload-photo" hidden>
+                        <input type="file" name="upload" id="my-photo" @change="uploadPhoto"/><br>
+                      </form>
                       <div class="row">
-                        <div class="col-4 text-center">
-                          <div @click="choosePhoto()">
-                            <img v-lazy="info.profileImage" class="rounded-circle host-image mx-auto">
+                        <div class="col-5 text-center">
+                          <div v-if="!isUploading" @click="choosePhoto()" class="mx-auto my-autp">
+                            <img v-lazy="info.profileImage" class="rounded-circle host-image">
+                          </div>
+                          <div v-else class="uploading">
+                            <i class="xi-spinner-2 xi-spin my-auto"></i>
                           </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-7">
                           <base-input label="이름" class="mb-2" type="text" v-model="info.displayName"></base-input>
                         </div>
                       </div>
-                      <base-input label="비밀번호 수정"  type="password" v-model="info.pw" ></base-input>
-                      <base-input label="비밀번호 수정 확인" type="password" v-model="info.testpw" ></base-input>
+                      <base-input label="현재 비밀번호"  type="password" v-model="currentAccessToken" ></base-input>
+                      <base-input label="새로운 비밀번호"  type="password" v-model="newAccessToken" ></base-input>
+                      <base-input label="새로운 비밀번호 확인" type="password" v-model="newAccessTokenValidate" ></base-input>
                       <div class="mb-3 text-center">
                         <label>성별</label>
                         <base-radio inline
@@ -34,7 +40,7 @@
                       <base-input label="국가" class="mb-2" type="text" v-model="info.country"></base-input>
                       <base-input label="시/도" class="mb-2" type="text" v-model="info.state"></base-input>
                       <base-input label="시/군/구" class="mb-2" type="text" v-model="info.city"></base-input>
-                      <base-button class="float-right">저장</base-button>
+                      <base-button class="float-right" @click="updateInfo">저장</base-button>
                     </div>
                     <!-- 저장버튼 -->
               </div>
@@ -52,11 +58,20 @@ export default {
   created() {
     this.$emit("onNavColorChange", "black");
     this.info = this.getUserInfo();
+
+    if (this.info.displayName === null) {
+      let url = `/login?redirect_url=${this.$route.path}`;
+
+      this.$router.push(url);
+    }
   },
   data() {
     return {
       info: {},
-      uploadStatus: false
+      isUploading: false,
+      currentAccessToken: null,
+      newAccessToken: null,
+      newAccessTokenValidate: null
     };
   },
   methods: {
@@ -66,7 +81,42 @@ export default {
       this.$el.querySelector("#my-photo").click();
     },
     uploadPhoto() {
+      let form = this.$el.querySelector("#upload-photo");
+      let data = new FormData(form);
 
+      this.$axios
+        .post("/upload", data, { withCredentials: true })
+        .then(response => {
+          this.info.profileImage = response.data.photoUrl;
+          this.isUploading = false;
+        });
+      this.isUploading = true;
+    },
+    updateInfo() {
+      let payload;
+
+      if (
+        this.newAccessToken !== null &&
+        this.newAccessToken !== this.newAccessTokenValidate
+      ) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return false;
+      }
+
+      payload = this.info;
+      payload.currentAccessToken = this.currentAccessToken;
+      payload.newAccessToken = this.newAccessToken;
+
+      this.$axios
+        .post("/user/me/update", payload, { withCredentials: true })
+        .then(response => {
+          if (response.data.errors === undefined) {
+            alert("정상적으로 수정되었습니다.");
+          }
+        })
+        .catch(error => {
+          alert(error.response.data.msg);
+        });
     }
   },
   watch: {
@@ -91,6 +141,13 @@ div {
   label {
     display: block;
     text-align: left;
+  }
+}
+
+div.uploading {
+  height: 100%;
+  i {
+    font-size: 3.5rem;
   }
 }
 </style>
