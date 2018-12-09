@@ -3,10 +3,12 @@
         <router-view name="header" :navColor="navColor"></router-view>
         <main>
             <fade-transition origin="center" mode="out-in" :duration="250">
-                <router-view @onNavColorChange="onNavColorChange"/>
+                <router-view @onNavColorChange="onNavColorChange"
+                             @onShowEventPrice="onShowEventPrice"
+                />
             </fade-transition>
         </main>
-        <router-view name="footer"></router-view>
+        <router-view name="footer" :feeWithComma="eventPrice"></router-view>
     </div>
 </template>
 <script>
@@ -20,13 +22,17 @@ export default {
   },
   data() {
     return {
-      navColor: undefined
+      navColor: undefined,
+      eventPrice: undefined
     };
   },
   methods: {
     ...mapActions(["setUserInfo"]),
     onNavColorChange(color) {
       this.navColor = color;
+    },
+    onShowEventPrice(price) {
+      this.eventPrice = price;
     }
   },
   created() {
