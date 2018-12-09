@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Header from "../layout/Header";
 import Main from "../views/Main";
 import Join from "../views/Join";
+import NotFound from "../views/NotFound";
 
 import EventRouter from "./event";
 import MyPageRouter from "./my-page";
@@ -38,7 +39,17 @@ const routes = [
 ]
   .concat(EventRouter)
   .concat(MyPageRouter)
-  .concat(VenueRouter);
+  .concat(VenueRouter)
+  .concat([
+    {
+      path: "*",
+      name: "404",
+      components: {
+        header: Header,
+        default: NotFound
+      }
+    }
+  ]);
 
 export default new Router({
   mode: "history",
