@@ -62,11 +62,8 @@
     </div>
 </template>
 <script>
-import RequestFooter from "./RequestFooter";
-
 export default {
   name: "Events",
-  components: { RequestFooter },
   data() {
     return {
       event: {
@@ -121,6 +118,7 @@ export default {
 
     this.$axios.get(url).then(res => {
       this.event = res.data;
+      this.$emit("onShowEventPrice", this.feeWithComma);
     });
 
     this.$emit("onNavColorChange", "white");
