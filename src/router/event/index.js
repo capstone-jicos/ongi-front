@@ -46,15 +46,15 @@ export default [
     children: CreateEvent
   },
   {
-    path: "/event/:id/request/Confirm",
-    name: "requestConfirm",
+    path: "/event/:id/complete",
+    name: "Complete",
     components: {
       header: Header,
-      default: () => import("../../views/events/RequestConfirm")
+      default: () => import("../../views/events/Complete")
     }
   },
   {
-    path: "/event/:id/request",
+    path: "/event/:id/join",
     name: "request",
     components: {
       header: Header,
