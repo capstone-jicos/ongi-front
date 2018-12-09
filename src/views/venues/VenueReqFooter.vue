@@ -1,16 +1,39 @@
 <template>
   <div id="attend" class="row mx-0">
     <div class="col text-center my-auto">
-      <router-link to="/venue/Confirm">
-        <base-button type="neutral" variant="primary">장소제공요청하기</base-button>
-      </router-link>
+        <base-button type="neutral" variant="primary" @click="request">장소제공요청하기</base-button>
     </div>
   </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
 export default {
   name: "VenueReqFooter",
-  props: {}
+  data() {
+    return {
+      eventId: null
+    };
+  },
+  methods: {
+    ...mapGetters(["getResponse"]),
+    request() {
+      let venueId = this.$route.params.id;
+      this.eventId = this.getResponse().idx;
+      let url = `/venue/apply?venueId=${venueId}&eventId=${eventId}`;
+      // let payload = { card_number, expiry, birth, pwd_2digit }; 합치기
+      this.$axios
+        .post(url, payload, { withCredentials: true })
+        .then(Response => {
+          if (Response.data.errors === undefined) {
+            this.$router.push("/venue/Confirm");
+          }
+        });
+    }
+  },
+  created() {
+    this.$emit("onNavColorChange", "black");
+  }
 };
 </script>
 <style scoped lang="scss">
