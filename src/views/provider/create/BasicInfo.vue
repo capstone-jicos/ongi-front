@@ -2,17 +2,21 @@
   <section class="section">
     <div class="container">
       <h4>회원님의 주방이<br/>어디에 있는지 알려주세요</h4>
-      <base-input label="국가/지역"
+      <label>국가/지역</label>
+      <base-input :valid="checkValid(response.country)"
                   v-model="response.country">
       </base-input>
-      <base-input label="주"
+      <label>주</label>
+      <base-input :valid="checkValid(response.state)"
                   v-model="response.state">
       </base-input>
-      <base-input label="시/군/구"
+      <label>시/군/구</label>
+      <base-input :valid="checkValid(response.city)"
                   v-model="response.city">
       </base-input>
-      <base-input label="상세주소"
-                  @keypress.enter="search"
+      <label>상세주소</label>
+      <base-input @keypress.enter="search"
+                  :valid="checkValid(response.detailAddress)"
                   v-model="response.detailAddress">
       </base-input>
       <label for="maps">지도 검색</label>
@@ -35,6 +39,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+import { checkValid } from "../../../script/common";
 
 export default {
   name: "BasicInfo",
@@ -58,6 +63,7 @@ export default {
   methods: {
     ...mapGetters(["getResponse"]),
     ...mapActions(["setLocation"]),
+    checkValid,
     setMarker(coordinates) {
       let lat = coordinates.lat();
       let lng = coordinates.lng();

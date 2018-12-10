@@ -4,9 +4,19 @@
         <div class="container pt-lg-md">
           <h5>개설할 모임에 대한 정보를 알려주세요</h5>
             <form role="form" >
-                <base-input class="mb-3" v-model="event.title" label="모임 이름" placeholder="모임 이름"> </base-input>
-                <base-input label="모임 시작 시간" type="datetime-local" v-model="event.startDate"> </base-input>
-                <base-input label="모임 종료 시간"  type="datetime-local" v-model="event.endDate"> </base-input>
+                <label>모임 이름</label>
+                <base-input class="mb-3"
+                            v-model="event.title"
+                            :valid="checkValid(event.title)"
+                            placeholder="모임 이름"> </base-input>
+                <label>모임 시작 시간</label>
+                <base-input type="datetime-local"
+                            :valid="checkValid(event.startDate)"
+                            v-model="event.startDate"> </base-input>
+                <label>모임 종료 시간</label>
+                <base-input type="datetime-local"
+                            :valid="checkValid(event.endDate)"
+                            v-model="event.endDate"> </base-input>
                 <label>모임 설명</label>
                 <wysiwyg v-model="event.description"></wysiwyg>
                 <div class="my-3">
@@ -41,6 +51,7 @@
 
 
 <script>
+import {checkValid} from "../../../script/common";
 import { createNamespacedHelpers } from "vuex";
 const { mapGetters, mapActions } = createNamespacedHelpers("createEvent");
 
@@ -63,6 +74,7 @@ export default {
   methods: {
     ...mapGetters(["getResponse"]),
     ...mapActions(["setPartialResponse"]),
+    checkValid,
     choosePhoto() {
       this.$el.querySelector("#event-photo").click();
     },

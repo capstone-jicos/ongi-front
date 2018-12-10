@@ -43,6 +43,7 @@
                                             class="mb-3"
                                             v-model="user.displayName"
                                             placeholder="이름"
+                                            :valid="checkValid(user.displayName)"
                                             addon-left-icon="ni ni-circle-08">
                                 </base-input>
                                 <base-input alternative
@@ -50,12 +51,14 @@
                                             class="mb-3"
                                             v-model="user.userId"
                                             placeholder="아이디"
+                                            :valid="checkValid(user.userId)"
                                             addon-left-icon="xi-fingerprint">
                                 </base-input>
                                 <base-input alternative
                                             type="password"
                                             placeholder="비밀번호"
                                             v-model="user.accessToken"
+                                            :valid="checkValid(user.accessToken)"
                                             addon-left-icon="ni ni-lock-circle-open">
                                 </base-input>
 
@@ -76,6 +79,7 @@
                                             class="mb-3"
                                             v-model="user.email"
                                             placeholder="이메일 주소"
+                                            :valid="checkValid(user.email)"
                                             addon-left-icon="xi-mail-o">
                                 </base-input>
                                 <base-input alternative
@@ -83,6 +87,7 @@
                                             class="mb-3"
                                             v-model="user.country"
                                             placeholder="국가"
+                                            :valid="checkValid(user.country)"
                                             addon-left-icon="ni ni-world-2">
                                 </base-input>
                                 <base-input alternative
@@ -90,6 +95,7 @@
                                             class="mb-3"
                                             v-model="user.state"
                                             placeholder="시/도"
+                                            :valid="checkValid(user.state)"
                                             addon-left-icon="xi-map-o">
                                 </base-input>
                                 <base-input alternative
@@ -97,9 +103,10 @@
                                             class="mb-3"
                                             v-model="user.city"
                                             placeholder="시/군/구"
+                                            :valid="checkValid(user.city)"
                                             addon-left-icon="xi-my-location">
                                 </base-input>
-                                <base-checkbox>
+                                <base-checkbox v-model="checked">
                                     <span>본 사이트에 가입함으로서<br/>
                                         <a href="#">개인정보 활용 방안</a>
                                         에 동의합니다.
@@ -120,6 +127,8 @@
     </section>
 </template>
 <script>
+import { isFormBlank, checkValid } from "../script/common";
+
 export default {
   name: "Join",
   data() {
@@ -134,11 +143,25 @@ export default {
         photoUrl: "http://public.ongi.tk/profile/placeholder.png",
         state: null,
         city: null
-      }
+      },
+      checked: false
     };
   },
   methods: {
+    checkValid,
     performJoin() {
+      let blankKey;
+
+      if ((blankKey = isFormBlank(this.user))) {
+        this.user[blankKey] = "";
+        return false;
+      }
+
+      if (!this.checked) {
+        alert("개인정보 활용방안에 동의하셔야 서비스를 이용하실 수 있습니다!");
+        return false;
+      }
+
       this.$axios
         .post("/join", this.user, { withCredentials: true })
         .then(response => {

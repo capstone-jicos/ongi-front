@@ -13,6 +13,8 @@ export default {
           lng: 0
         }
       },
+      fee: 0,
+      capacity: 1,
       amenities: [],
       requirements: [],
       restrictions: [],
