@@ -147,7 +147,6 @@ export default {
   methods: {
     ...mapGetters(["getUserInfo"]),
     ...eventGetters(["getResponse"]),
-    //  ...EventmapGetters(["getResponse"]),
     agreeTerms() {
       this.condition = true;
     },
@@ -163,13 +162,14 @@ export default {
         buyer_tel: this.buyer_tel
       };
       let venueId = this.$route.params.id;
-      this.eventId = this.getResponse().idx;
+      let eventId = this.getResponse().idx;
       this.requestPayment(eventId, venueId, payload);
     },
     requestPayment(eventId, venueId, payload) {
-        console.log(this.eventId);
       this.$axios
-        .post(`/venue/apply?venueId=${venueId}&eventId=${eventId}`, payload, { withCredentials: true })
+        .post(`/venue/apply?venueId=${venueId}&eventId=${eventId}`, payload, {
+          withCredentials: true
+        })
         .then(response => {
           if (response.status === 201) {
             this.$router.push("/venue/Confirm");

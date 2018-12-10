@@ -29,10 +29,9 @@ export default {
   created() {
     this.$emit("onNavColorChange", "black");
     this.$axios.get("/venue/applylist", { withCredentials: true }).then(res => {
-      if(res.data.length===0){
+      if (res.data.length === 0) {
         alert("장소 제공 요청 목록이 없습니다.");
       }
-      console.log(res.data);
       this.events = res.data;
     });
   },

@@ -11,7 +11,7 @@
 export default {
   name: "VenueReqFooter",
   methods: {
-    getUrl(){
+    getUrl() {
       return `/venue/${this.$route.params.id}/request`;
     }
   },

@@ -54,7 +54,9 @@ export default {
     let endDate = new Date(this.event.endDate);
     let jsonStartDate = startDate.toJSON();
     let jsonEndDate = endDate.toJSON();
-    let url = `/venue/venuelist?startDate=${jsonStartDate}&endDate=${jsonEndDate}&seats=${this.event.seats}`;
+    let url = `/venue/venuelist?startDate=${jsonStartDate}&endDate=${jsonEndDate}&seats=${
+      this.event.seats
+    }`;
     this.$axios.get(url, { withCredentials: true }).then(res => {
       this.venues = res.data;
     });
@@ -65,7 +67,7 @@ export default {
     };
   },
   methods: {
-     ...mapGetters(["getResponse"]),
+    ...mapGetters(["getResponse"]),
     getUrl(venueId) {
       return "/venue/" + venueId;
     }
