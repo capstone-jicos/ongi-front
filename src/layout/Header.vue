@@ -22,12 +22,6 @@
                         <span class="nav-link-inner--text">홈</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="xi-search"></i>
-                        <span class="nav-link-inner--text">검색</span>
-                    </a>
-                </li>
                 <base-dropdown tag="li" class="nav-item">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="xi-user"></i>
@@ -44,7 +38,12 @@
                         <span class="nav-link-inner--text">도움말</span>
                     </a>
                 </li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" role="button" @click="logout">
+                        <i class="xi-search"></i>
+                        <span class="nav-link-inner--text">로그아웃</span>
+                    </a>
+                </li>
             </ul>
         </base-nav>
     </header>
@@ -65,6 +64,15 @@ export default {
       type: String,
       description: "Color of Main Menu to be passed to BaseNav"
     }
+  },
+  methods:{
+      logout(){
+          this.$axios.get("/logout",{withCredentials: true})
+          .then(res => {
+              console.log(res.data);
+               this.$router.push("/");
+          });
+      }
   }
 };
 </script>

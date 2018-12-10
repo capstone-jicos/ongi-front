@@ -37,6 +37,13 @@
                             <div class="text-center text-muted mb-4">
                                 <small>아이디 / 비밀번호로 가입하기</small>
                             </div>
+                            <base-checkbox v-model="checked" class="mb-3">
+                                    <router-link to="/terms/privacy">
+                                    <span>
+                                        본 사이트에 가입함으로서 개인정보 활용 방안에 동의합니다.
+                                    </span>
+                                    </router-link>
+                                </base-checkbox>
                             <form role="form">
                                 <base-input alternative
                                             required
@@ -106,13 +113,6 @@
                                             :valid="checkValid(user.city)"
                                             addon-left-icon="xi-my-location">
                                 </base-input>
-                                <base-checkbox v-model="checked">
-                                    <router-link to="/terms/privacy">
-                                    <span>
-                                        본 사이트에 가입함으로서 개인정보 활용 방안에 동의합니다.
-                                    </span>
-                                    </router-link>
-                                </base-checkbox>
                                 <div class="text-center">
                                     <base-button type="primary"
                                                  class="my-4"
@@ -179,7 +179,7 @@ export default {
         })
         .catch(error => {
           if (error.response.status === 412) {
-            alert("이미 동일한 아이로 가입이 되어있습니다!");
+            alert("이미 동일한 아이디로 가입이 되어있습니다!");
           }
         });
     }
