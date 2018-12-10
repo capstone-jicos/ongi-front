@@ -1,7 +1,9 @@
 <template>
     <section class="section">
         <div class="container">
-            <h4>필수약관동의</h4>
+            <router-link to="/terms/guest">
+                <h4>필수약관동의</h4>
+            </router-link>
             <div id="attend" class="row my-4">
                 <div class="col text-center">
                     <base-button type="neutral" variant="primary" v-on:click="agreeTerms">동의합니다.</base-button>

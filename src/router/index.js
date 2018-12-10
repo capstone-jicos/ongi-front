@@ -8,6 +8,7 @@ import NotFound from "../views/NotFound";
 import EventRouter from "./event";
 import MyPageRouter from "./my-page";
 import VenueRouter from "./venue";
+import BackFooter from "../views/terms/backFooter";
 
 Vue.use(Router);
 
@@ -34,6 +35,42 @@ const routes = [
     components: {
       header: Header,
       default: () => import("../views/Login")
+    }
+  },
+  {
+    path: "/terms/guest",
+    name: "guest-terms",
+    components: {
+      header: Header,
+      default: () => import("../views/terms/guest"),
+      footer: BackFooter
+    }
+  },
+  {
+    path: "/terms/host",
+    name: "host-terms",
+    components: {
+      header: Header,
+      default: () => import("../views/terms/host"),
+      footer: BackFooter
+    }
+  },
+  {
+    path: "/terms/provider",
+    name: "provider-terms",
+    components: {
+      header: Header,
+      default: () => import("../views/terms/provider"),
+      footer: BackFooter
+    }
+  },
+  {
+    path: "/terms/privacy",
+    name: "privacy-terms",
+    components: {
+      header: Header,
+      default: () => import("../views/terms/privacy"),
+      footer: BackFooter
     }
   }
 ]
