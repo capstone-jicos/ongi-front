@@ -14,6 +14,7 @@
 import Footer from "./Footer";
 import { FadeTransition } from "vue2-transitions";
 import { createNamespacedHelpers } from "vuex";
+import { isFormBlank } from "../../../script/common";
 const { mapGetters } = createNamespacedHelpers("createEvent");
 
 export default {
@@ -38,6 +39,17 @@ export default {
     },
     onNextButton() {
       if (!this.final) {
+        let currentResponse = this.$children[0].$children[0].event;
+        let blankKey;
+
+        if (
+          currentResponse !== undefined &&
+          (blankKey = isFormBlank(currentResponse))
+        ) {
+          this.$children[0].$children[0].event[blankKey] = "";
+          return false;
+        }
+
         this.$router.push(`./${this.route[this.index + 1]}`);
       } else {
         let eventState = this.getResponse();
