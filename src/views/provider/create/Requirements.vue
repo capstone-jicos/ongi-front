@@ -12,6 +12,11 @@
       >
         요리에 대한 경험
       </base-checkbox>
+      <base-checkbox class="mb-3"
+                     v-model="checkboxes.none"
+      >
+        없음
+      </base-checkbox>
     </div>
   </section>
 </template>
@@ -29,7 +34,8 @@ export default {
       },
       checkboxes: {
         identification: false,
-        experience: false
+        experience: false,
+        none: false
       }
     };
   },

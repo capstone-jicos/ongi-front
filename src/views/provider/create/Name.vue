@@ -3,6 +3,7 @@
     <div class="container">
       <h4 class="mb-3">장소의 이름을 지어주세요</h4>
       <base-input v-model="response.name"
+                  :valid="checkValid(response.name)"
                   placeholder="뭘 넣어야할까?"
       ></base-input>
     </div>
@@ -12,6 +13,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("createVenue");
+import { checkValid } from "../../../script/common";
 
 export default {
   name: "Name",
@@ -24,7 +26,8 @@ export default {
   },
   methods: {
     ...mapGetters(["getResponse"]),
-    ...mapActions(["setPartialResponse"])
+    ...mapActions(["setPartialResponse"]),
+    checkValid
   },
   watch: {
     response: {

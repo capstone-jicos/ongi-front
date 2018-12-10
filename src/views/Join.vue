@@ -127,6 +127,8 @@
     </section>
 </template>
 <script>
+import { isFormBlank, checkValid } from "../script/common";
+
 export default {
   name: "Join",
   data() {
@@ -146,15 +148,13 @@ export default {
     };
   },
   methods: {
+    checkValid,
     performJoin() {
-      let keys = Object.keys(this.user);
+      let blankKey;
 
-      for (let i = 0; i < keys.length; i++) {
-        if (this.user[keys[i]] === null || this.user[keys[i]].length === 0) {
-          alert("모든 입력칸들을 채워넣어주세요!");
-          this.user[keys[i]] = "";
-          return false;
-        }
+      if ((blankKey = isFormBlank(this.user))) {
+        this.user[blankKey] = "";
+        return false;
       }
 
       if (!this.checked) {
@@ -181,15 +181,6 @@ export default {
             alert("이미 동일한 아이로 가입이 되어있습니다!");
           }
         });
-    },
-    checkValid(input) {
-      if (input === null) {
-        return undefined;
-      } else if (input.length === 0) {
-        return false;
-      } else {
-        return undefined;
-      }
     }
   }
 };

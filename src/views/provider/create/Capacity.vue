@@ -4,7 +4,7 @@
       <h4>얼마나 많은 분들을 받을 수 있나요?</h4>
       <div class="my-4 mx-1">
         <base-slider v-model="response.capacity"
-                     :range="{min:0, max:30}"
+                     :range="{min:1, max:30}"
                      integer
         ></base-slider>
       </div>

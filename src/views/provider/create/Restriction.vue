@@ -8,6 +8,9 @@
       <base-checkbox class="mb-3"
                      v-model="checkboxes.noTrespass"
                      >타 공간 무단침입 금지</base-checkbox>
+      <base-checkbox class="mb-3"
+                     v-model="checkboxes.none"
+      >없음</base-checkbox>
     </div>
   </section>
 </template>
@@ -25,7 +28,8 @@ export default {
       },
       checkboxes: {
         noIndividual: false,
-        noTrespass: false
+        noTrespass: false,
+        none: false
       }
     };
   },
