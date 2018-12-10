@@ -1,37 +1,37 @@
 <template>
-    <div class="profile-page">
-        <section class="section section-skew event-info">
-            <div class="container">
-                <card shadow class="card-profile mt--300" no-body>
-                    <div class="px-4">
-                      <div class="mt-3 py-2 border-top border-bottom text-center">
-                        <h5>참석 신청 대기 목록</h5>
-                        <h1> {{guest}} </h1>
-                      </div>
-                      <div class="row"  v-for="guest in guests" :key="guest.attendeeId">
-                          <card shadow class="card-profile col mx-1" no-body>
-                            <div class="row">
-                              <div class="col-4">
-                                <img v-lazy="guest.attendeeImage" class="rounded-circle"/>
-                              </div>
-                              <div class="col-4 text-center">
-                                {{guest.attendeeName}}님
-                              </div>
-                              <div class="col-2 text-center">
-                                  <base-button type="neutral" variant="primary" @click="accept(guest.attendeeId)">수락</base-button>
-                              </div>
-                              <div class="col-2 text-center">
-                                  <base-button type="neutral" variant="primary" @click="decline(guest.attendeeId)">거절</base-button>
-                              </div>
-                            </div>
-                          </card>
-
-                      </div>
-                    </div>
-                </card>
+  <section class="section section-skew">
+    <div class="container">
+      <card shadow class="card-profile mt--300" no-body>
+        <div class="mt-3 py-2 text-center">
+          <h5>참석 신청 대기 목록</h5>
+        </div>
+        <div class="container">
+          <div class="row" v-if="guests.length === 0">
+            <label class="mx-auto">참석한 신청자가 아직 없습니다.</label>
+          </div>
+          <div class="row" v-else v-for="guest in guests" :key="guest.attendeeId">
+            <div class="col-3 my-auto">
+              <img v-lazy="guest.attendeeImage" class="rounded-circle"/>
             </div>
-        </section>
+            <div class="col-4 my-auto text-center">
+              {{guest.attendeeName}}님
+            </div>
+            <div class="col-5 my-auto float-left">
+              <base-button type="neutral"
+                           variant="primary"
+                           class="px-2"
+                           @click="accept(guest.attendeeId)">수락</base-button>
+              <base-button type="neutral"
+                           variant="primary"
+                           class="px-2"
+                           @click="decline(guest.attendeeId)">거절</base-button>
+            </div>
+            <hr/>
+          </div>
+        </div>
+      </card>
     </div>
+  </section>
 </template>
 <script>
 export default {
@@ -39,7 +39,7 @@ export default {
   components: {},
   data() {
     return {
-      guests: ""
+      guests: []
     };
   },
   methods: {
@@ -127,33 +127,30 @@ export default {
 @import "../../assets/scss/bootstrap/functions";
 @import "../../assets/scss/custom/variables";
 
-.section-profile-cover {
-  height: 250px;
-}
+section {
+  margin-top: -5rem;
+  padding-top: 0;
+  padding-bottom: 1rem;
+  div.container {
+    .card-profile {
+      min-height: 20px;
+      margin: 15px 0;
 
-.host-image {
-  max-width: 45px;
-}
+      .event-item-photo {
+        height: 125px;
+        border-top-right-radius: 0.25rem;
+        border-top-left-radius: 0.25rem;
+        background-size: cover;
+      }
 
-.event-info {
-  padding-bottom: 6rem;
-}
-
-div.container {
-  .card-profile {
-    min-height: 20px;
-    margin: 15px 0;
-
-    .event-item-photo {
-      height: 125px;
-      border-top-right-radius: 0.25rem;
-      border-top-left-radius: 0.25rem;
-      background-size: cover;
+      div.col-5 {
+        text-align: right;
+      }
     }
   }
 }
 
 img {
-  max-height: 50px;
+  max-height: 40px;
 }
 </style>
