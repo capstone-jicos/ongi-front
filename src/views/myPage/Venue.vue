@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <div class="mt-3 py-2 border-top border-bottom text-center">
+      <div class="mt-3 pb-2 border-top border-bottom text-center">
           <h5>예약 대기 목록</h5>
       </div>
       <div class="pb-2">
@@ -29,12 +29,15 @@ export default {
   created() {
     this.$emit("onNavColorChange", "black");
     this.$axios.get("/venue/applylist", { withCredentials: true }).then(res => {
+      if (res.data.length === 0) {
+        alert("장소 제공 요청 목록이 없습니다.");
+      }
       this.events = res.data;
     });
   },
   data() {
     return {
-      events: ""
+      events: []
     };
   },
   methods: {

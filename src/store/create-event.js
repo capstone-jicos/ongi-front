@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     event: {
+      idx: null,
       title: null,
       description: null,
       seats: null,
