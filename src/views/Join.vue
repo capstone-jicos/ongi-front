@@ -107,10 +107,11 @@
                                             addon-left-icon="xi-my-location">
                                 </base-input>
                                 <base-checkbox v-model="checked">
-                                    <span>본 사이트에 가입함으로서<br/>
-                                        <a href="#">개인정보 활용 방안</a>
-                                        에 동의합니다.
+                                    <router-link to="/terms/privacy">
+                                    <span>
+                                        본 사이트에 가입함으로서 개인정보 활용 방안에 동의합니다.
                                     </span>
+                                    </router-link>
                                 </base-checkbox>
                                 <div class="text-center">
                                     <base-button type="primary"

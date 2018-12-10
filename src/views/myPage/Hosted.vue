@@ -54,11 +54,23 @@ export default {
     this.displayName = this.getUserInfo().displayName;
 
     this.$axios.get("/user/me/hosted", { withCredentials: true }).then(res => {
-      for (let index = 0; index < res.data.length; index++) {
-        let type = JSON.parse(decodeURIComponent(res.data[index].type));
-        let event = res.data[index];
-        event.type = type;
-        this.events.push(event);
+     let data = res.data;
+
+      for (let i = 0; i < data.length; i++) {
+        let date = new Date(data[i].startDate);
+        if (data[i].type) {
+          data[i].type = JSON.parse(decodeURIComponent(data[i].type));
+        }
+
+        data[i].startDate = `${date.toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        })} ${date.toLocaleTimeString("ko-KR", {
+          hour: "numeric",
+          minute: "numeric"
+        })}`;
+        this.events.push(data[i]);
       }
     });
   },

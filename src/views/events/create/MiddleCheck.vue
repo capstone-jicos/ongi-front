@@ -22,11 +22,15 @@
             <div class="col">모임 컨셉사진</div>
           </div>
           <card class="card-profile add-new-venue my-3" no-body>
-
-              <div class="my-auto text-center">
-                <img v-lazy="event.photo"/>
-              </div>
-            </card>
+            <div class="my-auto text-center">
+              <img v-lazy="event.photo"/>
+            </div>
+          </card>
+          <div class="row">
+            <router-link to="/terms/host">
+              <a class="col">모임 생성 약관 고지</a>
+            </router-link>
+          </div>
         </div>
     </section>
 </template>
