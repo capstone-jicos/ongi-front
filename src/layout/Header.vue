@@ -1,7 +1,11 @@
 <template>
     <header class="header-global">
-        <base-nav class="navbar-main" transparent type=""
-                  effect="light" :navColor="navColor">
+        <base-nav class="navbar-main"
+                  transparent type=""
+                  effect="light"
+                  :navColor="navColor"
+                  :toggled="toggled"
+                  @onNavbarToggle="toggleMenu">
             <router-link slot="brand" class="mr-lg-5" to="/" active-class="app-name">
                     <img class="logo" src="/img/logo.png"/>
             </router-link>
@@ -17,26 +21,20 @@
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <li class="nav-item dropdown">
-                    <a href="/" class="nav-link" data-toggle="dropdown" role="button">
+                    <div class="nav-link" data-toggle="dropdown" role="button" @click="goMenu(`/`)">
                         <i class="xi-home"></i>
                         <span class="nav-link-inner--text">홈</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="xi-search"></i>
-                        <span class="nav-link-inner--text">검색</span>
-                    </a>
+                    </div>
                 </li>
                 <base-dropdown tag="li" class="nav-item">
                     <a slot="title" href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="xi-user"></i>
                         <span class="nav-link-inner--text">마이 페이지</span>
                     </a>
-                    <router-link to="/my/InfoUpdate" class="dropdown-item">회원정보수정</router-link>
-                    <router-link to="/my/attended" class="dropdown-item">참가한 모임</router-link>
-                    <router-link to="/my/hosted" class="dropdown-item">주최한 모임</router-link>
-                    <router-link to="/my/venue" class="dropdown-item">등록한 장소</router-link>
+                    <div @click="goMenu('/my/InfoUpdate')" class="dropdown-item">회원정보수정</div>
+                    <div @click="goMenu('/my/attended')" class="dropdown-item">참가한 모임</div>
+                    <div @click="goMenu('/my/hosted')" class="dropdown-item">주최한 모임</div>
+                    <div @click="goMenu('/my/venue')" class="dropdown-item">등록한 장소</div>
                 </base-dropdown>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
@@ -64,6 +62,20 @@ export default {
     navColor: {
       type: String,
       description: "Color of Main Menu to be passed to BaseNav"
+    }
+  },
+  data() {
+    return {
+      toggled: false
+    };
+  },
+  methods: {
+    goMenu(url) {
+      this.toggled = !this.toggled;
+      this.$router.push(url);
+    },
+    toggleMenu(payload) {
+      this.toggled = payload;
     }
   }
 };
