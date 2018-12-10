@@ -1,16 +1,35 @@
 <template>
   <div id="attend" class="row mx-0">
     <div class="col text-center my-auto">
-      <router-link to="/event/create/Confirm">
-        <base-button type="neutral" variant="primary">장소선택하기</base-button>
-      </router-link>
+        <base-button type="neutral" variant="primary" @click="select">장소선택하기</base-button>
     </div>
   </div>
 </template>
 <script>
+import { createNamespacedHelpers } from "vuex";
+const {mapGetters} = createNamespacedHelpers("createEvent");
 export default {
   name: "MyvenuePick",
-  props: {}
+  props: {},
+  method: {
+    ...mapGetters(["getResponse"]),
+    select(){
+      let venueId = this.$route.params.id;
+      let eventId = this.getResponse().idx;
+      this.$axios
+        .get(`/select?=${venueId}&eventId=${eventId}`, {withCredentials: true})
+        .then(response => {
+          if (response.status === 201) {
+            this.$router.push("/event/create/Confirm");
+          }
+        })
+        .catch(error => {
+          if (error.response.status === 403) {
+            alert(error.response.data.message);
+          }
+        });
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

@@ -15,7 +15,7 @@ import Footer from "./Footer";
 import { isFormBlank } from "../../../script/common";
 import { FadeTransition } from "vue2-transitions";
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("createEvent");
+const { mapGetters, mapActions } = createNamespacedHelpers("createEvent");
 
 export default {
   name: "Index",
@@ -74,6 +74,9 @@ export default {
               };
               this.setPartialResponse(event);
               this.$router.push(`./${this.route[this.index + 1]}`);
+            }
+            else{
+              alert("양식을 다 채워주세요!");
             }
           });
       }
