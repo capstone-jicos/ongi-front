@@ -42,14 +42,19 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters } = createNamespacedHelpers("createEvent");
+
 export default {
   name: "VenueList",
   created() {
     this.event = this.getResponse();
     this.$emit("onNavColorChange", "black");
-    let url = `/venue/list?startDate=${this.event.startDate}&endDate=${
-      this.event.endDate
-    }&seats=${this.event.seats}`;
+    let startDate = new Date(this.event.startDate);
+    let endDate = new Date(this.event.endDate);
+    let jsonStartDate = startDate.toJSON();
+    let jsonEndDate = endDate.toJSON();
+    let url = `/venuelist?startDate=${jsonStartDate}&endDate=${jsonEndDate}&seats=${this.event.seats}`;
     this.$axios.get(url, { withCredentials: true }).then(res => {
       this.venues = res.data;
     });
@@ -60,6 +65,7 @@ export default {
     };
   },
   methods: {
+     ...mapGetters(["getResponse"]),
     getUrl(venueId) {
       return "/venue/" + venueId;
     }
