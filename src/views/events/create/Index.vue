@@ -57,6 +57,10 @@ export default {
           .then(response => {
             this.event.idx = response.data[0].idx;
             if (response.data.errors === undefined) {
+              let event = {
+                idx: response.data[0].idx
+              };
+              this.setPartialResponse(event);
               this.$router.push(`./${this.route[this.index + 1]}`);
             }
           });
@@ -68,11 +72,6 @@ export default {
         let key = keys[i];
         this.response[key] = payload[key];
       }
-    }
-  },
-  watch: {
-    idx() {
-      this.setPartialResponse(this.event);
     }
   },
   data() {
@@ -99,9 +98,6 @@ export default {
       let pattern = /.*\/(.*)/;
       let pathResult = pattern.exec(this.$route.path);
       return this.route.indexOf(pathResult[1]);
-    },
-    idx() {
-      return this.event.idx;
     }
   }
 };
