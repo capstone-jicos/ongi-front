@@ -17,7 +17,7 @@
             <navbar-toggle-button :toggled="toggled"
                                   :target="contentId"
                                   :navColor="navColor"
-                                  @click.native.stop="toggled = !toggled">
+                                  @click.native.stop="toggleMenu">
             </navbar-toggle-button>
 
             <slot name="container-after"></slot>
@@ -82,19 +82,37 @@ export default {
       type: String,
       default: "white",
       description: "Color of Main Menu"
+    },
+    toggled: {
+      type: Boolean,
+      default: false,
+      description: "Whether Menu is toggled"
     }
-  },
-  data() {
-    return {
-      toggled: false
-    };
   },
   methods: {
     onTitleClick(evt) {
       this.$emit("title-click", evt);
     },
     closeMenu() {
-      this.toggled = false;
+      this.toggledInstance = false;
+      this.$emit("onNavbarToggle", this.toggledInstance);
+    },
+    toggleMenu() {
+      this.toggledInstance = !this.toggledInstance;
+      this.$emit("onNavbarToggle", this.toggledInstance);
+    }
+  },
+  data() {
+    return {
+      toggledInstance: null
+    };
+  },
+  created() {
+    this.toggledInstance = this.toggled;
+  },
+  watch: {
+    toggled(newValue) {
+      this.toggledInstance = newValue;
     }
   }
 };
