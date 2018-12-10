@@ -24,15 +24,14 @@
 </template>
 <script>
 export default {
-  name: "host",
+  name: "host"
 };
 </script>
-
 <style scoped lang="scss">
 @import "../../assets/scss/bootstrap/functions";
 @import "../../assets/scss/custom/variables";
-    .privacy{
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
+.privacy {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
 </style>

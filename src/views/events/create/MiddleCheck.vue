@@ -28,7 +28,7 @@
           </card>
           <div class="row">
             <router-link to="/terms/host">
-              <div class="col">모임 생성 약관 고지</div>
+              <a class="col">모임 생성 약관 고지</a>
             </router-link>
           </div>
         </div>

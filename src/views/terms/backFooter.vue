@@ -8,8 +8,6 @@
 <script>
 export default {
   name: "VenueReqFooter",
-  methods: {
-  },
   created() {
     this.$emit("onNavColorChange", "black");
   }
