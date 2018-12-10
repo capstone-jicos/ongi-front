@@ -17,8 +17,7 @@
       <base-radio name="studio"
                   class="mb-2"
                   v-model="response.type"
-      >쿠킹 스튜디오</base-radio>
-    </div>
+      >쿠킹 스튜디오</base-radio>    </div>
   </section>
 </template>
 
@@ -55,5 +54,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 </style>

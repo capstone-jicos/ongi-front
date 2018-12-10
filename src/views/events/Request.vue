@@ -123,6 +123,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
+import { isFormBlank } from "../../script/common";
 const { mapGetters } = createNamespacedHelpers("user");
 
 export default {
@@ -160,6 +161,11 @@ export default {
         pwd_2digit: this.pwd_2digit,
         buyer_tel: this.buyer_tel
       };
+
+      if (isFormBlank(payload)) {
+        return false;
+      }
+
       let eventId = this.$route.params.id;
       this.requestPayment(eventId, payload);
     },
@@ -193,7 +199,12 @@ export default {
       let expiry = "20";
       let digits = this.expiry_components;
       expiry += `${digits[1]}${digits[0]}`;
-      return expiry;
+
+      if (expiry === "20") {
+        return null;
+      } else {
+        return expiry;
+      }
     },
     pwd_2digit() {
       let digits = this.pwd_2digit_components;
