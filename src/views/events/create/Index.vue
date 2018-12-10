@@ -12,9 +12,9 @@
 
 <script>
 import Footer from "./Footer";
+import { isFormBlank } from "../../../script/common";
 import { FadeTransition } from "vue2-transitions";
 import { createNamespacedHelpers } from "vuex";
-import { isFormBlank } from "../../../script/common";
 const { mapGetters } = createNamespacedHelpers("createEvent");
 
 export default {
@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     ...mapGetters(["getResponse"]),
+    ...mapActions(["setPartialResponse"]),
     onBackButton() {
       if (this.index >= 1) {
         this.$router.push(`./${this.route[this.index - 1]}`);
@@ -62,12 +63,16 @@ export default {
           startDate: eventState.startDate,
           endDate: eventState.endDate,
           type: encodeURIComponent(JSON.stringify(eventState.type))
-          //venueId:1//이거값 때려박음 고쳐야함,
         };
         this.$axios
           .post("/event/create", payload, { withCredentials: true })
           .then(response => {
+            this.event.idx = response.data[0].idx;
             if (response.data.errors === undefined) {
+              let event = {
+                idx: response.data[0].idx
+              };
+              this.setPartialResponse(event);
               this.$router.push(`./${this.route[this.index + 1]}`);
             }
           });
@@ -83,11 +88,19 @@ export default {
   },
   data() {
     return {
-      route: ["baseinfo", "food", "middlecheck", "setvenue"]
+      route: ["baseinfo", "food", "middlecheck", "setvenue"],
+      event: {
+        idx: null
+      }
     };
   },
   created() {
     this.$emit("onNavColorChange", "black");
+    let idx = this.getResponse().idx;
+
+    if (idx !== undefined) {
+      this.event.idx = idx;
+    }
   },
   computed: {
     final() {

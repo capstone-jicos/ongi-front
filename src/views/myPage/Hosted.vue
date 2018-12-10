@@ -6,6 +6,13 @@
         </div>
       </div>
     <div class="container">
+      <router-link to="/event/create">
+        <card shadow class="card-profile add-new-event" no-body>
+          <div class="my-auto text-center">
+            <p>원하는 모임을 만들어보세요</p>
+          </div>
+        </card>
+      </router-link>
       <router-link v-for="event in events" :key="event.eventIndex" :to="'/my/hosted/event/'+event.eventIndex">
         <card shadow class="card-profile" no-body>
           <div class="event-list-item" v-bind:style="{ 'background-image': 'url('+ event.eventImages +')' }">
@@ -14,9 +21,6 @@
             <div class="row event-title-photo">
               <div class="event-title col-9 mt-2">
                 <strong>{{ event.title }}</strong>
-              </div>
-              <div class="col-3">
-                <img v-lazy="event.host.image" class="rounded-circle"/>
               </div>
             </div>
             <div class="event-time">
@@ -87,6 +91,7 @@ div#event-list-header {
 div.card.card-profile {
   margin: 15px 0;
   font-size: 16px;
+  min-height: 150px;
 
   div.event-title {
     font-size: 1.75rem;
@@ -109,6 +114,18 @@ div.card.card-profile {
   div.attendee {
     text-align: right;
     margin-right: 0.5rem;
+  }
+}
+
+div.add-new-event {
+  height: 100%;
+  background-color: $gray-100;
+  div {
+    opacity: 0.3;
+    p {
+      font-size: 1.5rem;
+      color: $gray-900;
+    }
   }
 }
 </style>

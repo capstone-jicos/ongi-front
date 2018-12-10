@@ -13,6 +13,14 @@ export default [
     }
   },
   {
+    path: "/venue/:id/request",
+    name: "venue-request",
+    components: {
+      header: Header,
+      default: () => import("../../views/venues/Request")
+    }
+  },
+  {
     path: "/venue/:id",
     name: "venue-info",
     components: {

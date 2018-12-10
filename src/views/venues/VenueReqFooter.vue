@@ -1,7 +1,7 @@
 <template>
-  <div id="attend" class="row mx-0">
+  <div id="attend" class="row mt-10 mx-0">
     <div class="col text-center my-auto">
-      <router-link to="/venue/Confirm">
+      <router-link :to = "getUrl()">
         <base-button type="neutral" variant="primary">장소제공요청하기</base-button>
       </router-link>
     </div>
@@ -10,7 +10,14 @@
 <script>
 export default {
   name: "VenueReqFooter",
-  props: {}
+  methods: {
+    getUrl() {
+      return `/venue/${this.$route.params.id}/request`;
+    }
+  },
+  created() {
+    this.$emit("onNavColorChange", "black");
+  }
 };
 </script>
 <style scoped lang="scss">
