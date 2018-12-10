@@ -11,7 +11,7 @@ const {mapGetters} = createNamespacedHelpers("createEvent");
 export default {
   name: "MyvenuePick",
   props: {},
-  method: {
+  methods: {
     ...mapGetters(["getResponse"]),
     select(){
       let venueId = this.$route.params.id;
@@ -19,14 +19,7 @@ export default {
       this.$axios
         .get(`/select?=${venueId}&eventId=${eventId}`, {withCredentials: true})
         .then(response => {
-          if (response.status === 201) {
             this.$router.push("/event/create/Confirm");
-          }
-        })
-        .catch(error => {
-          if (error.response.status === 403) {
-            alert(error.response.data.message);
-          }
         });
     }
   }
