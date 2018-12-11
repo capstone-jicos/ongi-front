@@ -7,7 +7,7 @@
                   :toggled="toggled"
                   @onNavbarToggle="toggleMenu">
             <router-link slot="brand" class="mr-lg-5" to="/" active-class="app-name">
-                    <img class="logo" src="/img/logo.png"/>
+                <img class="logo" src="/img/logo.png"/>
             </router-link>
 
             <div class="row" slot="content-header" slot-scope="{closeMenu}">
@@ -41,10 +41,10 @@
                         <i class="xi-search"></i>
                         <span class="nav-link-inner--text">로그아웃</span>
                     </a>
-                  <a v-else class="nav-link" data-toggle="dropdown" role="button" @click="redirectLoginUrl">
-                      <i class="xi-search"></i>
-                      <span class="nav-link-inner--text">로그인</span>
-                  </a>
+                    <a v-else class="nav-link" data-toggle="dropdown" role="button" @click="redirectLoginUrl">
+                        <i class="xi-search"></i>
+                        <span class="nav-link-inner--text">로그인</span>
+                    </a>
                 </li>
             </ul>
         </base-nav>
@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       toggled: false
-    }
+    };
   },
   methods: {
     ...mapGetters(["getUserInfo"]),
@@ -107,8 +107,8 @@ export default {
     isLoggedIn() {
       return this.getUserInfo().uniqueId !== null;
     }
-  }}
-}
+  }
+};
 </script>
 <style scoped lang="scss">
 img.logo {
