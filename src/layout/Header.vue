@@ -76,11 +76,11 @@ export default {
               console.log(res.data);
                this.$router.push("/");
           });
-      }
+      },
   data() {
     return {
       toggled: false
-    };
+    }
   },
   methods: {
     goMenu(url) {
@@ -90,8 +90,8 @@ export default {
     toggleMenu(payload) {
       this.toggled = payload;
     }
-  }
-};
+  }}
+}
 </script>
 <style scoped lang="scss">
 img.logo {
