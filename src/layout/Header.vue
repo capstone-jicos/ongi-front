@@ -37,16 +37,14 @@
                     <div @click="goMenu('/my/venue')" class="dropdown-item">등록한 장소</div>
                 </base-dropdown>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="xi-help-o"></i>
-                        <span class="nav-link-inner--text">도움말</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" role="button" @click="logout">
+                    <a v-if="isLoggedIn" class="nav-link" data-toggle="dropdown" role="button" @click="logout">
                         <i class="xi-search"></i>
                         <span class="nav-link-inner--text">로그아웃</span>
                     </a>
+                  <a v-else class="nav-link" data-toggle="dropdown" role="button" @click="redirectLoginUrl">
+                      <i class="xi-search"></i>
+                      <span class="nav-link-inner--text">로그인</span>
+                  </a>
                 </li>
             </ul>
         </base-nav>
@@ -56,6 +54,8 @@
 import BaseNav from "@/components/BaseNav";
 import CloseButton from "@/components/CloseButton";
 import BaseDropdown from "@/components/BaseDropdown";
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapActions } = createNamespacedHelpers("user");
 
 export default {
   components: {
@@ -69,26 +69,43 @@ export default {
       description: "Color of Main Menu to be passed to BaseNav"
     }
   },
-  methods:{
-      logout(){
-          this.$axios.get("/logout",{withCredentials: true})
-          .then(res => {
-              console.log(res.data);
-               this.$router.push("/");
-          });
-      },
   data() {
     return {
       toggled: false
     }
   },
   methods: {
+    ...mapGetters(["getUserInfo"]),
+    ...mapActions(["setUserInfo"]),
     goMenu(url) {
       this.toggled = !this.toggled;
       this.$router.push(url);
     },
     toggleMenu(payload) {
       this.toggled = payload;
+    },
+    logout() {
+      if (confirm("로그아웃 하시겠습니까?")) {
+        this.$axios.get("/logout", { withCredentials: true }).then(response => {
+          if (response.status === 200) {
+            let userInfo = this.getUserInfo();
+            let keys = Object.keys(userInfo);
+            for (let i = 0; i < keys.length; i++) {
+              userInfo[keys[i]] = null;
+            }
+            this.setUserInfo();
+          }
+        });
+      }
+    },
+    redirectLoginUrl() {
+      this.toggleMenu(false);
+      this.$router.push(`/login?redirect_url=${this.$route.path}`);
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.getUserInfo().uniqueId !== null;
     }
   }}
 }

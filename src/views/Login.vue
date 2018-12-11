@@ -23,10 +23,12 @@
                                     <i class="xi-twitter"></i>
                                    Twitter
                                 </base-button>
-                                <base-button type="neutral">
-                                    <img slot="icon" src="img/icons/common/google.svg">
-                                    Google
-                                </base-button>
+                                <a href="http://localhost:8080/auth">
+                                    <base-button type="neutral">
+                                        <img slot="icon" src="img/icons/common/google.svg">
+                                        Google
+                                    </base-button>
+                                </a>
                             </div>
                         </template>
                         <hr class="my-3"/>
