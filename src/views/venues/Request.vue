@@ -152,6 +152,7 @@ export default {
     },
     disagreeTerms() {
       this.condition = false;
+      this.$router.push("/venue");
     },
     joinEvent: function() {
       let payload = {

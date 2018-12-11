@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       toggled: false
-    };
+    }
   },
   methods: {
     ...mapGetters(["getUserInfo"]),
@@ -107,8 +107,8 @@ export default {
     isLoggedIn() {
       return this.getUserInfo().uniqueId !== null;
     }
-  }
-};
+  }}
+}
 </script>
 <style scoped lang="scss">
 img.logo {
