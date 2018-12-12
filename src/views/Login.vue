@@ -23,7 +23,7 @@
                                     <i class="xi-twitter"></i>
                                    Twitter
                                 </base-button>
-                                <a href="http://localhost:8080/auth">
+                                <a :href="googleLoginUrl">
                                     <base-button type="neutral">
                                         <img slot="icon" src="img/icons/common/google.svg">
                                         Google
@@ -124,6 +124,9 @@ export default {
       }
 
       return joinUrl;
+    },
+    googleLoginUrl() {
+      return `${this.$axios.defaults.baseURL}/auth`;
     }
   }
 };
