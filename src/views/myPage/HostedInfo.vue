@@ -56,6 +56,7 @@ export default {
         .post(url, payload, { withCredentials: true })
         .then(response => {
           if (response.data.errors === undefined) {
+            alert("승인 처리되었습니다.");
             this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
           }
         });
@@ -67,6 +68,7 @@ export default {
         .post(url, payload, { withCredentials: true })
         .then(response => {
           if (response.data.errors === undefined) {
+            alert("거절 처리되었습니다.");
             this.$router.push(`/my/hosted/event/${this.$route.params.id}`);
           }
         });
