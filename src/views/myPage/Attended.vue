@@ -20,7 +20,7 @@
               </div>
             </div>
             <div class="event-time">
-              <i class="xi-time-o"></i> {{ dateFormatted }}
+              <i class="xi-time-o"></i> {{ dateFormatted(event.startDate) }}
             </div>
             <div class="row">
               <div class="col food-type">
@@ -65,22 +65,19 @@ export default {
         }
       });
   },
-  computed: {
-    dateFormatted() {
-      let date = new Date(this.events.startDate);
-      return `${date.toLocaleDateString("ko-KR", {
+  methods: {
+    ...mapGetters(["getUserInfo"]),
+    dateFormatted(date) {
+      let dateObject = new Date(date);
+      return `${dateObject.toLocaleDateString("ko-KR", {
         year: "numeric",
         month: "long",
         day: "numeric"
-      })} ${date.toLocaleTimeString("ko-KR", {
+      })} ${dateObject.toLocaleTimeString("ko-KR", {
         hour: "numeric",
         minute: "numeric"
       })}`;
     }
-  },
-
-  methods: {
-    ...mapGetters(["getUserInfo"])
   }
 };
 </script>
