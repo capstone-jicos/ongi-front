@@ -57,13 +57,9 @@ export default {
   name: "MyInfoUpdate",
   created() {
     this.$emit("onNavColorChange", "black");
-    this.info = this.getUserInfo();
-
-    if (this.info.displayName === null) {
-      let url = `/login?redirect_url=${this.$route.path}`;
-
-      this.$router.push(url);
-    }
+    this.$axios.get("/user/me", { withCredentials: true }).then(response => {
+      this.info = response.data;
+    });
   },
   data() {
     return {
@@ -117,14 +113,6 @@ export default {
         .catch(error => {
           alert(error.response.data.msg);
         });
-    }
-  },
-  watch: {
-    info: {
-      handler: function(newValue) {
-        this.setUserInfo(newValue);
-      },
-      deep: true
     }
   }
 };
